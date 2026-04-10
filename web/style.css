@@ -13,43 +13,93 @@ body {
 
 /* HEADER */
 .header {
-    background: #ffe500;
+    overflow:hidden;
+    position: relative;
+    background:#a2d2ff;
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding:25px 15px;
     align-items: center;
+    min-height: 80px;
+}
+
+.header::before, .header::after {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background-image: 
+        radial-gradient(circle, #fff 1px, transparent 1.5px), 
+        radial-gradient(circle, rgba(255,255,255,0.4) 4px, transparent 6px),
+        radial-gradient(circle, #fff 2px, transparent 3px);
+    background-size: 61px 61px, 137px 137px, 251px 251px; 
+    animation: wave 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.header::after {
+    animation-duration: 11s; 
+    opacity: 0.3;
+    filter: blur(1px); 
+}
+
+.logo, .search, .user {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes wave {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-4%, 6%) scale(1.05); }
+    66% { transform: translate(6%, -4%) scale(0.95); }
 }
 
 .logo {
-    font-size: 22px;
+    font-size: 40px;
     font-weight: bold;
+   padding-left: 200px;
 }
 
 .search input {
     padding: 8px;
-    width: 250px;
+    width: 260px;
+    border-radius: 50px;
+    height: 50px;
 }
 
 .user a {
-    margin-left: 15px;
+    margin-left: 10px;
     text-decoration: none;
-    color: black;
+    color:black;
+    font-size: 20px;
+    padding-right: 50px;
 }
 
 /* MENU */
 .menu {
-    background: #333;
+    background:#fff;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .menu a {
-    color: white;
-    margin: 10px;
+    font-weight: bold;
+    color:#007bff !important;
+    margin: 0 20px;
     text-decoration: none;
+    transition: all 0.3s ease;
+}
+.menu a:hover {
+    color: #0056b3 !important; 
+    text-decoration: underline;
 }
 
-.menu a:hover {
-    color: yellow;
+.menu a.active {
+    color: #d32f2f !important; 
+    border-bottom: 2px solid #d32f2f;
 }
 
 /* MAIN */
@@ -213,6 +263,7 @@ th, td {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
+    text-transform: none !important;
 }
 .modal-content {
     background: white;
@@ -221,13 +272,23 @@ th, td {
     padding: 20px;
     border-radius: 10px;
     text-align: left;
+    position: relative; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    text-align: center; 
 }
 .modal input {
-    width: 95%;
+    width: 100%;
     padding: 10px;
-    margin: 8px 0;
+    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
 }
 
 .modal button {

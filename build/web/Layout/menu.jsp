@@ -11,7 +11,8 @@
 %>
 
 <div class="menu">
-    <a href="index.jsp">Trang chủ</a>
+    <a class="<%= (c == null || c.equals("")) ? "active" : "" %>"
+        href="index.jsp">Trang chủ</a>
 
     <a class="<%= "tulanh".equals(c) ? "active" : ""%>"
        href="index.jsp?category=tulanh">Tủ lạnh</a>
