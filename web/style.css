@@ -19,7 +19,47 @@ body {
     padding: 15px;
     align-items: center;
 }
+.header {
+    overflow:hidden;
+    position: relative;
+    background:#a2d2ff;
+    display: flex;
+    justify-content: space-between;
+    padding:25px 15px;
+    align-items: center;
+    min-height: 80px;
+}
 
+.header::before, .header::after {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background-image: 
+        radial-gradient(circle, #fff 1px, transparent 1.5px), 
+        radial-gradient(circle, rgba(255,255,255,0.4) 4px, transparent 6px),
+        radial-gradient(circle, #fff 2px, transparent 3px);
+    background-size: 61px 61px, 137px 137px, 251px 251px; 
+    animation: wave 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.header::after {
+    animation-duration: 11s; 
+    opacity: 0.3;
+    filter: blur(1px); 
+}
+
+.logo, .search, .user {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes wave {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-4%, 6%) scale(1.05); }
+    66% { transform: translate(6%, -4%) scale(0.95); }
+}
 .logo {
     font-size: 22px;
     font-weight: bold;
