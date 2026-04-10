@@ -10,7 +10,7 @@
     <div class="logo">⚡ Điện Máy Mini</div>
 
     <div class="search">
-        <input placeholder="Tìm sản phẩm...">
+        <input placeholder=" 🔍  Tìm kiếm sản phẩm.....">
     </div>
     
     <%
@@ -21,7 +21,8 @@
         <% if (user == null) { %>
 
         👤 
-        <a href="#" onclick="openLogin()">Đăng nhập</a> |
+        <a href="#" onclick="openLogin()">Đăng nhập</a> 
+        👤
         <a href="#" onclick="openRegister()">Đăng ký</a>
 
         <% } else {%>
@@ -30,6 +31,11 @@
         <a href="Logout">Đăng xuất</a>
 
         <% }%>
+        
+       <span class="cart">
+        🛒 <a href="#" onclick="shoppingcart()">Giỏ hàng</a>
+    </span>
+        
     </div>
     <!-- LOGIN MODAL -->
     <div id="loginModal" class="modal">
