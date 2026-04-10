@@ -294,15 +294,17 @@ th, td {
 .modal button {
     width: 100%;
     padding: 10px;
-    background: orange;
+    background:#0099ff;
     border: none;
     color: white;
     font-weight: bold;
+    cursor: pointer;
     border-radius: 5px;
 }
 
 .modal button:hover {
     background: red;
+    cursor: pointer;
 }
 
 .form-group {
