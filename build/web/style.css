@@ -302,9 +302,7 @@ body {
     background-color: #d32f2f;
     border-radius: 2px;
 }
-
-
-
+/* TRANG DETAIL.JSP */
 .product-title {
     font-size: 26px;
     margin-bottom: 15px;
@@ -432,7 +430,7 @@ th, td {
     font-weight: bold;
 }
 
-
+/* LEFT */
 .left ul {
     list-style: none;
     padding: 0;
@@ -673,7 +671,7 @@ th, td {
     border: 1px solid #ddd;
     border-radius: 4px;
     font-weight: bold;
-}/* ẩn mũi tên tăng giảm trên Chrome, Safari, Edge */
+}/* ẩn mũi tên tăng giảm trên Chrome, Safari, Edge*/
 .qty-input::-webkit-outer-spin-button,
 .qty-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
