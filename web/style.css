@@ -9,6 +9,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 body {
     font-family: Arial;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* HEADER */
@@ -145,13 +148,18 @@ body {
 /* MAIN */
 .main {
     display: flex;
+    flex:1;
 }
 
 /* LEFT */
 .left {
-    width: 20%;
-    background: #f5f5f5;
+    width: 15%;
+    background: #a2d2ff;
     padding: 15px;
+    border-radius: 8px;
+    min-height: 400px;
+    border-radius: 8px 8px 8px 8px;
+    border-right: 5px solid white;
 }
 
 .left ul {
@@ -160,27 +168,68 @@ body {
 }
 
 .left li {
-    padding: 8px;
+    padding: 0;
     border-bottom: 1px solid #ddd;
 }
 
-/* CONTENT */
-.content {
-    width: 80%;
-    padding: 20px;
+.left h3{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    text-transform: none;
+}
+.left li a {
+    display: block; 
+    padding: 12px 15px;
+    color: black !important; 
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
+.left li a:hover {
+    background: #0056b3; 
+    color: white !important; 
+    padding-left: 25px;
+}
+
+.left li a.active {
+    background: #d32f2f !important; 
+    color: white !important; 
+    font-weight: bold;
+    border-radius: 4px;
+}
+/* CONTENT */
+.content {
+    width: 85%;
+    padding: 20px;
+    background:#a2d2ff;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.content h3 {
+    text-align: center; 
+    margin: 20px 0;    
+    font-size: 22px;
+    color: #333;
+}
 /* GRID */
 .grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    padding: 10px;
 }
 
 /* PRODUCT */
 .product {
-    width: 220px;
+    width: auto; 
+    margin: 0;
+    background: white; 
     border: 1px solid #ddd;
-    margin: 10px;
     padding: 10px;
     border-radius: 10px;
     text-align: center;
@@ -196,14 +245,132 @@ body {
     width: 100%;
     height: 150px;
     object-fit: cover;
+    cursor: pointer;
 }
+
+.product-price {
+    font-size: 25px;      
+    color: #ff0000;        
+    font-weight: bold;     
+    margin: 15px 0;        
+    display: block;        
+}
+
+.product-link {
+    text-decoration: none; 
+    color: inherit;        
+    display: block;        
+    cursor: pointer;       
+}
+
+
+.product-link:hover h4 {
+    color: #d32f2f; 
+}
+
+.special-titles {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    border-bottom: 2px solid #007bff;
+    margin-bottom: 25px;
+    padding-bottom: 5px;
+}
+
+.special-titles h2 {
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0;
+    padding-bottom: 5px;
+    color: #333;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.special-titles h2.active {
+    color: #d32f2f;
+    border-bottom: 3px solid #d32f2f;
+}
+
+.special-titles h2.active::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;          
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #d32f2f;
+    border-radius: 2px;
+}
+
+
+
+.product-title {
+    font-size: 26px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.small-center-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.small-center-image img {
+    width: 100%;          
+    max-width: 750px;     
+    height: 450px;        
+    
+    object-fit: contain;  
+    border-radius: 8px;
+    background: #fff;     
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.btn-buy-now, .btn-add-cart {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-buy-now { background: red; color: white; }
+.btn-add-cart { background: orange; color: white; }
 
 .price {
     color: red;
     font-weight: bold;
+    font-size: 18px;
+    margin: 10px 0;
 }
 
 /* BUTTON */
+.btn {
+    display: flex;
+    justify-content: center;
+    gap: 8px; 
+}
+
+
+.btn-cart-quick {
+    background: #ff4500;
+    color: white;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: 0.3s;
+    line-height: 1;
+}
+
+.btn-cart-quick:hover {
+    background: #d32f2f;
+    transform: scale(1.1); 
+}
+
 .btn a {
     display: inline-block;
     margin: 5px;
@@ -253,11 +420,11 @@ th, td {
 
 /* FOOTER */
 .footer {
-    background: #333;
-    color: white;
+    background:#fff;
+    color: black;
     text-align: center;
     padding: 15px;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
 .menu a.active {
@@ -346,6 +513,16 @@ th, td {
     background: red;
     cursor: pointer;
 }
+.close {
+    float: right;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+}
+.close:hover {
+    color: red;
+}
 
 .form-group {
     margin: 5px 0;
@@ -353,7 +530,7 @@ th, td {
 
 .form-group label {
     display: inline-block;
-    width: 100px;   /* canh thẳng cột */
+    width: 100px;   
     font-weight: bold;
 }
 
@@ -385,4 +562,120 @@ th, td {
 
 .user a:hover {
     color: orange;
+}
+/*GIỎ HÀNG*/
+.cart-wrapper {
+    max-width:100%;
+    margin-left: 20px; 
+    text-align: left;
+}
+
+
+.cart-product-img {
+    width: 80px !important;  
+    height: 80px !important;
+    max-height: 120px;
+    object-fit: contain;
+    flex-shrink: 0;            
+    border-radius: 5px;
+}
+
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    gap: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+
+.cart-info {
+    text-align: left;
+    flex-grow: 1; 
+}
+
+
+.cart-footer {
+    margin-top: 20px;
+    padding: 15px 0;
+    background: transparent;;
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.total-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
+
+.btn-pay {
+    width: 200px;
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    padding: 12px ;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-pay:hover {
+    background-color: #d9363e;
+}
+/* NUT TANG GIAM SL */
+.quantity-control {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end; 
+}
+
+.quantity-control p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+
+.btn-qty {
+    display: inline-block;
+    text-decoration: none;
+    padding: 2px 10px;
+    border: 1px solid #ddd;
+    color: #333;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    line-height: 1.2;
+    transition: all 0.2s;
+}
+
+.btn-qty:hover {
+    background-color: #f0f0f0;
+    border-color: #bbb;
+    color: #ff4d4f; 
+}
+
+.qty-input {
+    width: 45px;
+    height: 28px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-weight: bold;
+}/* ẩn mũi tên tăng giảm trên Chrome, Safari, Edge */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

@@ -43,7 +43,11 @@
                     }
                 %>
 
-                <h2>Sản phẩm nổi bật</h2>
+                <div class="special-titles">
+                    <h2 class="active">Sản phẩm nổi bật</h2>
+                    <h2>Sản phẩm giảm giá</h2>
+                    <h2>Sản phẩm mới</h2>
+                </div>
 
                 <h3>
                     <%
@@ -74,17 +78,30 @@
 
                     <%= displayName%>
                 </h3>
+                
 
                 <!-- HIỂN THỊ SẢN PHẨM -->
                 <div class="grid">
-                    <% for (Product p : list) {%>
-                    <div class="product">
-                        <img src="<%=p.getImage()%>">
-                        <h4><%=p.getName()%></h4>
-                        <p class="price"><%= String.format("%,d VNĐ", p.getPrice()).replace(",", " ")%></p>
-                    </div>
-                    <% } %>
-                </div>
+    <% for (Product p : list) {%>
+    <div class="product">
+        <a href="detail.jsp?id=<%=p.getId()%>" class="product-link">
+             <img src="<%=p.getImage()%>">
+             <h4><%=p.getName()%></h4>
+        </a>
+
+         <p class="price" style="color: red; font-weight: bold;">
+             <%= String.format("%,d VNĐ", p.getPrice()).replace(",", ".") %>
+         </p>
+
+        <div class="btn">      
+            <a href="detail.jsp?id=<%=p.getId()%>">Xem chi tiết</a>    
+            <a href="Detail?id=<%=p.getId()%>" class="btn-cart-quick" title="Thêm vào giỏ hàng">
+                 🛒
+            </a>
+        </div>
+    </div>
+    <% } %>
+</div>
 
             </div>
         </div>
@@ -182,5 +199,7 @@
         <%
             }
         %>
+        <script>
+  
+        
     </body>
-</html>

@@ -4,23 +4,24 @@
  */
 package Controller;
 
-import java.util.Map;
 import Model.ProductDAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Model.UserDAO;
-import Model.User;
 import jakarta.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  *
- * @author PC
+ * @author pc
  */
-public class Login extends HttpServlet {
+@WebServlet(name = "RemoveCart", urlPatterns = {"/RemoveCart"})
+public class RemoveCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +40,10 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet RemoveCart</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RemoveCart at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +61,24 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        
+        Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
+                
+        if (cart != null) {
+            cart.remove(id);
+            // Cập nhật lại giỏ hàng mới vào session
+            session.setAttribute("cart", cart);
+        }
+        if (user != null) {
+        ProductDAO dao = new ProductDAO();
+        dao.removeFromDB(user.getUsername(), id);
+    }
+        
+        // 4. Xóa xong thì quay về trang giỏ hàng
+        response.sendRedirect("cart.jsp");
     }
 
     /**
@@ -74,65 +92,17 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username").trim();
-        String pass = request.getParameter("password").trim();
-
-        // 1. Kiểm tra đăng nhập
-        User u = new UserDAO().login(username, pass);
-
-        if (u != null) {
-            // 2. Lưu user vào session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", u);
-            
-            // 3. ĐỒNG BỘ GIỎ HÀNG: Lấy từ DB đổ vào Session
-            ProductDAO pDao = new ProductDAO();
-            Map<Integer, Integer> dbCart = pDao.getCartFromDB(u.getUsername());
-            
-            if (dbCart != null && !dbCart.isEmpty()) {
-                session.setAttribute("cart", dbCart);
-            }
-
-            response.sendRedirect("index.jsp?msg=success");
-        } else {
-            response.sendRedirect("index.jsp?msg=fail");
-        }
+        processRequest(request, response);
     }
-//        String email = request.getParameter("email");
-//        String pass = request.getParameter("password");
-//
-//        UserDAO dao = new UserDAO();
-//        User u = dao.login(email, pass);
-//
-//        if (u != null) {
-//            request.getSession().setAttribute("user", u);
-//            response.sendRedirect("index.jsp");
-//        } else {
-//            response.sendRedirect("login.jsp?error=1");
-//        }
-//        processRequest(request, response);
-
-//       String username = request.getParameter("username").trim();
-//        String pass = request.getParameter("password").trim();
-//
- //       User u = new UserDAO().login(username, pass);
-
- //       if (u != null) {
- //           request.getSession().setAttribute("user", u);
- //           response.sendRedirect("index.jsp?msg=success");
- //       } else {
- //          response.sendRedirect("index.jsp?msg=fail");
- //       }
-  //  }
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-//    @Override
-//    public String getServletInfo() {
- //       return "Short description";
- //   }// </editor-fold>
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

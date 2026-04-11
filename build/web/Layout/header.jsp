@@ -3,7 +3,7 @@
     Created on : Apr 6, 2026, 8:37:47 PM
     Author     : PC
 --%>
-
+<%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="<%=request.getContextPath()%>/style.css" rel="stylesheet">
 <div class="header">
@@ -32,9 +32,20 @@
 
         <% }%>
         
-       <span class="cart">
-        🛒 <a href="#" onclick="shoppingcart()">Giỏ hàng</a>
-    </span>
+        
+    <%
+    Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
+    int totalItems = 0;
+    if (cart != null) {
+        // Cộng dồn tất cả số lượng của từng món hàng
+        for (int qty : cart.values()) {
+            totalItems += qty;
+        }
+    }
+%>
+<a href="cart.jsp" style="text-decoration: none; color: black; position: relative;">
+    🛒 Giỏ hàng (<span style="color: red; font-weight: bold;"><%= totalItems %></span>)
+</a>
         
     </div>
     <!-- LOGIN MODAL -->
@@ -105,3 +116,17 @@
         </div>
     </div>
 </div>
+<script>
+    function openLogin() {
+        document.getElementById("loginModal").style.display = "block";
+    }
+
+    function openRegister() {
+        document.getElementById("registerModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("loginModal").style.display = "none";
+        document.getElementById("registerModal").style.display = "none";
+    }
+</script>

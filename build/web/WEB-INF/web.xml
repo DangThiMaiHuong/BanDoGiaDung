@@ -9,16 +9,20 @@
         <servlet-class>Controller.Register</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Cart</servlet-name>
-        <servlet-class>Controller.Cart</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ContactServlet</servlet-name>
         <servlet-class>Controller.ContactServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Detail</servlet-name>
+        <servlet-class>Controller.Detail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveCart</servlet-name>
+        <servlet-class>Controller.RemoveCart</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -29,15 +33,19 @@
         <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Cart</servlet-name>
-        <url-pattern>/Cart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ContactServlet</servlet-name>
         <url-pattern>/ContactServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Detail</servlet-name>
+        <url-pattern>/Detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCart</servlet-name>
+        <url-pattern>/RemoveCart</url-pattern>
     </servlet-mapping>
 </web-app>
