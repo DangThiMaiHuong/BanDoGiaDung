@@ -74,6 +74,7 @@
                         } 
                     } 
             %>
+            
                 <div class="cart-footer">
     <p>Tổng thanh toán: <span class="total-price"><%= String.format("%,d", (long)totalMoney) %> đ</span></p>
     <button class="btn-pay">THANH TOÁN</button>
