@@ -3,12 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/code_java/BanDoGiaDung/web/cart.jsp</file>
-            <file>file:/D:/code_java/BanDoGiaDung/web/Layout/menu.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/web/Layout/left.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Model/ProductDAO.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Controller/ContactServlet.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Controller/RemoveCart.java</file>
             <file>file:/D:/code_java/BanDoGiaDung/web/index.jsp</file>
-            <file>file:/D:/code_java/BanDoGiaDung/web/style.css</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Model/UserDAO.java</file>
             <file>file:/D:/code_java/BanDoGiaDung/web/login.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/web/contact.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/web/Layout/footer.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Model/User.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Model/ContactDAO.java</file>
             <file>file:/D:/code_java/BanDoGiaDung/web/Layout/header.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Controller/Logout.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/web/cart.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/web/detail.jsp</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Controller/Login.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Model/Contact.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/web/style.css</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Controller/Detail.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Model/Connect.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Model/Product.java</file>
+            <file>file:/D:/code_java/BanDoGiaDung/src/java/Controller/Register.java</file>
         </group>
     </open-files>
 </project-private>

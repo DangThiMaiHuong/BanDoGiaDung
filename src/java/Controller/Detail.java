@@ -4,23 +4,25 @@
  */
 package Controller;
 
-import Model.Product;
+
 import Model.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author PC
+ * @author pc
  */
-public class Cart extends HttpServlet {
+@WebServlet(name = "Detail", urlPatterns = {"/Detail"})
+public class Detail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +41,10 @@ public class Cart extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Cart</title>");
+            out.println("<title>Servlet Detail</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Cart at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Detail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,21 +63,44 @@ public class Cart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+    // Thêm tham số action để biết là tăng hay giảm
+    String action = request.getParameter("action"); 
+    
+    HttpSession session = request.getSession();
+    Model.User user = (Model.User) session.getAttribute("user");
 
-        Product p = new ProductDAO().getById(id);
+    Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
+    if (cart == null) cart = new HashMap<>();
 
-        HttpSession session = request.getSession();
-        List<Product> cart = (List<Product>) session.getAttribute("cart");
+    // XỬ LÝ LOGIC SỐ LƯỢNG
+    int currentQty = cart.getOrDefault(id, 0);
 
-        if (cart == null) {
-            cart = new ArrayList<>();
+    if ("decrease".equals(action)) {
+        if (currentQty > 1) {
+            cart.put(id, currentQty - 1);
+        } else {
+            cart.remove(id); // Giảm xuống 0 thì xóa khỏi giỏ
         }
+    } else {
+        // Mặc định (khi nhấn dấu + hoặc nhấn "Thêm giỏ hàng") là tăng lên 1
+        cart.put(id, currentQty + 1);
+    }
 
-        cart.add(p);
-        session.setAttribute("cart", cart);
+    session.setAttribute("cart", cart);
 
-        response.sendRedirect("cart.jsp");
-        processRequest(request, response);
+    // ĐỒNG BỘ VÀO DATABASE
+    if (user != null) {
+        ProductDAO dao = new ProductDAO();
+        if (cart.containsKey(id)) {
+            dao.CartToDB(user.getUsername(), id, cart.get(id));
+        } else {
+            // Nếu sản phẩm đã bị remove khỏi map (do giảm xuống 0)
+            dao.removeFromDB(user.getUsername(), id);
+        }
+    }
+
+    // Chuyển hướng về trang trước đó (giỏ hàng hoặc trang chi tiết)
+    response.sendRedirect(request.getHeader("referer"));
     }
 
     /**

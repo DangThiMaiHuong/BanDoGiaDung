@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -55,9 +56,9 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getSession().invalidate(); // ❗ xóa toàn bộ session
-
-        response.sendRedirect("index.jsp");
+              HttpSession session = request.getSession();
+                session.invalidate(); // Xóa sạch session
+                response.sendRedirect("index.jsp");
     }
 
     /**
