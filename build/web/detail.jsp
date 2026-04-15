@@ -22,6 +22,10 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- BANNER -->
+        <div class="banner">
+            <img src="images/banner.png"/>
+        </div>
     <jsp:include page="Layout/header.jsp"/>
     <jsp:include page="Layout/menu.jsp"/>
 
@@ -45,7 +49,7 @@
                     </p>
                     <div class="detail-actions">
                         <button class="btn-buy-now">MUA NGAY</button>
-                        <a href="Detail?id=<%= p.getId() %>" class="btn-add-cart" 
+                       <a href="Detail?id=<%= p.getId() %>" class="btn-add-cart" 
                             style="text-decoration: none; display: inline-block;">
                                 THÊM GIỎ HÀNG
                          </a>

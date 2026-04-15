@@ -18,10 +18,15 @@
     </head>
     <body>
 
+        
+        <!-- BANNER -->
+        <div class="banner">
+            <img src="images/banner.png"/>
+        </div>
         <!-- HEADER + MENU -->
         <jsp:include page="Layout/header.jsp"/>
         <jsp:include page="Layout/menu.jsp"/>
-
+        
         <div class="main">
 
             <!-- LEFT MENU -->
@@ -56,7 +61,7 @@
                         if (category == null || category.equals("")) {
                             displayName = "Tất cả sản phẩm";
                         } else {
-                        displayName = "Danh mục ";
+                            displayName = "Danh mục ";
                             switch (category) {
                                 case "tulanh":
                                     displayName += "Tủ lạnh";
@@ -78,30 +83,30 @@
 
                     <%= displayName%>
                 </h3>
-                
+
 
                 <!-- HIỂN THỊ SẢN PHẨM -->
                 <div class="grid">
-    <% for (Product p : list) {%>
-    <div class="product">
-        <a href="detail.jsp?id=<%=p.getId()%>" class="product-link">
-             <img src="<%=p.getImage()%>">
-             <h4><%=p.getName()%></h4>
-        </a>
+                    <% for (Product p : list) {%>
+                    <div class="product">
+                        <a href="detail.jsp?id=<%=p.getId()%>" class="product-link">
+                            <img src="<%=p.getImage()%>">
+                            <h4><%=p.getName()%></h4>
+                        </a>
 
-         <p class="price" style="color: red; font-weight: bold;">
-             <%= String.format("%,d VNĐ", p.getPrice()).replace(",", ".") %>
-         </p>
+                        <p class="price" style="color: red; font-weight: bold;">
+                            <%= String.format("%,d VNĐ", p.getPrice()).replace(",", ".")%>
+                        </p>
 
-        <div class="btn">      
-            <a href="detail.jsp?id=<%=p.getId()%>">Xem chi tiết</a>    
-            <a href="Detail?id=<%=p.getId()%>" class="btn-cart-quick" title="Thêm vào giỏ hàng">
-                 🛒
-            </a>
-        </div>
-    </div>
-    <% } %>
-</div>
+                        <div class="btn">      
+                            <a href="detail.jsp?id=<%=p.getId()%>">Xem chi tiết</a>    
+                            <a href="Detail?id=<%=p.getId()%>" class="btn-cart-quick" title="Thêm vào giỏ hàng">
+                                🛒
+                            </a>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
 
             </div>
         </div>
@@ -200,6 +205,6 @@
             }
         %>
         <script>
-  
-        
-    </body>
+
+
+            </body>
