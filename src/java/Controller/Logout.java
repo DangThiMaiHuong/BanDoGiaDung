@@ -56,9 +56,9 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              HttpSession session = request.getSession();
-                session.invalidate(); // Xóa sạch session
-                response.sendRedirect("index.jsp");
+        HttpSession session = request.getSession();
+        session.invalidate(); // Xóa sạch session
+        response.sendRedirect("index.jsp");
     }
 
     /**

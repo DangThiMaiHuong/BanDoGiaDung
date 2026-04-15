@@ -84,11 +84,11 @@ public class Login extends HttpServlet {
             // 2. Lưu user vào session
             HttpSession session = request.getSession();
             session.setAttribute("user", u);
-            
+
             // 3. ĐỒNG BỘ GIỎ HÀNG: Lấy từ DB đổ vào Session
             ProductDAO pDao = new ProductDAO();
             Map<Integer, Integer> dbCart = pDao.getCartFromDB(u.getUsername());
-            
+
             if (dbCart != null && !dbCart.isEmpty()) {
                 session.setAttribute("cart", dbCart);
             }
@@ -98,32 +98,6 @@ public class Login extends HttpServlet {
             response.sendRedirect("index.jsp?msg=fail");
         }
     }
-//        String email = request.getParameter("email");
-//        String pass = request.getParameter("password");
-//
-//        UserDAO dao = new UserDAO();
-//        User u = dao.login(email, pass);
-//
-//        if (u != null) {
-//            request.getSession().setAttribute("user", u);
-//            response.sendRedirect("index.jsp");
-//        } else {
-//            response.sendRedirect("login.jsp?error=1");
-//        }
-//        processRequest(request, response);
-
-//       String username = request.getParameter("username").trim();
-//        String pass = request.getParameter("password").trim();
-//
- //       User u = new UserDAO().login(username, pass);
-
- //       if (u != null) {
- //           request.getSession().setAttribute("user", u);
- //           response.sendRedirect("index.jsp?msg=success");
- //       } else {
- //          response.sendRedirect("index.jsp?msg=fail");
- //       }
-  //  }
 
     /**
      * Returns a short description of the servlet.
@@ -132,7 +106,6 @@ public class Login extends HttpServlet {
      */
 //    @Override
 //    public String getServletInfo() {
- //       return "Short description";
- //   }// </editor-fold>
-
+    //       return "Short description";
+    //   }// </editor-fold>
 }

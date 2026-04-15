@@ -40,7 +40,7 @@ public class RemoveCart extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RemoveCart</title>");            
+            out.println("<title>Servlet RemoveCart</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet RemoveCart at " + request.getContextPath() + "</h1>");
@@ -64,19 +64,19 @@ public class RemoveCart extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        
+
         Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
-                
+
         if (cart != null) {
             cart.remove(id);
             // Cập nhật lại giỏ hàng mới vào session
             session.setAttribute("cart", cart);
         }
         if (user != null) {
-        ProductDAO dao = new ProductDAO();
-        dao.removeFromDB(user.getUsername(), id);
-    }
-        
+            ProductDAO dao = new ProductDAO();
+            dao.removeFromDB(user.getUsername(), id);
+        }
+
         // 4. Xóa xong thì quay về trang giỏ hàng
         response.sendRedirect("cart.jsp");
     }

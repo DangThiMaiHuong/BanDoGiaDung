@@ -94,7 +94,7 @@ public class ContactServlet extends HttpServlet {
 
         String message = request.getParameter("message");
 
-// validate chung
+        // validate chung
         if (name == null || name.trim().isEmpty()
                 || message == null || message.trim().isEmpty()) {
 
@@ -102,7 +102,6 @@ public class ContactServlet extends HttpServlet {
             return;
         }
 
-// 🔥 THÊM ĐOẠN NÀY
         Contact c = new Contact();
         c.setName(name);
         c.setEmail(email);
@@ -112,10 +111,10 @@ public class ContactServlet extends HttpServlet {
             c.setUserId(u.getId());
         }
 
-// 👉 gọi DAO
+        // gọi DAO
         new ContactDAO().insertOrUpdate(c);
 
-// 👉 redirect sau cùng
+        //redirect
         response.sendRedirect("index.jsp?contact_success");
     }
 

@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
-import java.util.Map;
 
 /**
  *
@@ -92,22 +91,23 @@ public class ProductDAO {
 
         return list;
     }
-    
-   public void CartToDB(String username, int productId, int quantity) {
-    // Nếu trùng (username, product_id) thì cập nhật số lượng mới (quantity)
-    String sql = "INSERT INTO cart (username, product_id, quantity) VALUES (?, ?, ?) "
-               + "ON DUPLICATE KEY UPDATE quantity = ?";
-    try {
-        PreparedStatement st = conn.prepareStatement(sql);
-        st.setString(1, username);
-        st.setInt(2, productId);
-        st.setInt(3, quantity);
-        st.setInt(4, quantity); 
-        st.executeUpdate();
-    } catch (SQLException e) {
-        System.out.println("Lỗi CartToDB: " + e.getMessage());
+
+    public void CartToDB(String username, int productId, int quantity) {
+        // Nếu trùng (username, product_id) thì cập nhật số lượng mới (quantity)
+        String sql = "INSERT INTO cart (username, product_id, quantity) VALUES (?, ?, ?) "
+                + "ON DUPLICATE KEY UPDATE quantity = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, username);
+            st.setInt(2, productId);
+            st.setInt(3, quantity);
+            st.setInt(4, quantity);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Lỗi CartToDB: " + e.getMessage());
+        }
     }
-}
+
     public java.util.Map<Integer, Integer> getCartFromDB(String username) {
         java.util.Map<Integer, Integer> cart = new java.util.HashMap<>();
         String sql = "SELECT product_id, quantity FROM cart WHERE username = ?";
@@ -123,19 +123,16 @@ public class ProductDAO {
         }
         return cart;
     }
-    
+
     public void removeFromDB(String username, int productId) {
-    String sql = "DELETE FROM cart WHERE username = ? AND product_id = ?";
-    try {
-        PreparedStatement st = conn.prepareStatement(sql);
-        st.setString(1, username);
-        st.setInt(2, productId);
-        st.executeUpdate();
-    } catch (SQLException e) {
-        System.out.println("Lỗi xóa sản phẩm DB: " + e.getMessage());
+        String sql = "DELETE FROM cart WHERE username = ? AND product_id = ?";
+        try {
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, username);
+            st.setInt(2, productId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Lỗi xóa sản phẩm DB: " + e.getMessage());
+        }
     }
 }
-}
-
-   
-

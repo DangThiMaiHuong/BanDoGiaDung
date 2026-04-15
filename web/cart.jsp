@@ -12,15 +12,17 @@
 <%@page import="Model.ProductDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="style.css" rel="stylesheet" type="text/css"/>
+<!-- BANNER -->
 <div class="banner">
     <img src="images/banner.png"/>
 </div>
+<!-- HEADER + MENU -->
 <jsp:include page="Layout/header.jsp"/>
 <jsp:include page="Layout/menu.jsp"/>
-<!-- BANNER -->
+
 
 <div class="main">
-
+    <!-- LEFT MENU -->
     <jsp:include page="Layout/left.jsp"/>
     <div class="content">
         <div class="cart-wrapper">

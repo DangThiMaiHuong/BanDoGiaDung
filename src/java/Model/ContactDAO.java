@@ -25,14 +25,14 @@ public class ContactDAO {
             ResultSet rs = check.executeQuery();
 
             if (rs.next()) {
-                // 👉 đã tồn tại → UPDATE
+                //đã tồn tại → UPDATE
                 String updateSql = "UPDATE contact SET message = ? WHERE user_id = ?";
                 PreparedStatement ps = conn.prepareStatement(updateSql);
                 ps.setString(1, c.getMessage());
                 ps.setObject(2, c.getUserId());
                 ps.executeUpdate();
             } else {
-                // 👉 chưa có → INSERT
+                //chưa có → INSERT
                 String insertSql = "INSERT INTO contact(user_id, name, email, message) VALUES (?, ?, ?, ?)";
                 PreparedStatement ps = conn.prepareStatement(insertSql);
                 ps.setObject(1, c.getUserId());

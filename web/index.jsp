@@ -17,16 +17,15 @@
         <title>Điện Máy Mini</title>
     </head>
     <body>
-
-        
         <!-- BANNER -->
         <div class="banner">
             <img src="images/banner.png"/>
         </div>
+
         <!-- HEADER + MENU -->
         <jsp:include page="Layout/header.jsp"/>
         <jsp:include page="Layout/menu.jsp"/>
-        
+
         <div class="main">
 
             <!-- LEFT MENU -->
@@ -83,7 +82,6 @@
 
                     <%= displayName%>
                 </h3>
-
 
                 <!-- HIỂN THỊ SẢN PHẨM -->
                 <div class="grid">
@@ -207,4 +205,4 @@
         <script>
 
 
-            </body>
+    </body>

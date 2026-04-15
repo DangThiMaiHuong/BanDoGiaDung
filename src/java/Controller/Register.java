@@ -71,17 +71,6 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        User u = new User();
-//        u.setUsername(request.getParameter("username"));
-//        u.setEmail(request.getParameter("email"));
-//        u.setPhone(request.getParameter("phone"));
-//        u.setAddress(request.getParameter("address"));
-//        u.setPassword(request.getParameter("password"));
-//
-//        new UserDAO().register(u);
-//
-//        response.sendRedirect("login.jsp");
-//        processRequest(request, response);
         String username = request.getParameter("username").trim();
         String email = request.getParameter("email".trim());
         String phone = request.getParameter("phone").trim();
