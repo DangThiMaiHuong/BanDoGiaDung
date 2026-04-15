@@ -19,7 +19,7 @@
     <body>
         <!-- BANNER -->
         <div class="banner">
-            <img src="images/banner.png" alt="banner">
+            <img src="images/banner.png">
         </div>
 
         <!-- HEADER + MENU -->
