@@ -677,3 +677,12 @@ th, td {
     -webkit-appearance: none;
     margin: 0;
 }
+.banner {
+    width: 100%;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;   /* 👈 giữ đúng tỉ lệ 1920x300 */
+    display: block;
+}
