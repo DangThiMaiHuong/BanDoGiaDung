@@ -19,7 +19,7 @@
     <body>
         <!-- BANNER -->
         <div class="banner">
-            <img src="images/banner.png"/>
+            <img src="images/banner.png" alt="banner">
         </div>
 
         <!-- HEADER + MENU -->
@@ -123,6 +123,12 @@
 
             <% if ("success".equals(msg)) { %>
                 alert("Đăng nhập thành công!");
+                //Xóa tham số msg khỏi URL mà không load lại trang
+                if (window.history.replaceState) {
+                    const url = new URL(window.location);
+                    url.searchParams.delete('msg'); // Xóa riêng tham số msg
+                    window.history.replaceState({}, document.title, url.pathname + url.search);
+                }
             <% } else if ("fail".equals(msg)) { %>
                 alert("Đăng nhập thất bại!");
                 openLogin();
@@ -205,4 +211,4 @@
         <script>
 
 
-    </body>
+            </body>
