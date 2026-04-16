@@ -13,16 +13,20 @@ public class Product {
     private int id;
     private String name, image, description;
     private long price;
+    private Integer discount_percent;
+    private int type;
 
     public Product() {
     }
 
-    public Product(int id, String name, long price, String image, String description) {
+    public Product(int id, String name, String image, String description, long price, Integer discount_percent, int type) {
         this.id = id;
         this.name = name;
-        this.price = price;
         this.image = image;
         this.description = description;
+        this.price = price;
+        this.discount_percent = discount_percent;
+        this.type = type;
     }
 
     public int getId() {
@@ -43,5 +47,20 @@ public class Product {
 
     public String getDescription() {
         return description;
+    }
+
+    public Integer getDiscount_percent() {
+        return discount_percent;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public double getFinalPrice() {
+        if (discount_percent != null && discount_percent > 0) {
+        return price * (100 - discount_percent) / 100.0;
+    }
+    return price;
     }
 }

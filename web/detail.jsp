@@ -9,7 +9,8 @@
 <%
     String idStr = request.getParameter("id");
     Product p = null;
-    if (idStr != null) {
+
+    if (idStr != null && !idStr.trim().isEmpty()) {
         ProductDAO dao = new ProductDAO();
         p = dao.getById(Integer.parseInt(idStr));
     }

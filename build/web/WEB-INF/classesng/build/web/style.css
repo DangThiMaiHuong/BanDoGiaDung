@@ -679,7 +679,6 @@ th, td {
     margin: 0;
 }
 
-
 /* LABEL ICON */
 .product {
     position: relative;
@@ -726,12 +725,3 @@ th, td {
     padding: 2px 5px;
     font-size: 12px;
     margin-top: 5px;
-.banner {
-    width: 100%;
-}
-
-.banner img {
-    width: 100%;
-    height: auto;   /* 👈 giữ đúng tỉ lệ 1920x300 */
-    display: block;
-}
