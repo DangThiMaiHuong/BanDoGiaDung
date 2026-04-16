@@ -33,12 +33,14 @@ public class ProductDAO {
                 list.add(new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getLong("price"),
                         rs.getString("image"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getLong("price"),
+                        rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
+                        rs.getInt("type")
                 ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -55,12 +57,14 @@ public class ProductDAO {
                 return new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getLong("price"),
                         rs.getString("image"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getLong("price"),
+                        rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
+                        rs.getInt("type")
                 );
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -80,12 +84,14 @@ public class ProductDAO {
                 list.add(new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getLong("price"),
                         rs.getString("image"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        rs.getLong("price"),
+                        rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
+                        rs.getInt("type")
                 ));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -134,5 +140,31 @@ public class ProductDAO {
         } catch (SQLException e) {
             System.out.println("Lỗi xóa sản phẩm DB: " + e.getMessage());
         }
+    }
+
+    public List<Product> getProductByType(int type) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE type = ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, type);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("image"),
+                        rs.getString("description"),
+                        rs.getLong("price"),
+                        rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
+                        rs.getInt("type")
+                );
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

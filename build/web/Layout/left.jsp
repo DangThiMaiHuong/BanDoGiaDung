@@ -46,5 +46,33 @@
                Điều hòa
             </a>
         </li>
+        
+        <li>
+            <a href="index.jsp?category=noicomdien" 
+               class="<%= "noicomdien".equals(c) ? "active" : "" %>">
+               Nồi cơm điện
+            </a>
+        </li>
+        
+        <li>
+            <a href="index.jsp?category=quat" 
+               class="<%= "quat".equals(c) ? "active" : "" %>">
+               Quạt
+            </a>
+        </li>
+        
+        <li>
+            <a href="index.jsp?category=maylocnuoc" 
+               class="<%= "maylocnuoc".equals(c) ? "active" : "" %>">
+               Máy lọc nước
+            </a>
+        </li>
+        
+        <li>
+            <a href="index.jsp?category=noi" 
+               class="<%= "noi".equals(c) ? "active" : "" %>">
+               Nồi
+            </a>
+        </li>
     </ul>
 </div>

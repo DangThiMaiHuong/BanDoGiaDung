@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import java.util.Map;
+import Model.Product;
 import Model.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,15 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Model.UserDAO;
-import Model.User;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
- * @author PC
+ * @author Phuong Anh
  */
-public class Login extends HttpServlet {
+public class Type extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +37,10 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet Type</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Type at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +58,22 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String typeParam = request.getParameter("type");
+        int type = (typeParam != null && !typeParam.isEmpty())
+                ? Integer.parseInt(typeParam)
+                : 1;
+        String category = request.getParameter("category");
+
+        ProductDAO dao = new ProductDAO();
+
+        // lọc theo type
+        List<Product> listType = dao.getProductByType(type);
+
+        request.setAttribute("listType", listType);
+        request.setAttribute("activeType", type);
+        request.setAttribute("category", category);
+
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     /**
@@ -74,32 +87,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username").trim();
-        String pass = request.getParameter("password").trim();
-
-        // 1. Kiểm tra đăng nhập
-        User u = new UserDAO().login(username, pass);
-
-        if (u != null) {
-            // 2. Lưu user vào session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", u);
-            
-            //xóa sạch bố nhớ tạm khi chưa đăng nhập
-            session.removeAttribute("cart");
-
-            // 3. ĐỒNG BỘ GIỎ HÀNG: Lấy từ DB đổ vào Session
-            ProductDAO pDao = new ProductDAO();
-            Map<Integer, Integer> dbCart = pDao.getCartFromDB(u.getUsername());
-
-            if (dbCart != null && !dbCart.isEmpty()) {
-                session.setAttribute("cart", dbCart);
-            }
-
-            response.sendRedirect("index.jsp?msg=success");
-        } else {
-            response.sendRedirect("index.jsp?msg=fail");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -107,8 +95,9 @@ public class Login extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-//    @Override
-//    public String getServletInfo() {
-    //       return "Short description";
-    //   }// </editor-fold>
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
 }

@@ -24,6 +24,10 @@
         <servlet-name>RemoveCart</servlet-name>
         <servlet-class>Controller.RemoveCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Type</servlet-name>
+        <servlet-class>Controller.Type</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -47,5 +51,9 @@
     <servlet-mapping>
         <servlet-name>RemoveCart</servlet-name>
         <url-pattern>/RemoveCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Type</servlet-name>
+        <url-pattern>/Type</url-pattern>
     </servlet-mapping>
 </web-app>

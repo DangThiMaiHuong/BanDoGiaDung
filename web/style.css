@@ -345,6 +345,7 @@ body {
     margin: 10px 0;
 }
 
+
 /* BUTTON */
 .btn {
     display: flex;
@@ -677,3 +678,50 @@ th, td {
     -webkit-appearance: none;
     margin: 0;
 }
+
+/* LABEL ICON */
+.product {
+    position: relative;
+}
+
+.label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    padding: 5px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* HOT */
+.label.hot {
+    background: orange;
+}
+
+/* SALE */
+.label.sale {
+    background: red;
+}
+
+/* NEW */
+.label.new {
+    background: green;
+}
+
+/* GIÁ CŨ */
+.old-price {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 14px;
+}
+
+/* % GIẢM */
+.discount {
+    display: inline-block;
+    background: red;
+    color: white;
+    padding: 2px 5px;
+    font-size: 12px;
+    margin-top: 5px;

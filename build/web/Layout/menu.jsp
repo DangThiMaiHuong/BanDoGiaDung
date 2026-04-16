@@ -25,6 +25,19 @@
 
     <a class="<%= "dieuhoa".equals(c) ? "active" : ""%>"
        href="index.jsp?category=dieuhoa">Điều hòa</a>
+       
+    <a class="<%= "noicomdien".equals(c) ? "active" : ""%>"
+       href="index.jsp?category=noicomdien">Nồi cơm điện</a>
+       
+    <a class="<%= "quat".equals(c) ? "active" : ""%>"
+       href="index.jsp?category=quat">Quạt</a>
+       
+    <a class="<%= "maylocnuoc".equals(c) ? "active" : ""%>"
+       href="index.jsp?category=maylocnuoc">Máy lọc nước</a>
+       
+    <a class="<%= "noi".equals(c) ? "active" : ""%>"
+       href="index.jsp?category=noi">Nồi</a>
+       
     <a href="#" onclick="openContact()">Liên hệ</a>
     <!-- CONTACT MODAL -->
     <%
