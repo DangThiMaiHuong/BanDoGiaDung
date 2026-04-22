@@ -249,6 +249,8 @@
     <!-- FOOTER -->
     <jsp:include page="Layout/footer.jsp"/>
 
+    <!-- CHATBOX -->
+    <jsp:include page="Layout/Chatbox.jsp"/>
     <!-- XỬ LÝ THÔNG BÁO + MODAL -->
     <%
         String msg = request.getParameter("msg");
@@ -316,7 +318,10 @@
             document.getElementById("loginModal").style.display = "none";
             document.getElementById("registerModal").style.display = "none";
         }
-
+        function switchToRegister() {
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("registerModal").style.display = "block";
+        }
         window.onclick = function (event) {
             let login = document.getElementById("loginModal");
             let register = document.getElementById("registerModal");
@@ -345,6 +350,5 @@
     <%
         }
     %>
-    <script>
-
-        </body>
+    </body>
+</html>

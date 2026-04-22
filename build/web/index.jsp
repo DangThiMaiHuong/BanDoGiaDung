@@ -19,7 +19,7 @@
     <body>
         <!-- BANNER -->
         <div class="banner">
-            <img src="images/banner.png" alt="banner">
+            <img src="images/banner.png"/>
         </div>
 
         <!-- HEADER + MENU -->
@@ -237,7 +237,6 @@
                         </div>
 
                     </div>
-
                     <%
                         }
                     %>
@@ -249,64 +248,9 @@
 
     <!-- FOOTER -->
     <jsp:include page="Layout/footer.jsp"/>
-=======
-        <!-- FOOTER -->
-        <jsp:include page="Layout/footer.jsp"/>
 
-        <!-- XỬ LÝ THÔNG BÁO + MODAL -->
-        <%
-            String msg = request.getParameter("msg");
-            String reg_error = request.getParameter("reg_error");
-        %>
-
-        <script>
-            window.onload = function () {
-
-            <% if ("success".equals(msg)) { %>
-                alert("Đăng nhập thành công!");
-                //Xóa tham số msg khỏi URL mà không load lại trang
-                if (window.history.replaceState) {
-                    const url = new URL(window.location);
-                    url.searchParams.delete('msg'); // Xóa riêng tham số msg
-                    window.history.replaceState({}, document.title, url.pathname + url.search);
-                }
-            <% } else if ("fail".equals(msg)) { %>
-                alert("Đăng nhập thất bại!");
-                openLogin();
-            <% } %>
-
-                // REGISTER
-            <% if ("register_success".equals(msg)) { %>
-                alert("Đăng ký thành công!");
-                openLogin();
-            <% } %>
-
-                // VALIDATE REGISTER
-            <% if ("empty".equals(reg_error)) { %>
-                alert("Không được để trống!");
-                openRegister();
-            <% } else if ("pass".equals(reg_error)) { %>
-                alert("Mật khẩu không khớp!");
-                openRegister();
-            <% } else if ("email".equals(reg_error)) { %>
-                alert("Email không hợp lệ!");
-                openRegister();
-            <% } %>
-
-                // CONTACT
-            <% if ("contact_fail".equals(msg)) { %>
-                alert("Vui lòng nhập đầy đủ!");
-                openContact();
-            <% } else if ("contact_success".equals(msg)) { %>
-                alert("Gửi liên hệ thành công!");
-            <% }%>
-            };
-
-            function openLogin() {
-                document.getElementById("loginModal").style.display = "block";
-            }
-
-
+    <!-- CHATBOX -->
+    <jsp:include page="Layout/Chatbox.jsp"/>
     <!-- XỬ LÝ THÔNG BÁO + MODAL -->
     <%
         String msg = request.getParameter("msg");
@@ -374,7 +318,10 @@
             document.getElementById("loginModal").style.display = "none";
             document.getElementById("registerModal").style.display = "none";
         }
-
+        function switchToRegister() {
+            document.getElementById("loginModal").style.display = "none";
+            document.getElementById("registerModal").style.display = "block";
+        }
         window.onclick = function (event) {
             let login = document.getElementById("loginModal");
             let register = document.getElementById("registerModal");
@@ -403,6 +350,5 @@
     <%
         }
     %>
-
-
-        </body>
+    </body>
+</html>

@@ -24,6 +24,7 @@
 <div class="main">
     <!-- LEFT MENU -->
     <jsp:include page="Layout/left.jsp"/>
+
     <div class="content">
         <div class="cart-wrapper">
             <h2>🛒 Chi tiết giỏ hàng</h2>
@@ -47,7 +48,7 @@
                         totalMoney += p.getPrice() * qty;
             %>
             <div class="cart-item">
-                <input type="checkbox" checked style="accent-color: #ff4d4f; transform: scale(1.2);">
+                <input type="checkbox" checked class="cart-checkbox" data-price="<%= p.getPrice() * qty%>" style="accent-color: #ff4d4f; transform: scale(1.2);">
 
                 <a href="detail.jsp?id=<%= p.getId()%>">
                     <img src="<%= p.getImage()%>" class="cart-product-img">
@@ -69,7 +70,7 @@
                     <div class="quantity-control">
                         <p>Số lượng:</p>
                         <a href="Detail?id=<%= p.getId()%>&action=decrease" class="btn-qty">-</a>    
-                        <input type="number" value="<%= qty%>" class="qty-input" min="1"
+                        <input type="number" value="<%= qty%>" class="qty-input" min="1" 
                                onchange="window.location.href = 'Detail?id=<%= p.getId()%>&action=update&newQty=' + this.value">
                         <a href="Detail?id=<%= p.getId()%>&action=increase" class="btn-qty">+</a>
                     </div>
@@ -80,14 +81,35 @@
                 }
             %>
 
-            <div class="cart-footer">
-                <p>Tổng thanh toán: <span class="total-price"><%= String.format("%,d", (long) totalMoney)%> đ</span></p>
+            <div class="cart-footer">  
+                <p>Tổng thanh toán: <span id="totalPriceDisplay" class="total-price"><%= String.format("%,d", (long) totalMoney)%> đ</span></p>
                 <button class="btn-pay">THANH TOÁN</button>
             </div>
             <% }%>
         </div>
     </div>
 </div>
+<script>
 
+    function reCalculateTotal() {
+        let total = 0;
+
+        const selectedItems = document.querySelectorAll('.cart-checkbox:checked');
+
+        selectedItems.forEach(item => {
+
+            total += parseInt(item.getAttribute('data-price'));
+        });
+
+
+        document.getElementById('totalPriceDisplay').innerText = total.toLocaleString('vi-VN') + " đ";
+    }
+
+
+    document.querySelectorAll('.cart-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', reCalculateTotal);
+    });
+</script>
 
 <jsp:include page="Layout/footer.jsp"/>
+<jsp:include page="Layout/Chatbox.jsp"/>
