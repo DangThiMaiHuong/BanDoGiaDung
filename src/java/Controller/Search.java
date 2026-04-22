@@ -4,22 +4,21 @@
  */
 package Controller;
 
-import Model.ContactDAO;
-import Model.Contact;
-import Model.User;
+import Model.Product;
+import Model.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author PC
  */
-public class ContactServlet extends HttpServlet {
+public class Search extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class ContactServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ContactServlet</title>");
+            out.println("<title>Servlet Search</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ContactServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Search at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +58,28 @@ public class ContactServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String keyword = request.getParameter("keyword");
+        ProductDAO dao = new ProductDAO();
+        List<Product> list = dao.SearchTop5(keyword);
+        response.setContentType("application/json;charset=UTF-8");
+        StringBuilder json = new StringBuilder("[");
+        for (int i = 0; i < list.size(); i++) {
+            Product p = list.get(i);
+            json.append("{")
+                    .append("\"id\":").append(p.getId()).append(",")
+                    .append("\"name\":\"").append(p.getName().replace("\"", "\\\"")).append("\",")
+                    .append("\"price\":").append(p.getPrice()).append(",")
+                    .append("\"image\":\"").append(p.getImage().replace("\"", "\\\"")).append("\",")
+                    .append("\"type\":").append(p.getType()).append(",")
+                    .append("\"discount\":").append(p.getDiscount_percent() == null ? 0 : p.getDiscount_percent())
+                    .append("}");
+            if (i < list.size() - 1) {
+                json.append(",");
+            }
+        }
+        json.append("]");
+        response.getWriter().write(json.toString());
+
     }
 
     /**
@@ -73,49 +93,7 @@ public class ContactServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User u = (User) session.getAttribute("user");
-
-        String name, email;
-
-        if (u != null) {
-            name = u.getUsername();
-            email = u.getEmail();
-        } else {
-            name = request.getParameter("name");
-            email = request.getParameter("email");
-
-            // validate email
-            if (email == null || !email.contains("@")) {
-                response.sendRedirect("index.jsp?cont_error=contact_email");
-                return;
-            }
-        }
-
-        String message = request.getParameter("message");
-
-        // validate chung
-        if (name == null || name.trim().isEmpty()
-                || message == null || message.trim().isEmpty()) {
-
-            response.sendRedirect("index.jsp?cont_error=contact_empty");
-            return;
-        }
-
-        Contact c = new Contact();
-        c.setName(name);
-        c.setEmail(email);
-        c.setMessage(message);
-
-        if (u != null) {
-            c.setUserId(u.getId());
-        }
-
-        // gọi DAO
-        new ContactDAO().insertOrUpdate(c);
-
-        //redirect
-        response.sendRedirect("index.jsp?contact_success");
+        processRequest(request, response);
     }
 
     /**

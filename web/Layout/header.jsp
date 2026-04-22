@@ -10,9 +10,11 @@
     <div class="logo">⚡ Điện Máy Mini</div>
 
     <div class="search">
-        <input placeholder=" 🔍  Tìm kiếm sản phẩm.....">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchBox" placeholder=" Tìm kiếm sản phẩm...">
+        <div id="suggestBox"></div>
     </div>
-    
+
     <%
         Model.User user = (Model.User) session.getAttribute("user");
     %>
@@ -31,22 +33,21 @@
         <a href="Logout">Đăng xuất</a>
 
         <% }%>
-        
-        
-    <%
-    Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
-    int totalItems = 0;
-    if (cart != null) {
-        // Cộng dồn tất cả số lượng của từng món hàng
-        for (int qty : cart.values()) {
-            totalItems += qty;
-        }
-    }
-%>
-<a href="cart.jsp" style="text-decoration: none; color: black; position: relative;">
-    🛒 Giỏ hàng (<span style="color: red; font-weight: bold;"><%= totalItems %></span>)
-</a>
-        
+
+        <%
+            Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
+            int totalItems = 0;
+            if (cart != null) {
+                // Cộng dồn tất cả số lượng của từng món hàng
+                for (int qty : cart.values()) {
+                    totalItems += qty;
+                }
+            }
+        %>
+        <a href="cart.jsp">
+            🛒 Giỏ hàng (<span style="color: red; font-weight: bold;"><%= totalItems%></span>)
+        </a>
+        <a href="#"onclick="openContact()">Liên hệ</a>
     </div>
     <!-- LOGIN MODAL -->
     <div id="loginModal" class="modal">
@@ -54,19 +55,31 @@
             <span onclick="closeModal()" class="close">&times;</span>
 
             <h2>Đăng nhập</h2>
+            <%
+                String msg = request.getParameter("msg");
+            %>
 
             <form action="Login" method="post">
                 <div class="form-group">
                     <label>Username:</label>
-                    <input name="username">
+                    <input name="username" value="<%= request.getParameter("username") != null ? request.getParameter("username") : ""%>" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Password:</label>
-                    <input type="password" name="password">
+                    <input type="password" name="password" required>
                 </div>
-                
+                <!-- HIỂN THỊ LỖI -->
+                <% if ("fail".equals(msg)) { %>
+                <p style="color:red; text-align:center;">
+                    Tài khoản không hợp lệ
+                </p>
+                <% }%>
                 <button  class="btn">Đăng nhập</button>
+                <div style="text-align:center; margin-top:10px;">
+                    Chưa có tài khoản? 
+                    <a href="#" onclick="switchToRegister()">Đăng ký</a>
+                </div>
             </form>
         </div>
     </div>
@@ -82,37 +95,70 @@
 
                 <div class="form-group">
                     <label>Tên:</label>
-                    <input name="username">
+                    <input name="username" required>
                 </div>
 
                 <div class="form-group">
                     <label>Email:</label>
-                    <input name="email">
+                    <input name="email" required>
                 </div>
 
                 <div class="form-group">
                     <label>SĐT:</label>
-                    <input name="phone">
+                    <input name="phone" required>
                 </div>
 
                 <div class="form-group">
                     <label>Địa chỉ:</label>
-                    <input name="address">
+                    <input name="address" required>
                 </div>
 
                 <div class="form-group">
                     <label>Mật khẩu:</label>
-                    <input type="password" name="password">
+                    <input type="password" name="password" required>
                 </div>
 
                 <div class="form-group">
                     <label>Nhập lại:</label>
-                    <input type="password" name="repassword">
+                    <input type="password" name="repassword" required>
                 </div>
 
                 <button class="btn">Đăng ký</button>
 
             </form>
+        </div>
+    </div>
+    <!-- CONTACT MODAL -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+
+            <span class="close" onclick="closeContact()">&times;</span>
+
+            <h2>Liên hệ</h2>
+
+            <form action="Contact" method="post">
+                <div class="form-group">
+                    <label>Tên:</label>
+                    <input name="name" 
+                           value="<%= (user != null ? user.getUsername() : "")%>"
+                           <%= (user != null ? "readonly" : "")%> required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input name="email"
+                           value="<%= (user != null ? user.getEmail() : "")%>"
+                           <%= (user != null ? "readonly" : "")%> required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nội dung:</label>
+                    <textarea name="message" style="width:95%; height:80px;" required></textarea>
+                </div>
+
+                <button class="btn">Gửi</button>
+            </form>
+
         </div>
     </div>
 </div>
@@ -128,5 +174,84 @@
     function closeModal() {
         document.getElementById("loginModal").style.display = "none";
         document.getElementById("registerModal").style.display = "none";
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const input = document.getElementById("searchBox");
+        const box = document.getElementById("suggestBox");
+
+        input.addEventListener("keyup", function () {
+            let keyword = input.value;
+
+            if (keyword.length === 0) {
+                box.style.display = "none";
+                return;
+            }
+
+            fetch("<%=request.getContextPath()%>/Search?keyword=" + keyword)
+                    .then(res => res.json())
+                    .then(data => {
+
+                        box.innerHTML = "<b>Có phải bạn muốn tìm</b><hr>";
+
+                        data.forEach(p => {
+
+                            let label = "";
+                            let priceHTML = "";
+
+                            // ICON
+                            if (p.type === 1) {
+                                label = '<span class="label hot">HOT</span>';
+                            } else if (p.type === 2) {
+                                label = '<span class="label new">NEW</span>';
+                            } else if (p.type === 3) {
+                                label = '<span class="label sale">SALE</span>';
+                            }
+
+                            // GIÁ
+                            if (p.discount > 0) {
+                                let newPrice = p.price - (p.price * p.discount / 100);
+
+                                priceHTML =
+                                        '<div class="suggest-price">'
+                                        + newPrice.toLocaleString() + ' đ '
+                                        + '<span class="old-price">' + p.price.toLocaleString() + ' đ</span>'
+                                        + '<span class="discount">-' + p.discount + '%</span>'
+                                        + '</div>';
+                            } else {
+                                priceHTML =
+                                        '<div class="suggest-price">'
+                                        + p.price.toLocaleString() + ' đ'
+                                        + '</div>';
+                            }
+
+                            // HTML
+                            box.innerHTML +=
+                                    '<div class="suggest-item" onclick="goDetail(' + p.id + ')">'
+                                    + '<img src="' + p.image + '" style="width:50px;height:50px;">'
+                                    + '<div>'
+                                    + '<div>' + p.name + '</div>'
+                                    + priceHTML
+                                    + '</div>'
+                                    + '</div>';
+                        });
+
+                        box.style.display = "block";
+                    });
+        });
+        // 👇 ENTER TÌM KIẾM
+        input.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                window.location = "search.jsp?keyword=" + input.value;
+            }
+        });
+
+    });
+
+    function goDetail(id) {
+        window.location = "detail.jsp?id=" + id;
     }
 </script>

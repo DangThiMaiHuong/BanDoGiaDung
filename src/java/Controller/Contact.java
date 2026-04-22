@@ -4,23 +4,21 @@
  */
 package Controller;
 
-import java.util.Map;
-import Model.ProductDAO;
+import Model.ContactDAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import Model.UserDAO;
-import Model.User;
 import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author PC
  */
-public class Login extends HttpServlet {
+public class Contact extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +37,10 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet Contact</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Contact at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,32 +72,49 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username").trim();
-        String pass = request.getParameter("password").trim();
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("user");
 
-        // 1.Kiểm tra đăng nhập
-        User u = new UserDAO().login(username, pass);
+        String name, email;
 
         if (u != null) {
-            // 2. Lưu user vào session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", u);
-            
-            //xóa sạch bố nhớ tạm khi chưa đăng nhập
-            session.removeAttribute("cart");
-
-            // 3. ĐỒNG BỘ GIỎ HÀNG: Lấy từ DB đổ vào Session
-            ProductDAO pDao = new ProductDAO();
-            Map<Integer, Integer> dbCart = pDao.getCartFromDB(u.getUsername());
-
-            if (dbCart != null && !dbCart.isEmpty()) {
-                session.setAttribute("cart", dbCart);
-            }
-
-            response.sendRedirect("index.jsp?msg=success");
+            name = u.getUsername();
+            email = u.getEmail();
         } else {
-            response.sendRedirect("index.jsp?msg=fail");
+            name = request.getParameter("name");
+            email = request.getParameter("email");
+
+            // validate email
+            if (email == null || !email.contains("@")) {
+                response.sendRedirect("index.jsp?cont_error=contact_email");
+                return;
+            }
         }
+
+        String message = request.getParameter("message");
+
+        // validate chung
+        if (name == null || name.trim().isEmpty()
+                || message == null || message.trim().isEmpty()) {
+
+            response.sendRedirect("index.jsp?cont_error=contact_empty");
+            return;
+        }
+
+        Model.Contact c = new Model.Contact();
+        c.setName(name);
+        c.setEmail(email);
+        c.setMessage(message);
+
+        if (u != null) {
+            c.setUserId(u.getId());
+        }
+
+        // gọi DAO
+        new ContactDAO().insertOrUpdate(c);
+
+        //redirect
+        response.sendRedirect("index.jsp?contact_success");
     }
 
     /**
@@ -107,8 +122,9 @@ public class Login extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-//    @Override
-//    public String getServletInfo() {
-    //       return "Short description";
-    //   }// </editor-fold>
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
 }

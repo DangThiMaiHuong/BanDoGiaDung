@@ -75,6 +75,8 @@
                 </div>
                 <% }%>
             </div>
-        </div> </div> <jsp:include page="Layout/footer.jsp"/>
+        </div> </div> 
+        <jsp:include page="Layout/footer.jsp"/>
+        <jsp:include page="Layout/Chatbox.jsp"/>
 </body>
 </html>

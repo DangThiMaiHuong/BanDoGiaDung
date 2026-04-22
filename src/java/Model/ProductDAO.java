@@ -167,4 +167,62 @@ public class ProductDAO {
         }
         return list;
     }
+
+    public List<Product> SearchTop5(String keyword) {
+        List<Product> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM products WHERE name LIKE ? LIMIT 5"; //Top5:giới hạn số lượng kq trả về
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("image"),
+                        rs.getString("description"),
+                        rs.getLong("price"),
+                        rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
+                        rs.getInt("type")
+                );
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Product> searchByName(String keyword) {
+        List<Product> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM products WHERE name LIKE ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Product p = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("image"),
+                        rs.getString("description"),
+                        rs.getLong("price"),
+                        rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
+                        rs.getInt("type")
+                );
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

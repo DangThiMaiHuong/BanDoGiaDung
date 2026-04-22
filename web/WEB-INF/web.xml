@@ -13,10 +13,6 @@
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ContactServlet</servlet-name>
-        <servlet-class>Controller.ContactServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Detail</servlet-name>
         <servlet-class>Controller.Detail</servlet-class>
     </servlet>
@@ -27,6 +23,18 @@
     <servlet>
         <servlet-name>Type</servlet-name>
         <servlet-class>Controller.Type</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChatBoxAI</servlet-name>
+        <servlet-class>Controller.ChatBoxAI</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Controller.Search</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>Controller.Contact</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -41,10 +49,6 @@
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ContactServlet</servlet-name>
-        <url-pattern>/ContactServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Detail</servlet-name>
         <url-pattern>/Detail</url-pattern>
     </servlet-mapping>
@@ -55,5 +59,17 @@
     <servlet-mapping>
         <servlet-name>Type</servlet-name>
         <url-pattern>/Type</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChatBoxAI</servlet-name>
+        <url-pattern>/ChatBoxAI</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/Contact</url-pattern>
     </servlet-mapping>
 </web-app>
