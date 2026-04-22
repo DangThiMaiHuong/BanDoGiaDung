@@ -36,7 +36,7 @@
 
                     ProductDAO dao = new ProductDAO();
                     List<Product> list = dao.searchByName(keyword); // 👈 cần có hàm này
-                %>
+%>
                 <h3>Kết quả tìm kiếm cho: "<%=keyword%>"</h3>
                 <div class="grid">
                     <% if (list != null && !list.isEmpty()) {

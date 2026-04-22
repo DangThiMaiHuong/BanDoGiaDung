@@ -29,26 +29,41 @@ body {
 .header::before, .header::after {
     content: "";
     position: absolute;
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    background-image: 
-        radial-gradient(circle, #fff 1px, transparent 1.5px), 
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image:
+        radial-gradient(circle, #fff 1px, transparent 1.5px),
         radial-gradient(circle, rgba(255,255,255,0.4) 4px, transparent 6px),
         radial-gradient(circle, #fff 2px, transparent 3px);
-    background-size: 61px 61px, 137px 137px, 251px 251px; 
+    background-size: 61px 61px, 137px 137px, 251px 251px;
     animation: wave 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     pointer-events: none;
     opacity: 0.6;
 }
 
 .header::after {
-    animation-duration: 11s; 
+    animation-duration: 11s;
     opacity: 0.3;
-    filter: blur(1px); 
+    filter: blur(1px);
 }
 
 .logo, .search, .user {
     position: relative;
     z-index: 2;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(-4%, 6%) scale(1.05);
+    }
+    66% {
+        transform: translate(6%, -4%) scale(0.95);
+    }
 }
 
 .logo {
@@ -93,12 +108,12 @@ body {
 }
 
 .menu a:hover {
-    color: #0056b3 !important; 
+    color: #0056b3 !important;
     text-decoration: underline;
 }
 
 .menu a.active {
-    color: #d32f2f !important; 
+    color: #d32f2f !important;
     border-bottom: 2px solid #d32f2f;
 }
 
@@ -138,9 +153,9 @@ body {
     text-transform: none;
 }
 .left li a {
-    display: block; 
+    display: block;
     padding: 12px 15px;
-    color: black !important; 
+    color: black !important;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -148,14 +163,14 @@ body {
 }
 
 .left li a:hover {
-    background: #0056b3; 
-    color: white !important; 
+    background: #0056b3;
+    color: white !important;
     padding-left: 25px;
 }
 
 .left li a.active {
-    background: #d32f2f !important; 
-    color: white !important; 
+    background: #d32f2f !important;
+    color: white !important;
     font-weight: bold;
     border-radius: 4px;
 }
@@ -168,8 +183,8 @@ body {
 }
 
 .content h3 {
-    text-align: center; 
-    margin: 20px 0;    
+    text-align: center;
+    margin: 20px 0;
     font-size: 22px;
     color: #333;
 }
@@ -184,9 +199,9 @@ body {
 
 /* PRODUCT */
 .product {
-    width: auto; 
+    width: auto;
     margin: 0;
-    background: white; 
+    background: white;
     border: 1px solid #ddd;
     padding: 5px;
     border-radius: 10px;
@@ -194,7 +209,7 @@ body {
     transition: 0.3s;
     display: flex;
     flex-direction: column;
-    height: 100%; 
+    height: 100%;
     justify-content: space-between; /* CỐ ĐỊNH layout */
     position: relative;
 }
@@ -212,11 +227,11 @@ body {
 }
 
 .product-price {
-    font-size: 25px;      
-    color: #ff0000;        
-    font-weight: bold;     
-    margin: 5px 0;        
-    display: block;  
+    font-size: 25px;
+    color: #ff0000;
+    font-weight: bold;
+    margin: 5px 0;
+    display: block;
     min-height: 70px; /* giữ giá k nhảy*/
     display: flex;
     flex-direction: column;
@@ -224,14 +239,14 @@ body {
 }
 
 .product-link {
-    text-decoration: none; 
-    color: inherit;        
-    display: block;        
-    cursor: pointer;       
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
 }
 
 .product-link:hover h4 {
-    color: #d32f2f; 
+    color: #d32f2f;
     max-height: 48px;
     margin: 5px 0;
     overflow: hidden;
@@ -269,7 +284,7 @@ body {
 .special-titles h2.active::after {
     content: "";
     position: absolute;
-    bottom: -8px;          
+    bottom: -8px;
     left: 0;
     width: 100%;
     height: 4px;
@@ -292,13 +307,13 @@ body {
 }
 
 .small-center-image img {
-    width: 100%;          
-    max-width: 750px;     
-    height: 450px;        
-    
-    object-fit: contain;  
+    width: 100%;
+    max-width: 750px;
+    height: 450px;
+
+    object-fit: contain;
     border-radius: 8px;
-    background: #fff;     
+    background: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
@@ -310,8 +325,14 @@ body {
     font-weight: bold;
 }
 
-.btn-buy-now { background: red; color: white; }
-.btn-add-cart { background: orange; color: white; }
+.btn-buy-now {
+    background: red;
+    color: white;
+}
+.btn-add-cart {
+    background: orange;
+    color: white;
+}
 
 .price {
     color: red;
@@ -325,7 +346,7 @@ body {
     display: flex;
     font-size: 15px;
     justify-content: center;
-    gap: 8px; 
+    gap: 8px;
     margin-top: auto; /* nút ở đáy */
     margin-bottom: 5px;
 }
@@ -343,7 +364,7 @@ body {
 
 .btn-cart-quick:hover {
     background: #d32f2f;
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 
 .btn a {
@@ -454,7 +475,7 @@ th, td {
     padding: 20px;
     border-radius: 10px;
     text-align: left;
-    position: relative; 
+    position: relative;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -462,7 +483,7 @@ th, td {
     margin-top: 0;
     color: #333;
     font-size: 24px;
-    text-align: center; 
+    text-align: center;
 }
 
 .modal input {
@@ -471,7 +492,7 @@ th, td {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-size: 16px;
 }
 
@@ -508,7 +529,7 @@ th, td {
 
 .form-group label {
     display: inline-block;
-    width: 100px;   
+    width: 100px;
     font-weight: bold;
 }
 
@@ -545,23 +566,23 @@ th, td {
 /*GIỎ HÀNG*/
 .cart-wrapper {
     max-width:100%;
-    margin-left: 20px; 
+    margin-left: 20px;
     text-align: left;
 }
 
 .cart-product-img {
-    width: 80px !important;  
+    width: 80px !important;
     height: 80px !important;
     max-height: 120px;
     object-fit: contain;
-    flex-shrink: 0;            
+    flex-shrink: 0;
     border-radius: 5px;
 }
 
 .cart-item {
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     gap: 20px;
     padding: 15px;
     border-bottom: 1px solid #ddd;
@@ -572,15 +593,16 @@ th, td {
 
 .cart-info {
     text-align: left;
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .cart-footer {
     margin-top: 20px;
     padding: 15px 0;
-    background: transparent;;
+    background: transparent;
+    ;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: flex-end;
     gap: 10px;
 }
@@ -613,7 +635,7 @@ th, td {
     display: flex;
     align-items: center;
     gap: 10px;
-    justify-content: flex-end; 
+    justify-content: flex-end;
 }
 
 .quantity-control p {
@@ -638,7 +660,7 @@ th, td {
 .btn-qty:hover {
     background-color: #f0f0f0;
     border-color: #bbb;
-    color: #ff4d4f; 
+    color: #ff4d4f;
 }
 
 .qty-input {
@@ -701,9 +723,9 @@ th, td {
     display: inline-block;
     background: red;
     color: white;
-/*    padding: 2px 5px;
-    font-size: 12px;
-    margin-top: 5px;*/
+    /*    padding: 2px 5px;
+        font-size: 12px;
+        margin-top: 5px;*/
     padding: 5px 8px;           /* nhỏ gọn lại */
     font-size: 12px;
     border-radius: 4px;
