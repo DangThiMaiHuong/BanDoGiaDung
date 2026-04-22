@@ -84,7 +84,7 @@ public class Login extends HttpServlet {
             // 2. Lưu user vào session
             HttpSession session = request.getSession();
             session.setAttribute("user", u);
-            
+
             //xóa sạch bố nhớ tạm khi chưa đăng nhập
             session.removeAttribute("cart");
 

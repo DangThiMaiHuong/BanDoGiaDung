@@ -242,7 +242,7 @@
                         box.style.display = "block";
                     });
         });
-        // 👇 ENTER TÌM KIẾM
+        // ENTER TÌM KIẾM
         input.addEventListener("keypress", function (e) {
             if (e.key === "Enter") {
                 window.location = "search.jsp?keyword=" + input.value;

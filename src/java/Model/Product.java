@@ -59,8 +59,8 @@ public class Product {
 
     public double getFinalPrice() {
         if (discount_percent != null && discount_percent > 0) {
-        return price * (100 - discount_percent) / 100.0;
-    }
-    return price;
+            return price * (100 - discount_percent) / 100.0;
+        }
+        return price;
     }
 }

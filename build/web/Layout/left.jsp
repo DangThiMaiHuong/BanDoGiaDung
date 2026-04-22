@@ -14,64 +14,64 @@
     <h3>Danh mục</h3>
     <ul>
         <li>
-            <a href="index.jsp" class="<%= (c == null) ? "active" : "" %>">
+            <a href="index.jsp" class="<%= (c == null) ? "active" : ""%>">
                 Tất cả
             </a>
         </li>
 
         <li>
             <a href="index.jsp?category=tulanh" 
-               class="<%= "tulanh".equals(c) ? "active" : "" %>">
-               Tủ lạnh
+               class="<%= "tulanh".equals(c) ? "active" : ""%>">
+                Tủ lạnh
             </a>
         </li>
 
         <li>
             <a href="index.jsp?category=maygiat" 
-               class="<%= "maygiat".equals(c) ? "active" : "" %>">
-               Máy giặt
+               class="<%= "maygiat".equals(c) ? "active" : ""%>">
+                Máy giặt
             </a>
         </li>
 
         <li>
             <a href="index.jsp?category=tivi" 
-               class="<%= "tivi".equals(c) ? "active" : "" %>">
-               Tivi
+               class="<%= "tivi".equals(c) ? "active" : ""%>">
+                Tivi
             </a>
         </li>
 
         <li>
             <a href="index.jsp?category=dieuhoa" 
-               class="<%= "dieuhoa".equals(c) ? "active" : "" %>">
-               Điều hòa
+               class="<%= "dieuhoa".equals(c) ? "active" : ""%>">
+                Điều hòa
             </a>
         </li>
-        
+
         <li>
             <a href="index.jsp?category=noicomdien" 
-               class="<%= "noicomdien".equals(c) ? "active" : "" %>">
-               Nồi cơm điện
+               class="<%= "noicomdien".equals(c) ? "active" : ""%>">
+                Nồi cơm điện
             </a>
         </li>
-        
+
         <li>
             <a href="index.jsp?category=quat" 
-               class="<%= "quat".equals(c) ? "active" : "" %>">
-               Quạt
+               class="<%= "quat".equals(c) ? "active" : ""%>">
+                Quạt
             </a>
         </li>
-        
+
         <li>
             <a href="index.jsp?category=maylocnuoc" 
-               class="<%= "maylocnuoc".equals(c) ? "active" : "" %>">
-               Máy lọc nước
+               class="<%= "maylocnuoc".equals(c) ? "active" : ""%>">
+                Máy lọc nước
             </a>
         </li>
-        
+
         <li>
             <a href="index.jsp?category=noi" 
-               class="<%= "noi".equals(c) ? "active" : "" %>">
-               Nồi
+               class="<%= "noi".equals(c) ? "active" : ""%>">
+                Nồi
             </a>
         </li>
     </ul>

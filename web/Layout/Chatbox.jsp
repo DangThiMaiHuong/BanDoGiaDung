@@ -20,7 +20,7 @@
 <div id="chatbox">
     <div id="chat-header">
         <span>🤖 Hỗ trợ</span>
-        <span onclick="toggleChat()" class="close-btn">✖</span>
+        <span class="close" onclick="closeChatBox()">&times;</span>
     </div>
 
     <div id="messages">
@@ -28,7 +28,11 @@
     </div>
 
     <div id="chat-input">
-        <input type="text" id="input" placeholder="Nhập tin nhắn...">
+        <input type="text" id="input" placeholder="Nhập tin nhắn..."
+               onkeypress="if (event.key === 'Enter') {
+                           sendMessage();
+                           return false;
+                       }"/>
         <button onclick="sendMessage()">➤</button>
     </div>
 </div>
@@ -144,7 +148,7 @@
         if (user && user !== '') {
             localStorage.setItem("userId", user);
         } else {
-            // 🔥 QUAN TRỌNG: logout thì xoá hết chat
+            // QUAN TRỌNG: logout thì xoá hết chat
             localStorage.removeItem("userId");
 
             // xoá tất cả chat history (hoặc theo user cũ)
@@ -163,13 +167,16 @@
         }
         localStorage.removeItem("userId");
     }
+    function closeChatBox() {
+        document.getElementById("chatbox").style.display = "none";
+    }
 </script>
 <script>
-        let user = "${sessionScope.user != null ? sessionScope.user.username : ''}";
+    let user = "${sessionScope.user != null ? sessionScope.user.username : ''}";
 
-        if (user && user !== '') {
-            localStorage.setItem("userId", user);
-        } else {
-            localStorage.removeItem("userId");
-        }
+    if (user && user !== '') {
+        localStorage.setItem("userId", user);
+    } else {
+        localStorage.removeItem("userId");
+    }
 </script>
