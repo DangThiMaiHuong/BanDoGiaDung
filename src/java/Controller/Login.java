@@ -77,7 +77,7 @@ public class Login extends HttpServlet {
         String username = request.getParameter("username").trim();
         String pass = request.getParameter("password").trim();
 
-        // 1. Kiểm tra đăng nhập
+        // 1.Kiểm tra đăng nhập
         User u = new UserDAO().login(username, pass);
 
         if (u != null) {

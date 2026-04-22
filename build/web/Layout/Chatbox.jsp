@@ -46,7 +46,6 @@
         }
     }
 
-// 👉 ĐẶT NGOÀI
     function addMessage(text, type) {
         let messages = document.getElementById("messages");
 
@@ -69,7 +68,7 @@
 
         let messages = document.getElementById("messages");
 
-        // ✅ HIỂN THỊ USER
+        // HIỂN THỊ USER
         addMessage(msg, "user");
 
         // loading
@@ -90,7 +89,7 @@
                 .then(res => res.text())
                 .then(data => {
                     loading.remove();             // xóa loading
-                    addMessage(data, "ai");       // ✅ HIỂN THỊ AI
+                    addMessage(data, "ai");       // HIỂN THỊ AI
                 })
                 .catch(err => {
                     loading.remove();
