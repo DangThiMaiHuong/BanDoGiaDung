@@ -59,7 +59,11 @@
                 <div class="cart-info">
                     <div class="product-name"><%= p.getName()%></div>
                     <div class="cart-price" style="color: #ff4d4f; font-weight: bold;">
-                        <%= String.format("%,.0f VNĐ", p.getFinalPrice()).replace(",", ".")%>  đ
+                         <%= String.format("%,.0f", p.getFinalPrice()).replace(",", ".")%> đ
+
+                            <% if(p.getDiscount_percent() != null && p.getDiscount_percent() > 0){ %>
+                            <span class="discount-tag">-<%= p.getDiscount_percent() %>%</span>
+                            <% } %>
                     </div>
                 </div>
                     
