@@ -37,6 +37,8 @@
             <jsp:include page="Layout/left.jsp"/>
 
             <div class="content">
+                <!-- MENU PRODUCT TYPE -->
+                <jsp:include page="Layout/ProductType.jsp"/>
                 <% if (p != null) {%>
                 <div class="product-detail-container">
                     <div class="content-detail-wrapper" style="text-align: left; padding: 20px;">
@@ -49,7 +51,7 @@
 
                         <div class="price-action-group">
                             <p class="product-price">
-                                <%= String.format("%,d VNĐ", p.getPrice()).replace(",", " ")%> 
+                                <%= String.format("%,.0f VNĐ", p.getFinalPrice()).replace(",", ".")%> 
                             </p>
                             <div class="detail-actions">
                                 <button class="btn-buy-now">MUA NGAY</button>

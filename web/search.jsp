@@ -16,27 +16,17 @@
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        <!-- BANNER -->
-        <div class="banner">
-            <img src="images/banner.png"/>
-        </div>
-
-        <!-- HEADER -->
-        <jsp:include page="Layout/header.jsp"/>
-        <jsp:include page="Layout/menu.jsp"/>
 
         <div class="main">
-            <!-- LEFT MENU -->
-            <jsp:include page="Layout/left.jsp"/>
-
+            
             <!-- CONTENT -->
-            <div class="content">
+            <div id="search" class="content">
                 <%
                     String keyword = request.getParameter("keyword");
 
                     ProductDAO dao = new ProductDAO();
-                    List<Product> list = dao.searchByName(keyword); // 👈 cần có hàm này
-%>
+                    List<Product> list = dao.searchByName(keyword); // cần có hàm này
+                %>
                 <h3>Kết quả tìm kiếm cho: "<%=keyword%>"</h3>
                 <div class="grid">
                     <% if (list != null && !list.isEmpty()) {
@@ -81,10 +71,5 @@
                 </div>
             </div>
         </div>
-
-        <!-- FOOTER -->
-        <jsp:include page="Layout/footer.jsp"/>
-        <!-- CHATBOX -->
-        <jsp:include page="Layout/Chatbox.jsp"/>
     </body>
 </html>

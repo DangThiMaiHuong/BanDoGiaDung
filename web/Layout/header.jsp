@@ -162,7 +162,54 @@
         </div>
     </div>
 </div>
+<!-- XỬ LÝ THÔNG BÁO + MODAL -->
+<%
+    String reg_error = request.getParameter("reg_error");
+%>
+
 <script>
+    window.onload = function () {
+
+    <% if ("success".equals(msg)) { %>
+        alert("Đăng nhập thành công!");
+        //Xóa tham số msg khỏi URL mà không load lại trang
+        if (window.history.replaceState) {
+            const url = new URL(window.location);
+            url.searchParams.delete('msg'); // Xóa riêng tham số msg
+            window.history.replaceState({}, document.title, url.pathname + url.search);
+        }
+    <% } else if ("fail".equals(msg)) { %>
+        alert("Đăng nhập thất bại!");
+        openLogin();
+    <% } %>
+
+        // REGISTER
+    <% if ("register_success".equals(msg)) { %>
+        alert("Đăng ký thành công!");
+        openLogin();
+    <% } %>
+
+        // VALIDATE REGISTER
+    <% if ("empty".equals(reg_error)) { %>
+        alert("Không được để trống!");
+        openRegister();
+    <% } else if ("pass".equals(reg_error)) { %>
+        alert("Mật khẩu không khớp!");
+        openRegister();
+    <% } else if ("email".equals(reg_error)) { %>
+        alert("Email không hợp lệ!");
+        openRegister();
+    <% } %>
+
+        // CONTACT
+    <% if ("contact_fail".equals(msg)) { %>
+        alert("Vui lòng nhập đầy đủ!");
+        openContact();
+    <% } else if ("contact_success".equals(msg)) { %>
+        alert("Gửi liên hệ thành công!");
+    <% }%>
+    };
+
     function openLogin() {
         document.getElementById("loginModal").style.display = "block";
     }
@@ -170,13 +217,50 @@
     function openRegister() {
         document.getElementById("registerModal").style.display = "block";
     }
+    function openContact() {
+        document.getElementById("contactModal").style.display = "block";
+    }
 
+    function closeContact() {
+        document.getElementById("contactModal").style.display = "none";
+    }
     function closeModal() {
         document.getElementById("loginModal").style.display = "none";
         document.getElementById("registerModal").style.display = "none";
     }
-</script>
+    function switchToRegister() {
+        document.getElementById("loginModal").style.display = "none";
+        document.getElementById("registerModal").style.display = "block";
+    }
+    window.onclick = function (event) {
+        let login = document.getElementById("loginModal");
+        let register = document.getElementById("registerModal");
 
+        if (event.target === login)
+            login.style.display = "none";
+        if (event.target === register)
+            register.style.display = "none";
+    };
+</script>
+<%
+    String cont_error = request.getParameter("cont_error");
+    if ("contact_email".equals(cont_error)) {
+%>
+<script>
+    alert("Email không hợp lệ!");
+    openContact();
+</script>
+<%
+} else if ("contact_empty".equals(cont_error)) {
+%>
+<script>
+    alert("Vui lòng nhập đầy đủ!");
+    openContact();
+</script>
+<%
+    }
+%>
+<!-- XỬ LÝ TÌM KIẾM -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
