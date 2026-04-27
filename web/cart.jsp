@@ -26,6 +26,8 @@
     <jsp:include page="Layout/left.jsp"/>
 
     <div class="content">
+        <!-- MENU PRODUCT TYPE -->
+        <jsp:include page="Layout/ProductType.jsp"/>
         <div class="cart-wrapper">
             <h2>🛒 Chi tiết giỏ hàng</h2>
 
@@ -45,10 +47,10 @@
                     Product p = dao.getById(entry.getKey());
                     if (p != null) {
                         int qty = entry.getValue();
-                        totalMoney += p.getPrice() * qty;
+                        totalMoney += p.getFinalPrice() * qty;
             %>
             <div class="cart-item">
-                <input type="checkbox" checked class="cart-checkbox" data-price="<%= p.getPrice() * qty%>" style="accent-color: #ff4d4f; transform: scale(1.2);">
+                <input type="checkbox" checked class="cart-checkbox" data-price="<%= p.getFinalPrice() * qty%>" style="accent-color: #ff4d4f; transform: scale(1.2);">
 
                 <a href="detail.jsp?id=<%= p.getId()%>">
                     <img src="<%= p.getImage()%>" class="cart-product-img">
@@ -57,10 +59,10 @@
                 <div class="cart-info">
                     <div class="product-name"><%= p.getName()%></div>
                     <div class="cart-price" style="color: #ff4d4f; font-weight: bold;">
-                        <%= String.format("%,d", p.getPrice())%> đ
+                        <%= String.format("%,.0f VNĐ", p.getFinalPrice()).replace(",", ".")%>  đ
                     </div>
                 </div>
-
+                    
                 <div style="text-align: right; min-width: 90px;">
                     <a href="RemoveCart?id=<%= p.getId()%>" 
                        style="text-decoration:none; font-size: 20px; color: black;" 

@@ -148,7 +148,7 @@
         if (user && user !== '') {
             localStorage.setItem("userId", user);
         } else {
-            // QUAN TRỌNG: logout thì xoá hết chat
+            // logout thì xoá hết chat
             localStorage.removeItem("userId");
 
             // xoá tất cả chat history (hoặc theo user cũ)
