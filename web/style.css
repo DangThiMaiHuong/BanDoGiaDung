@@ -723,13 +723,15 @@ th, td {
     margin: 0;
 }
 
-/* Mã giảm giá*/
-.discount-tag {
-    background: red;
-    color: white;
+.cart-info .discount-tag {
+    display: inline-block;
+    background-color: #fff5f5;
+    color: #ff4d4f;
     font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 4px;
+    padding: 2px 8px;
+    border: 1px solid #ff4d4f;
+    border-radius: 10px; /* Giờ thì con số này mới có tác dụng này */
+    font-weight: bold;
     margin-left: 8px;
 }
 
@@ -779,7 +781,7 @@ th, td {
 }
 
 /* % GIẢM */
-.discount {
+.product .discount {
     display: inline-block;
     background: red;
     color: white;

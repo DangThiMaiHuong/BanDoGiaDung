@@ -58,12 +58,13 @@
 
                 <div class="cart-info">
                     <div class="product-name"><%= p.getName()%></div>
-                    <div class="cart-price" style="color: #ff4d4f; font-weight: bold;">
-                         <%= String.format("%,.0f", p.getFinalPrice()).replace(",", ".")%> đ
 
-                            <% if(p.getDiscount_percent() != null && p.getDiscount_percent() > 0){ %>
-                            <span class="discount-tag">-<%= p.getDiscount_percent() %>%</span>
-                            <% } %>
+                    <div class="cart-price" style="color: #ff4d4f; font-weight: bold;">
+                        <%= String.format("%,.0f", p.getFinalPrice()).replace(",", ".")%> đ
+    
+                        <% if(p.getDiscount_percent() != null && p.getDiscount_percent() > 0){ %>
+                        <span class="discount-tag">-<%= p.getDiscount_percent() %>%</span>
+                        <% } %>
                     </div>
                 </div>
                     
@@ -116,6 +117,5 @@
         checkbox.addEventListener('change', reCalculateTotal);
     });
 </script>
-
 <jsp:include page="Layout/footer.jsp"/>
 <jsp:include page="Layout/Chatbox.jsp"/>
