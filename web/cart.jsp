@@ -2,9 +2,6 @@
     Document   : cart
     Created on : Apr 6, 2026, 8:07:19 PM
     Author     : PC
-<%@page import="java.util.List"%>
-<%@page import="Model.Product"%>
-<%@page import="Model.Product"%>
 --%>
 
 <%@page import="java.util.Map"%>

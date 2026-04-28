@@ -17,6 +17,8 @@
 
     <%
         Model.User user = (Model.User) session.getAttribute("user");
+        String msg = request.getParameter("msg");
+        String reg_error = request.getParameter("reg_error");
     %>
 
     <div class="user">
@@ -55,9 +57,6 @@
             <span onclick="closeModal()" class="close">&times;</span>
 
             <h2>Đăng nhập</h2>
-            <%
-                String msg = request.getParameter("msg");
-            %>
 
             <form action="Login" method="post">
                 <div class="form-group">
@@ -70,10 +69,10 @@
                     <input type="password" name="password" required>
                 </div>
                 <!-- HIỂN THỊ LỖI -->
-                <% if ("fail".equals(msg)) { %>
-                <p style="color:red; text-align:center;">
-                    Tài khoản không hợp lệ
-                </p>
+                <% if ("not_exist".equals(msg)) { %>
+                <p style="color:red; text-align:center;">Tài khoản không tồn tại</p>
+                <% } else if ("wrong_pass".equals(msg)) { %>
+                <p style="color:red; text-align:center;">Mật khẩu không đúng</p>
                 <% }%>
                 <button  class="btn">Đăng nhập</button>
                 <div style="text-align:center; margin-top:10px;">
@@ -95,22 +94,24 @@
 
                 <div class="form-group">
                     <label>Tên:</label>
-                    <input name="username" required>
+                    <input name="username"
+                           value="<%= "exist".equals(request.getParameter("reg_error")) ? "" : (request.getParameter("username") != null ? request.getParameter("username") : "") %>" 
+                           required>
                 </div>
 
                 <div class="form-group">
                     <label>Email:</label>
-                    <input name="email" required>
+                    <input name="email" value="<%= request.getParameter("email") != null ? request.getParameter("email") : "" %>" required>
                 </div>
 
                 <div class="form-group">
                     <label>SĐT:</label>
-                    <input name="phone" required>
+                    <input name="phone" value="<%= request.getParameter("phone") != null ? request.getParameter("phone") : "" %>" required>
                 </div>
 
                 <div class="form-group">
                     <label>Địa chỉ:</label>
-                    <input name="address" required>
+                    <input name="address" value="<%= request.getParameter("address") != null ? request.getParameter("address") : "" %>" required>
                 </div>
 
                 <div class="form-group">
@@ -122,12 +123,16 @@
                     <label>Nhập lại:</label>
                     <input type="password" name="repassword" required>
                 </div>
-
+                <!-- HIỂN THỊ LỖI -->
+                <% if ("exist".equals(reg_error)) { %>
+                <p style="color:red; text-align:center;">Username đã tồn tại</p>
+                <% }%>
                 <button class="btn">Đăng ký</button>
 
             </form>
         </div>
     </div>
+    
     <!-- CONTACT MODAL -->
     <div id="contactModal" class="modal">
         <div class="modal-content">
@@ -163,32 +168,33 @@
     </div>
 </div>
 <!-- XỬ LÝ THÔNG BÁO + MODAL -->
-<%
-    String reg_error = request.getParameter("reg_error");
-%>
-
 <script>
+    let msgJS = "<%= msg != null ? msg : "" %>";
+    let reg_errorJS = "<%= reg_error != null ? reg_error : "" %>";
     window.onload = function () {
 
-    <% if ("success".equals(msg)) { %>
-        alert("Đăng nhập thành công!");
-        //Xóa tham số msg khỏi URL mà không load lại trang
-        if (window.history.replaceState) {
-            const url = new URL(window.location);
-            url.searchParams.delete('msg'); // Xóa riêng tham số msg
-            window.history.replaceState({}, document.title, url.pathname + url.search);
+    if (msgJS === "success") {
+            alert("Đăng nhập thành công!");
+
+            if (window.history.replaceState) {
+                const url = new URL(window.location);
+                url.searchParams.delete('msg');
+                window.history.replaceState({}, document.title, url.pathname + url.search);
+            }
         }
-    <% } else if ("fail".equals(msg)) { %>
-        alert("Đăng nhập thất bại!");
-        openLogin();
-    <% } %>
+
+        if (msgJS === "not_exist" || msgJS === "wrong_pass") {
+            openLogin();
+        }
 
         // REGISTER
-    <% if ("register_success".equals(msg)) { %>
+    if (reg_errorJS === "success") { 
         alert("Đăng ký thành công!");
         openLogin();
-    <% } %>
-
+    }
+    if (reg_errorJS === "exist") {
+        openRegister();
+    }
         // VALIDATE REGISTER
     <% if ("empty".equals(reg_error)) { %>
         alert("Không được để trống!");
@@ -279,7 +285,13 @@
                     .then(res => res.json())
                     .then(data => {
 
-                        box.innerHTML = "<b>Có phải bạn muốn tìm</b><hr>";
+                        box.innerHTML = `
+                            <div class="suggest-header">
+                                <b>Có phải bạn muốn tìm</b>
+                                <span class="close-suggest" onclick="closeSuggest()">×</span>
+                            </div>
+                            <hr>
+                        `;
 
                         data.forEach(p => {
 
@@ -337,5 +349,8 @@
 
     function goDetail(id) {
         window.location = "detail.jsp?id=" + id;
+    }
+    function closeSuggest() {
+        document.getElementById("suggestBox").style.display = "none";
     }
 </script>

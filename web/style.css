@@ -976,3 +976,26 @@ th, td {
 .msg {
     white-space: pre-line;
 }
+
+/* ===== HEADER SUGGEST (có dấu X) ===== */
+.suggest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.close-suggest {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+    padding: 0 8px;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.close-suggest:hover {
+    color: white;
+    background: red;
+}
