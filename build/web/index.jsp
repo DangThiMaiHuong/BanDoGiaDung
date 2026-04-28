@@ -138,7 +138,7 @@
                             <%= String.format("%,d VNĐ", p.getPrice()).replace(",", ".")%>
                         </p>
 
-                        <p class="price">
+                        <p class="product-price">
                             <%= String.format("%,.0f VNĐ", p.getFinalPrice()).replace(",", ".")%>
                         </p>
 
@@ -148,7 +148,7 @@
 
                         <% } else {%>
 
-                        <p class="price">
+                        <p class="product-price">
                             <%= String.format("%,d VNĐ", p.getPrice()).replace(",", ".")%>
                         </p>
 

@@ -45,14 +45,51 @@
 
                         <h1 class="product-title"><%= p.getName()%></h1>
 
-                        <div class="small-center-image">
-                            <img src="<%= p.getImage()%>" alt="<%= p.getName()%>">
+                       <%-- 1. KHỐI HIỂN THỊ ẢNH (Có nhãn dính góc) --%>
+                        <%-- Chúng ta bọc ảnh vào một div có position: relative --%>
+                        <div class="main-product-image-container" style="position: relative; display: inline-block; margin-bottom: 20px; border: 1px solid #eaeaea; border-radius: 8px; overflow: hidden; background: #fff;">
+        
+                           <%-- Đặt nhãn dựa trên type, sử dụng class chuyên biệt .label-on-image --%>
+                           <% if (p.getType() == 1) { %>
+                              <div class="label-on-image hot">🔥 HOT</div>
+                           <% } else if (p.getType() == 2) { %>
+                              <div class="label-on-image sale">💥 SALE</div>
+                           <% } else if (p.getType() == 3) { %>
+                           <div class="label-on-image new">🆕 NEW</div>
+                           <% } %>
+                            <img src="<%= p.getImage()%>" alt="<%= p.getName()%>" style="display: block; max-width: 100%; height: auto;">
                         </div>
 
                         <div class="price-action-group">
-                            <p class="product-price">
-                                <%= String.format("%,.0f VNĐ", p.getFinalPrice()).replace(",", ".")%> 
+                            <%-- HIỂN THỊ GIÁ KIỂU "VOUCHER" (MÀU ĐỎ RỰC) --%>
+                                <div class="voucher-price-container" style="margin-bottom: 20px;">
+                                <% if (p.getType() == 2 && p.getDiscount_percent() != null && p.getDiscount_percent() > 0) { %>
+                
+                            <%-- Giá gốc gạch ngang --%>
+                            <p class="old-price-label" style="color: #999; text-decoration: line-through; font-size: 16px; margin: 0;">
+                                <%= String.format("%,d VNĐ", p.getPrice()).replace(",", ".") %>
                             </p>
+                
+                            <%-- Giá sau giảm, màu đỏ rực kiểu Voucher --%>
+                            <p class="final-voucher-price" style="color: #ee4d2d; font-size: 32px; font-weight: bold; margin: 5px 0; display: flex; align-items: baseline; gap: 5px;">
+                            <%= String.format("%,.0f đ", p.getFinalPrice()).replace(",", ".") %> 
+                    
+                            <%-- Tag phần trăm giảm giá kiểu Voucher --%>
+                                <span class="discount-percent-tag" style="background-color: #fbebed; color: #ee4d2d; border: 1px solid #ee4d2d; font-size: 14px; padding: 2px 8px; border-radius: 4px; font-weight: 600;">
+                                    -<%= p.getDiscount_percent() %>%
+                                </span>
+                                <span class="voucher-text" style="color: #ee4d2d; font-size: 16px; font-weight: normal; margin-left: 5px;">
+                                    Giá Sau Voucher
+                                </span>
+                            </p>
+                
+                                <% } else { %>
+                                <%-- Nếu không giảm giá, hiện giá thường màu đỏ --%>
+                                <p class="product-price" style="color: #ee4d2d; font-size: 30px; font-weight: bold; margin: 10px 0;">
+                                     <%= String.format("%,.0f đ", p.getFinalPrice()).replace(",", ".") %> 
+                                 </p>
+                                <% } %>
+                                </div>
                             <div class="detail-actions">
                                 <button class="btn-buy-now">MUA NGAY</button>
                                 <a href="Detail?id=<%= p.getId()%>" class="btn-add-cart" 
@@ -77,7 +114,7 @@
                 </div>
                 <% }%>
             </div>
-        </div> </div> 
+        </div>
         <jsp:include page="Layout/footer.jsp"/>
         <jsp:include page="Layout/Chatbox.jsp"/>
 </body>
