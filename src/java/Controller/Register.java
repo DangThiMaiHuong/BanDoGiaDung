@@ -72,7 +72,7 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username").trim();
-        String email = request.getParameter("email".trim());
+        String email = request.getParameter("email").trim();
         String phone = request.getParameter("phone").trim();
         String address = request.getParameter("address").trim();
         String password = request.getParameter("password").trim();
@@ -91,6 +91,18 @@ public class Register extends HttpServlet {
 
         if (!email.contains("@")) {
             response.sendRedirect("index.jsp?reg_error=email");
+            return;
+        }
+        // CHECK USERNAME TỒN TẠI
+        UserDAO dao = new UserDAO();
+
+        if (dao.isUsernameExist(username)) {
+            response.sendRedirect(
+                "index.jsp?reg_error=exist"
+                + "&email=" + java.net.URLEncoder.encode(email, "UTF-8")
+                + "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8")
+                + "&address=" + java.net.URLEncoder.encode(address, "UTF-8")
+            );
             return;
         }
         // Lưu DB

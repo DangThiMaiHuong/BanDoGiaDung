@@ -74,32 +74,54 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username").trim();
-        String pass = request.getParameter("password").trim();
+        // Lấy dữ liệu
+        String username = request.getParameter("username");
+        String pass = request.getParameter("password");
 
-        // 1.Kiểm tra đăng nhập
-        User u = new UserDAO().login(username, pass);
-
-        if (u != null) {
-            // 2. Lưu user vào session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", u);
-
-            //xóa sạch bố nhớ tạm khi chưa đăng nhập
-            session.removeAttribute("cart");
-
-            // 3. ĐỒNG BỘ GIỎ HÀNG: Lấy từ DB đổ vào Session
-            ProductDAO pDao = new ProductDAO();
-            Map<Integer, Integer> dbCart = pDao.getCartFromDB(u.getUsername());
-
-            if (dbCart != null && !dbCart.isEmpty()) {
-                session.setAttribute("cart", dbCart);
-            }
-
-            response.sendRedirect("index.jsp?msg=success");
-        } else {
-            response.sendRedirect("index.jsp?msg=fail");
+        if (username == null) {
+            username = "";
         }
+        if (pass == null) {
+            pass = "";
+        }
+
+        username = username.trim();
+        pass = pass.trim();
+
+        UserDAO dao = new UserDAO();
+
+        // Kiểm tra user
+        User userCheck = dao.findByUsername(username);
+
+        // KHÔNG TỒN TẠI
+        if (userCheck == null) {
+            response.sendRedirect("index.jsp?msg=not_exist");
+            return;
+        }
+
+        // SAI PASSWORD
+        String dbPass = userCheck.getPassword();
+
+        if (dbPass == null || !dbPass.equals(pass)) {
+            response.sendRedirect("index.jsp?msg=wrong_pass&username=" + java.net.URLEncoder.encode(username, "UTF-8"));
+            return;
+        }
+
+        // LOGIN THÀNH CÔNG
+        HttpSession session = request.getSession();
+        session.setAttribute("user", userCheck);
+
+        // reset cart
+        session.removeAttribute("cart");
+
+        ProductDAO pDao = new ProductDAO();
+        Map<Integer, Integer> dbCart = pDao.getCartFromDB(userCheck.getUsername());
+
+        if (dbCart != null && !dbCart.isEmpty()) {
+            session.setAttribute("cart", dbCart);
+        }
+
+        response.sendRedirect("index.jsp?msg=success");
     }
 
     /**
