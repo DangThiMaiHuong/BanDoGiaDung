@@ -47,7 +47,8 @@ public class UserDAO {
                         rs.getString("email"),
                         rs.getString("phone"),
                         rs.getString("address"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("role")
                 );
             }
         } catch (Exception e) {
@@ -84,7 +85,8 @@ public class UserDAO {
                         rs.getString("email"),
                         rs.getString("phone"),
                         rs.getString("address"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("role")
                 );
             }
         } catch (Exception e) {

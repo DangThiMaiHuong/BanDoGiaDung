@@ -168,7 +168,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- FOOTER -->
     <jsp:include page="Layout/footer.jsp"/>

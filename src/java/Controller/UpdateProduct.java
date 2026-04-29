@@ -4,8 +4,6 @@
  */
 package Controller;
 
-import Model.User;
-import Model.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author PC
  */
-public class Register extends HttpServlet {
+public class UpdateProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +34,10 @@ public class Register extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Register</title>");
+            out.println("<title>Servlet UpdateProduct</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Register at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateProduct at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,52 +69,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username").trim();
-        String email = request.getParameter("email").trim();
-        String phone = request.getParameter("phone").trim();
-        String address = request.getParameter("address").trim();
-        String password = request.getParameter("password").trim();
-        String repass = request.getParameter("repassword").trim();
-
-        // VALIDATE
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            response.sendRedirect("index.jsp?reg=empty");
-            return;
-        }
-
-        if (!password.equals(repass)) {
-            response.sendRedirect("index.jsp?reg=pass");
-            return;
-        }
-
-        if (!email.contains("@")) {
-            response.sendRedirect("index.jsp?reg=email");
-            return;
-        }
-        // CHECK USERNAME TỒN TẠI
-        UserDAO dao = new UserDAO();
-
-        if (dao.isUsernameExist(username)) {
-            response.sendRedirect(
-                "index.jsp?reg=exist"
-                + "&email=" + java.net.URLEncoder.encode(email, "UTF-8")
-                + "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8")
-                + "&address=" + java.net.URLEncoder.encode(address, "UTF-8")
-            );
-            return;
-        }
-        // Lưu DB
-        User u = new User();
-        u.setUsername(username);
-        u.setEmail(email);
-        u.setPhone(phone);
-        u.setAddress(address);
-        u.setPassword(password);
-
-        new UserDAO().register(u);
-
-        // chuyển sang login
-        response.sendRedirect("index.jsp?reg=success");
+        processRequest(request, response);
     }
 
     /**
