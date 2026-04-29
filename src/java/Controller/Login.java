@@ -121,7 +121,11 @@ public class Login extends HttpServlet {
             session.setAttribute("cart", dbCart);
         }
 
-        response.sendRedirect("index.jsp?msg=success");
+        if ("admin".equals(userCheck.getRole())) {
+            response.sendRedirect("productManager.jsp");   // admin
+        } else {
+            response.sendRedirect("index.jsp?msg=success"); // user
+        }
     }
 
     /**

@@ -47,7 +47,7 @@
                         totalMoney += p.getFinalPrice() * qty;
             %>
             <div class="cart-item">
-                <input type="checkbox" checked class="cart-checkbox" data-price="<%= p.getFinalPrice() * qty%>" style="accent-color: #ff4d4f; transform: scale(1.2);">
+                <input type="checkbox" checked class="cart-checkbox" data-price="<%= p.getFinalPrice()%>" style="accent-color: #ff4d4f; transform: scale(1.2);">
 
                 <a href="detail.jsp?id=<%= p.getId()%>">
                     <img src="<%= p.getImage()%>" class="cart-product-img">
@@ -101,14 +101,19 @@
         const selectedItems = document.querySelectorAll('.cart-checkbox:checked');
 
         selectedItems.forEach(item => {
+            const price = Number(item.getAttribute('data-price'));
 
-            total += parseInt(item.getAttribute('data-price'));
+            const qty = item
+                .closest('.cart-item')
+                .querySelector('.qty-input')
+                .value;
+
+            total += price * Number(qty);
         });
 
-
-        document.getElementById('totalPriceDisplay').innerText = total.toLocaleString('vi-VN') + " đ";
-    }
-
+        document.getElementById('totalPriceDisplay').innerText =
+            total.toLocaleString('vi-VN') + " đ";
+}
 
     document.querySelectorAll('.cart-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', reCalculateTotal);

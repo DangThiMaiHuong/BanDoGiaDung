@@ -11,18 +11,19 @@ package Model;
 public class User {
 
     private int id;
-    private String username, email, phone, address, password;
+    private String username, email, phone, address, password, role;
 
     public User() {
     }
 
-    public User(int id, String username, String email, String phone, String address, String password) {
+    public User(int id, String username, String email, String phone, String address, String password, String role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.password = password;
+        this.role = role;
     }
 
     public int getId() {
@@ -52,6 +53,9 @@ public class User {
     public String getPassword() {
         return password;
     }
+    public String getRole(){
+        return role;
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -71,5 +75,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
     }
 }

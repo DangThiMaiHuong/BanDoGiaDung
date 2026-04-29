@@ -11,7 +11,7 @@ package Model;
 public class Product {
 
     private int id;
-    private String name, image, description;
+    private String name, image, description, category;
     private long price;
     private Integer discount_percent;
     private int type;
@@ -19,7 +19,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String image, String description, long price, Integer discount_percent, int type) {
+    public Product(int id, String name, String image, String description, long price, Integer discount_percent, int type, String category) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -27,8 +27,20 @@ public class Product {
         this.price = price;
         this.discount_percent = discount_percent;
         this.type = type;
+        this.category = category;
+        
     }
-
+    
+    public Product(String name, long price, String image, String description, String category, int type, Integer discount_percent) {
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.price = price;
+        this.discount_percent = discount_percent;
+        this.type = type;
+        this.category = category;
+    }
+    
     public int getId() {
         return id;
     }
@@ -57,6 +69,10 @@ public class Product {
         return type;
     }
 
+    public String getCategory() {
+        return category;
+    }
+    
     public double getFinalPrice() {
         if (discount_percent != null && discount_percent > 0) {
             return price * (100 - discount_percent) / 100.0;

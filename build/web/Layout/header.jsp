@@ -18,7 +18,7 @@
     <%
         Model.User user = (Model.User) session.getAttribute("user");
         String msg = request.getParameter("msg");
-        String reg_error = request.getParameter("reg_error");
+        String reg = request.getParameter("reg");
     %>
 
     <div class="user">
@@ -31,7 +31,10 @@
 
         <% } else {%>
 
-        👤 Chào, <b><%= user.getUsername()%></b> |
+        👤 Chào, <b><%= user.getUsername()%></b>
+        <% if ("admin".equals(user.getRole())) { %>
+            | <a href="productManager.jsp">Quản lý sản phẩm</a>
+        <% } %>|
         <a href="Logout">Đăng xuất</a>
 
         <% }%>
@@ -76,7 +79,7 @@
                 <% }%>
                 <button  class="btn">Đăng nhập</button>
                 <div style="text-align:center; margin-top:10px;">
-                    Chưa có tài khoản? 
+                    Bạn chưa có tài khoản? 
                     <a href="#" onclick="switchToRegister()">Đăng ký</a>
                 </div>
             </form>
@@ -124,11 +127,14 @@
                     <input type="password" name="repassword" required>
                 </div>
                 <!-- HIỂN THỊ LỖI -->
-                <% if ("exist".equals(reg_error)) { %>
+                <% if ("exist".equals(reg)) { %>
                 <p style="color:red; text-align:center;">Username đã tồn tại</p>
                 <% }%>
                 <button class="btn">Đăng ký</button>
-
+                <div style="text-align:center; margin-top:10px;">
+                    Bạn đã có tài khoản? 
+                    <a href="#" onclick="switchToLogin()">Đăng nhập</a>
+                </div>
             </form>
         </div>
     </div>
@@ -170,7 +176,7 @@
 <!-- XỬ LÝ THÔNG BÁO + MODAL -->
 <script>
     let msgJS = "<%= msg != null ? msg : "" %>";
-    let reg_errorJS = "<%= reg_error != null ? reg_error : "" %>";
+    let regJS = "<%= reg != null ? reg : "" %>";
     window.onload = function () {
 
     if (msgJS === "success") {
@@ -183,26 +189,26 @@
             }
         }
 
-        if (msgJS === "not_exist" || msgJS === "wrong_pass") {
-            openLogin();
-        }
+    if (msgJS === "not_exist" || msgJS === "wrong_pass") {
+        openLogin();
+    }
 
         // REGISTER
-    if (reg_errorJS === "success") { 
+    if (regJS === "success") { 
         alert("Đăng ký thành công!");
         openLogin();
     }
-    if (reg_errorJS === "exist") {
+    if (regJS === "exist") {
         openRegister();
     }
         // VALIDATE REGISTER
-    <% if ("empty".equals(reg_error)) { %>
+    <% if ("empty".equals(reg)) { %>
         alert("Không được để trống!");
         openRegister();
-    <% } else if ("pass".equals(reg_error)) { %>
+    <% } else if ("pass".equals(reg)) { %>
         alert("Mật khẩu không khớp!");
         openRegister();
-    <% } else if ("email".equals(reg_error)) { %>
+    <% } else if ("email".equals(reg)) { %>
         alert("Email không hợp lệ!");
         openRegister();
     <% } %>
@@ -237,6 +243,10 @@
     function switchToRegister() {
         document.getElementById("loginModal").style.display = "none";
         document.getElementById("registerModal").style.display = "block";
+    }
+    function switchToLogin() {
+        document.getElementById("loginModal").style.display = "block";
+        document.getElementById("registerModal").style.display = "none";
     }
     window.onclick = function (event) {
         let login = document.getElementById("loginModal");

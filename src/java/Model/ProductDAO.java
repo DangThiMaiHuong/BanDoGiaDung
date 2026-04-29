@@ -16,7 +16,8 @@ import java.sql.PreparedStatement;
 public class ProductDAO {
 
     Connection conn;
-
+    PreparedStatement ps = null;
+    
     public ProductDAO() {
         conn = new Connect().getConnection();
     }
@@ -37,7 +38,8 @@ public class ProductDAO {
                         rs.getString("description"),
                         rs.getLong("price"),
                         rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
-                        rs.getInt("type")
+                        rs.getInt("type"),
+                        rs.getString("category")
                 ));
             }
         } catch (SQLException e) {
@@ -61,7 +63,8 @@ public class ProductDAO {
                         rs.getString("description"),
                         rs.getLong("price"),
                         rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
-                        rs.getInt("type")
+                        rs.getInt("type"),
+                        rs.getString("category")
                 );
             }
         } catch (SQLException e) {
@@ -88,7 +91,8 @@ public class ProductDAO {
                         rs.getString("description"),
                         rs.getLong("price"),
                         rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
-                        rs.getInt("type")
+                        rs.getInt("type"),
+                        rs.getString("category")
                 ));
             }
         } catch (SQLException e) {
@@ -158,7 +162,8 @@ public class ProductDAO {
                         rs.getString("description"),
                         rs.getLong("price"),
                         rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
-                        rs.getInt("type")
+                        rs.getInt("type"),
+                        rs.getString("category")
                 );
                 list.add(p);
             }
@@ -187,7 +192,8 @@ public class ProductDAO {
                         rs.getString("description"),
                         rs.getLong("price"),
                         rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
-                        rs.getInt("type")
+                        rs.getInt("type"),
+                        rs.getString("category")
                 );
                 list.add(p);
             }
@@ -216,7 +222,8 @@ public class ProductDAO {
                         rs.getString("description"),
                         rs.getLong("price"),
                         rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
-                        rs.getInt("type")
+                        rs.getInt("type"),
+                        rs.getString("category")
                 );
                 list.add(p);
             }
@@ -225,4 +232,48 @@ public class ProductDAO {
         }
         return list;
     }
+    
+    public boolean isProductExistByName(String name) {
+        String sql = "SELECT * FROM products WHERE name = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); // có dữ liệu → đã tồn tại
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean addProduct(Product p) throws SQLException{
+        String sql = "INSERT INTO `products`(`name`, `price`, `image`, `description`, `category`, `type`, `discount_percent`) VALUES (?,?,?,?,?,?,?)";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, p.getName());
+        ps.setLong(2, p.getPrice());
+        ps.setString(3, p.getImage());
+        ps.setString(4, p.getDescription());
+        ps.setString(5, p.getCategory());
+        ps.setInt(6, p.getType());
+        ps.setInt(7, p.getDiscount_percent());
+        return ps.executeUpdate() > 0;
+    }
+    
+//    public boolean updateProduct(Product p) throws SQLException{
+//        String sql = "UPDATE `thuephong` SET `MaKH`=?,`NgayDen`=?,`NgayDi`=? WHERE MaP=?";
+//        ps = conn.prepareStatement(sql);
+//        ps.setString(1, kh.getMaKH());
+//        ps.setDate(2, kh.getNgayDen());
+//        ps.setDate(3, kh.getNgayDi());
+//        ps.setInt(4, kh.getMaP());
+//        return ps.executeUpdate() > 0;
+//    }
+//    
+//    public boolean deleteProduct(String MaKH) throws SQLException{
+//        String sql = "delete from ThuePhong where MaKH=?";
+//        ps = conn.prepareStatement(sql);
+//        ps.setString(1, MaKH);
+//        return ps.executeUpdate() > 0;
+//    }
 }
