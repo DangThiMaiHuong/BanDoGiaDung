@@ -905,7 +905,7 @@ th, td {
     border-radius: 10px;
     box-shadow: 0 2px 10px gray;
     font-size: 13px;
-    width: 180px;
+    width: 190px;
     z-index: 9999;
 }
 
@@ -1130,4 +1130,46 @@ th, td {
     color: red;
     text-align: center;
     margin-bottom: 10px;
+}
+
+/* FORM DELETE CHUẨN */
+.delete-form .form-group {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: start; 
+    margin: 12px 0;
+}
+
+.delete-form .form-group label {
+    font-weight: bold;
+}
+
+/* input + textarea + select */
+.delete-form input,
+.delete-form textarea,
+.delete-form select {
+    width: 100%; /* QUAN TRỌNG: bỏ 300px */
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* KHUNG ẢNH */
+.delete-form .img-preview {
+    width: 100%;
+    max-width: 320px;
+}
+
+/* ẢNH */
+.delete-form .img-preview img {
+    width: 100% !important;
+    height: 160px !important;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+
+/* TEXTAREA TO HƠN */
+.delete-form textarea {
+    height: 140px;
 }

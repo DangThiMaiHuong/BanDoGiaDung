@@ -94,11 +94,11 @@
 
                 </form>
             </div>
-            </div>
-            <!-- FOOTER -->
-            <jsp:include page="Layout/footer.jsp"/>
+        </div>
+        <!-- FOOTER -->
+        <jsp:include page="Layout/footer.jsp"/>
 
-            <!-- CHATBOX -->
-            <jsp:include page="Layout/Chatbox.jsp"/>
+        <!-- CHATBOX -->
+        <jsp:include page="Layout/Chatbox.jsp"/>
     </body>
 </html>

@@ -75,8 +75,9 @@
                                 <% }%>
                             </td>
                             <td><%=p.getDiscount_percent()%></td>
-                            <td><a class="action-btn btn-update" href="updateProduct.jsp?masp=<%=p.getId()%>">Sửa</a>
-                                <a class="action-btn btn-delete" href="deleteProduct.jsp?masp=<%=p.getId()%>">Xóa</a></td>
+                            <td><a class="action-btn btn-update" href="updateProduct.jsp?id=<%=p.getId()%>">Sửa</a>
+                                <a class="action-btn btn-delete" href="deleteProduct.jsp?id=<%=p.getId()%>">Xóa</a>
+                            </td>
                         </tr>
                         <%      }
                             }

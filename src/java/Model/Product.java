@@ -57,6 +57,10 @@ public class Product {
         return image;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getDescription() {
         return description;
     }

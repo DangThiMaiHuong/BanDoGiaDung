@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Model.Product;
+import Model.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -29,6 +31,30 @@ public class UpdateProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            long price = Long.parseLong(request.getParameter("price"));
+            String image = request.getParameter("image");
+            String description = request.getParameter("description");
+            String category = request.getParameter("category");
+            int type = Integer.parseInt(request.getParameter("type"));
+            String discountRaw = request.getParameter("discount_percent");
+            Integer discount = (discountRaw == null || discountRaw.isEmpty())
+                    ? null
+                    : Integer.parseInt(discountRaw);
+
+            Product p = new Product(id, name, image, description, price, discount, type, category);
+            p.setCategory(category); // nếu có
+
+            ProductDAO dao = new ProductDAO();
+            dao.updateProduct(p);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect("productManager.jsp");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
