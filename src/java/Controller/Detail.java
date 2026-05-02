@@ -93,10 +93,10 @@ public class Detail extends HttpServlet {
         if (user != null) {
             ProductDAO dao = new ProductDAO();
             if (cart.containsKey(id)) {
-                dao.CartToDB(user.getUsername(), id, cart.get(id));
+                dao.CartToDB(user.getId(), user.getUsername(), id, cart.get(id));
             } else {
                 // Nếu sản phẩm đã bị remove khỏi map (do giảm xuống 0)
-                dao.removeFromDB(user.getUsername(), id);
+                dao.CartToDB(null, null, id, cart.get(id));
             }
         }
 
