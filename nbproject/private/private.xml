@@ -33,6 +33,8 @@
             <file>file:/D:/Web/BanDoGiaDung/web/Layout/header.jsp</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/Logout.java</file>
             <file>file:/D:/Web/BanDoGiaDung/web/updateProduct.jsp</file>
+            <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/AdminFilter.java</file>
+            <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/Contact.java</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Model/ContactDAO.java</file>
         </group>
     </open-files>

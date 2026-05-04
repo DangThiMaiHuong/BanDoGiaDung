@@ -60,7 +60,7 @@
 
                     <div class="form-group">
                         <label>Mô tả:</label>
-                        <textarea name="description"><%=p.getDescription()%></textarea>
+                        <textarea rows="5" name="description"><%=p.getDescription()%></textarea>
                     </div>
 
                     <!-- CATEGORY -->
