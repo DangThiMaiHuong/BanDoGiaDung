@@ -43,23 +43,23 @@
 
                     <div class="form-group">
                         <label>Giá:</label>
-                        <input type="number" name="price" required>
+                        <input type="number" name="price" value="<%= request.getParameter("price") != null ? request.getParameter("price") : ""%>" required>
                     </div>
 
                     <div class="form-group">
                         <label>Ảnh (URL):</label>
-                        <input type="text" name="image" required>
+                        <input type="text" name="image" value="<%= request.getParameter("image") != null ? request.getParameter("image") : ""%>" required>
                     </div>
 
                     <div class="form-group">
                         <label>Mô tả:</label>
-                        <textarea name="description" rows="5" style="width:24.5%;" required></textarea>
+                        <textarea name="description" rows="5" style="width:24.5%;" required><%= request.getParameter("description") != null ? request.getParameter("description") : ""%></textarea>
                     </div>
 
                     <!-- CATEGORY -->
                     <div class="form-group">
                         <label>Danh mục:</label>
-                        <select name="category" required>
+                        <select name="category" value="<%= request.getParameter("category") != null ? request.getParameter("category") : ""%>" required>
                             <option value="tulanh">Tủ lạnh</option>
                             <option value="maygiat">Máy giặt</option>
                             <option value="tivi">Tivi</option>
@@ -74,7 +74,7 @@
                     <!-- TYPE -->
                     <div class="form-group">
                         <label>Loại sản phẩm:</label>
-                        <select name="type" required>
+                        <select name="type" value="<%= request.getParameter("type") != null ? request.getParameter("type") : ""%>" required>
                             <option value="1">🔥 Hot</option>
                             <option value="2">💥 Sale</option>
                             <option value="3">🆕 New</option>
@@ -83,7 +83,7 @@
 
                     <div class="form-group">
                         <label>Giảm giá (%):</label>
-                        <input type="number" name="discount_percent" min="0" max="100" value="0">
+                        <input type="number" name="discount_percent" min="0" max="100" value="<%= request.getParameter("sale") != null ? request.getParameter("sale") : "0"%>">
                     </div>
                     <% if ("exist".equals(error)) { %>
                     <p style="color:red; text-align:center;">

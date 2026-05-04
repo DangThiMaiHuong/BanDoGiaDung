@@ -47,7 +47,14 @@ public class AddProduct extends HttpServlet {
             ProductDAO dao = new ProductDAO();
             // kiểm tra tồn tại sản phẩm?
             if (dao.isProductExistByName(tensp)) {
-                response.sendRedirect("addProduct.jsp?error=exist&name=" + URLEncoder.encode(tensp, "UTF-8"));
+                response.sendRedirect("addProduct.jsp?error=exist"
+                        + "&price=" + java.net.URLEncoder.encode(String.valueOf(gia), "UTF-8")                    
+                        + "&image=" + java.net.URLEncoder.encode(anh, "UTF-8")
+                        + "&description=" + java.net.URLEncoder.encode(mota, "UTF-8")
+                        + "&category=" + java.net.URLEncoder.encode(loai, "UTF-8")
+                        + "&type=" + java.net.URLEncoder.encode(String.valueOf(type), "UTF-8")
+                        + "&sale=" + java.net.URLEncoder.encode(String.valueOf(sale), "UTF-8")
+                );
                 return;
             }
             if (type != 2) { // 2 = SALE
