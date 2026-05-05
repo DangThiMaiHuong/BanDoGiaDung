@@ -94,8 +94,10 @@
                                value="<%=p.getDiscount_percent() == null ? 0 : p.getDiscount_percent()%>">
                     </div>
 
-                    <button class="btn">Cập nhật</button>
-
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn">Cập nhật</button>
+                        <a href="productManager.jsp" class="btn">Quay lại</a>
+                    </div>
                 </form>
             </div>
         </div>

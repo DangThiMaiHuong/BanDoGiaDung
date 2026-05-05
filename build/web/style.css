@@ -553,9 +553,15 @@ th, td {
     border-radius: 6px;
 }
 
-.label-on-image.hot { background: orange; }
-.label-on-image.sale { background: red; }
-.label-on-image.new { background: green; }
+.label-on-image.hot {
+    background: orange;
+}
+.label-on-image.sale {
+    background: red;
+}
+.label-on-image.new {
+    background: green;
+}
 
 /* NÚT */
 /* Căn chỉnh khoảng cách cho các nút */
@@ -1136,7 +1142,7 @@ th, td {
 .delete-form .form-group {
     display: grid;
     grid-template-columns: 140px 320px;
-    align-items: center; 
+    align-items: center;
     margin: 12px 0;
 }
 
@@ -1148,7 +1154,7 @@ th, td {
 .delete-form input,
 .delete-form textarea,
 .delete-form select {
-    width: 100%; /* QUAN TRỌNG: bỏ 300px */
+    width: 100%;
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;

@@ -98,14 +98,14 @@ public class Register extends HttpServlet {
 
         if (dao.isUsernameExist(username)) {
             response.sendRedirect(
-                "index.jsp?reg=exist"
-                + "&email=" + java.net.URLEncoder.encode(email, "UTF-8")
-                + "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8")
-                + "&address=" + java.net.URLEncoder.encode(address, "UTF-8")
+                    "index.jsp?reg=exist"
+                    + "&email=" + java.net.URLEncoder.encode(email, "UTF-8")
+                    + "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8")
+                    + "&address=" + java.net.URLEncoder.encode(address, "UTF-8")
             );
             return;
         }
-        // Lưu DB
+        // LƯU DB
         User u = new User();
         u.setUsername(username);
         u.setEmail(email);
@@ -115,7 +115,7 @@ public class Register extends HttpServlet {
 
         new UserDAO().register(u);
 
-        // chuyển sang login
+        // CHUYỂN SANG LOGIN
         response.sendRedirect("index.jsp?reg=success");
     }
 

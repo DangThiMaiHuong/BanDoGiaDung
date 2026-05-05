@@ -6,8 +6,6 @@ package Controller;
 
 import Model.Product;
 import Model.ProductDAO;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +15,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -80,14 +80,19 @@ public class ChatBoxAI extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
+        // lấy câu hỏi từ user
         String message = request.getParameter("message");
 
+        // gửi message lên AI
         String reply = callAI(message);
+
+        // gắn link sản phẩm
         reply = formatProductLinks(reply);
         response.setContentType("text/html;charset=UTF-8");
         response.getWriter().write(reply);
     }
 
+    // chuẩn hóa text
     private String norm(String s) {
         if (s == null) {
             return "";
@@ -95,18 +100,21 @@ public class ChatBoxAI extends HttpServlet {
         return s.toLowerCase().trim();
     }
 
+    // tên sản phẩm là link click tới trang chi tiết sản phẩm đó
     private String formatProductLinks(String text) {
 
         if (text == null) {
             return "";
         }
 
+        // lấy danh sách sản phẩm
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.getAll();
 
         String result = text;
 
         // sort để tránh match sai
+        // sắp xếp theo độ dài tên giảm dần
         list.sort((a, b) -> b.getName().length() - a.getName().length());
 
         for (Product p : list) {
@@ -117,43 +125,52 @@ public class ChatBoxAI extends HttpServlet {
             }
 
             String nameNorm = norm(name);
-            String textNorm = norm(result);
 
-            // CHỈ CHECK trước
-            if (textNorm.contains(nameNorm)) {
+            // chỉ check trước
+            if (norm(result).contains(nameNorm)) {
 
                 String link
                         = "<a href='detail.jsp?id=" + p.getId() + "'>"
                         + "<b>" + name + "</b></a>";
 
                 // replace trực tiếp tên gốc
-                result = result.replace(name, link);
+                result = result.replaceAll("\\b" + Pattern.quote(name) + "\\b", Matcher.quoteReplacement(link));
             }
         }
 
         return result;
     }
 
+    private String escapeJson(String s) {
+        if (s == null) {
+            return "";
+        }
+        return s.replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n");
+    }
+
     private String callAI(String message) {
         System.out.println("KEY = [" + API_KEY + "]");
         try {
 
-            // LẤY DATA TỪ DB
+            // lấy data từ database
             ProductDAO dao = new ProductDAO();
             List<Product> list;
 
             String msgLower = message.toLowerCase();
 
+            // lọc sản phẩm theo câu hỏi
             if (msgLower.contains("tivi")) {
                 list = dao.getByCategory("tivi");
             } else if (msgLower.contains("máy giặt")) {
                 list = dao.getByCategory("maygiat");
             } else if (msgLower.contains("tủ lạnh")) {
                 list = dao.getByCategory("tulanh");
-            } else if (msgLower.contains("nồi")) {
-                list = dao.getByCategory("noi");
             } else if (msgLower.contains("nồi cơm điện")) {
                 list = dao.getByCategory("noicomdien");
+            } else if (msgLower.contains("nồi")) {
+                list = dao.getByCategory("noi");
             } else if (msgLower.contains("máy lọc nước")) {
                 list = dao.getByCategory("maylocnuoc");
             } else if (msgLower.contains("quạt")) {
@@ -162,16 +179,16 @@ public class ChatBoxAI extends HttpServlet {
                 list = dao.getAll();
             }
 
-            // CHUYỂN SANG TEXT
+            // chuyển database sang text
             StringBuilder productData = new StringBuilder();
 
             for (Product p : list) {
-                productData.append("- ")
-                        .append(p.getName())
-                        .append(" | Giá: ")
-                        .append(p.getPrice())
-                        .append(p.getId())
-                        .append(" VNĐ\n");
+                productData.append(String.format(
+                        "- %s | Giá: %,d VNĐ | ID: %d\n",
+                        p.getName(),
+                        p.getPrice(),
+                        p.getId()
+                ));
             }
 
             URL url = new URL("https://api.groq.com/openai/v1/chat/completions");
@@ -182,7 +199,7 @@ public class ChatBoxAI extends HttpServlet {
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
 
-            // PROMPT CÓ DATABASE
+            // prompt có database
             String json = "{"
                     + "\"model\":\"llama-3.1-8b-instant\","
                     + "\"messages\":["
@@ -190,12 +207,15 @@ public class ChatBoxAI extends HttpServlet {
                     + "\"role\":\"system\","
                     + "\"content\":\"Bạn là nhân viên bán đồ gia dụng. "
                     + "Dưới đây là danh sách sản phẩm:\\n"
-                    + productData.toString().replace("\n", "\\n")
-                    + "\\nHãy tư vấn dựa trên danh sách này. Không được bịa\""
+                    + escapeJson(productData.toString())
+                    + "\\nHãy tư vấn dựa trên danh sách này. "
+                    + "Chỉ được tư vấn sản phẩm trong danh sách trên. "
+                    + "Nếu không có thì nói không có. "
+                    + "Không được bịa. Bám sát vào dữ liệu tôi gửi. Chú ý đúng giá sản phẩm\""
                     + "},"
                     + "{"
                     + "\"role\":\"user\","
-                    + "\"content\":\"" + message + "\""
+                    + "\"content\":\"" + escapeJson(message) + "\""
                     + "}"
                     + "]"
                     + "}";
@@ -231,8 +251,7 @@ public class ChatBoxAI extends HttpServlet {
             }
 
             return res.substring(start, end).replace("\\n", "\n");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             return "AI đang bận";
         }
     }

@@ -101,6 +101,7 @@ public class Contact extends HttpServlet {
             return;
         }
 
+        //lưu vào database
         Model.Contact c = new Model.Contact();
         c.setName(name);
         c.setEmail(email);

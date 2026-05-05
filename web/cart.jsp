@@ -58,13 +58,13 @@
 
                     <div class="cart-price" style="color: #ff4d4f; font-weight: bold;">
                         <%= String.format("%,.0f", p.getFinalPrice()).replace(",", ".")%> đ
-    
-                        <% if(p.getDiscount_percent() != null && p.getDiscount_percent() > 0){ %>
-                        <span class="discount-tag">-<%= p.getDiscount_percent() %>%</span>
-                        <% } %>
+
+                        <% if (p.getDiscount_percent() != null && p.getDiscount_percent() > 0) {%>
+                        <span class="discount-tag">-<%= p.getDiscount_percent()%>%</span>
+                        <% }%>
                     </div>
                 </div>
-                    
+
                 <div style="text-align: right; min-width: 90px;">
                     <a href="RemoveCart?id=<%= p.getId()%>" 
                        style="text-decoration:none; font-size: 20px; color: black;" 
@@ -104,16 +104,16 @@
             const price = Number(item.getAttribute('data-price'));
 
             const qty = item
-                .closest('.cart-item')
-                .querySelector('.qty-input')
-                .value;
+                    .closest('.cart-item')
+                    .querySelector('.qty-input')
+                    .value;
 
             total += price * Number(qty);
         });
 
         document.getElementById('totalPriceDisplay').innerText =
-            total.toLocaleString('vi-VN') + " đ";
-}
+                total.toLocaleString('vi-VN') + " đ";
+    }
 
     document.querySelectorAll('.cart-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', reCalculateTotal);

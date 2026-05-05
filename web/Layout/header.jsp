@@ -33,7 +33,7 @@
 
         👤 Chào, <b><%= user.getUsername()%></b>
         <% if ("admin".equals(user.getRole())) { %>
-            | <a href="productManager.jsp">Quản lý sản phẩm</a>
+        | <a href="productManager.jsp">Quản lý sản phẩm</a>
         <% } %>|
         <a href="Logout">Đăng xuất</a>
 
@@ -98,23 +98,23 @@
                 <div class="form-group">
                     <label>Tên:</label>
                     <input name="username"
-                           value="<%= "exist".equals(request.getParameter("reg_error")) ? "" : (request.getParameter("username") != null ? request.getParameter("username") : "") %>" 
+                           value="<%= "exist".equals(request.getParameter("reg_error")) ? "" : (request.getParameter("username") != null ? request.getParameter("username") : "")%>" 
                            required>
                 </div>
 
                 <div class="form-group">
                     <label>Email:</label>
-                    <input name="email" value="<%= request.getParameter("email") != null ? request.getParameter("email") : "" %>" required>
+                    <input name="email" value="<%= request.getParameter("email") != null ? request.getParameter("email") : ""%>" required>
                 </div>
 
                 <div class="form-group">
                     <label>SĐT:</label>
-                    <input name="phone" value="<%= request.getParameter("phone") != null ? request.getParameter("phone") : "" %>" required>
+                    <input name="phone" value="<%= request.getParameter("phone") != null ? request.getParameter("phone") : ""%>" required>
                 </div>
 
                 <div class="form-group">
                     <label>Địa chỉ:</label>
-                    <input name="address" value="<%= request.getParameter("address") != null ? request.getParameter("address") : "" %>" required>
+                    <input name="address" value="<%= request.getParameter("address") != null ? request.getParameter("address") : ""%>" required>
                 </div>
 
                 <div class="form-group">
@@ -138,7 +138,7 @@
             </form>
         </div>
     </div>
-    
+
     <!-- CONTACT MODAL -->
     <div id="contactModal" class="modal">
         <div class="modal-content">
@@ -175,11 +175,11 @@
 </div>
 <!-- XỬ LÝ THÔNG BÁO + MODAL -->
 <script>
-    let msgJS = "<%= msg != null ? msg : "" %>";
-    let regJS = "<%= reg != null ? reg : "" %>";
+    let msgJS = "<%= msg != null ? msg : ""%>";
+    let regJS = "<%= reg != null ? reg : ""%>";
     window.onload = function () {
 
-    if (msgJS === "success") {
+        if (msgJS === "success") {
             alert("Đăng nhập thành công!");
 
             if (window.history.replaceState) {
@@ -189,18 +189,18 @@
             }
         }
 
-    if (msgJS === "not_exist" || msgJS === "wrong_pass") {
-        openLogin();
-    }
+        if (msgJS === "not_exist" || msgJS === "wrong_pass") {
+            openLogin();
+        }
 
         // REGISTER
-    if (regJS === "success") { 
-        alert("Đăng ký thành công!");
-        openLogin();
-    }
-    if (regJS === "exist") {
-        openRegister();
-    }
+        if (regJS === "success") {
+            alert("Đăng ký thành công!");
+            openLogin();
+        }
+        if (regJS === "exist") {
+            openRegister();
+        }
         // VALIDATE REGISTER
     <% if ("empty".equals(reg)) { %>
         alert("Không được để trống!");

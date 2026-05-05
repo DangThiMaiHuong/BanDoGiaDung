@@ -73,7 +73,7 @@ public class Detail extends HttpServlet {
             cart = new HashMap<>();
         }
 
-        // XỬ LÝ LOGIC SỐ LƯỢNG
+        // Xử lý logic số lượng
         int currentQty = cart.getOrDefault(id, 0);
 
         if ("decrease".equals(action)) {
@@ -89,7 +89,7 @@ public class Detail extends HttpServlet {
 
         session.setAttribute("cart", cart);
 
-        // ĐỒNG BỘ VÀO DATABASE
+        // Đồng bộ vào database
         if (user != null) {
             ProductDAO dao = new ProductDAO();
             if (cart.containsKey(id)) {

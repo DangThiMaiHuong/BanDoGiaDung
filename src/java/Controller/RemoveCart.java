@@ -74,11 +74,10 @@ public class RemoveCart extends HttpServlet {
         }
         if (user != null) {
             ProductDAO dao = new ProductDAO();
-//            dao.removeFromDB(user.getUsername(), id);
             dao.removeFromDB(user.getId(), user.getUsername(), id);
         }
 
-        // 4. Xóa xong thì quay về trang giỏ hàng
+        // Xóa xong thì quay về trang giỏ hàng
         response.sendRedirect("cart.jsp");
     }
 

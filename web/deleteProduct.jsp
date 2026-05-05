@@ -94,7 +94,10 @@
                         Bạn có chắc muốn xóa sản phẩm này?
                     </p>
 
-                    <button class="btn" style="background:red;">XÓA</button>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn" style="background:red;">XÓA</button>
+                        <a href="productManager.jsp" class="btn">Quay lại</a>
+                    </div>
                 </form>
 
             </div>

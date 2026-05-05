@@ -6,11 +6,11 @@ package Controller;
 
 import Model.ProductDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 
 /**
  *
@@ -30,15 +30,14 @@ public class DeleteProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         try {
+        try {
             String idRaw = request.getParameter("id");
             if (idRaw != null) {
                 int id = Integer.parseInt(idRaw);
                 ProductDAO dao = new ProductDAO();
                 dao.deleteProduct(id);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException | SQLException e) {
         }
         response.sendRedirect("productManager.jsp");
     }

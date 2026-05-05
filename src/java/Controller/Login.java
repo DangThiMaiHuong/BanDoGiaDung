@@ -93,13 +93,13 @@ public class Login extends HttpServlet {
         // Kiểm tra user
         User userCheck = dao.findByUsername(username);
 
-        // KHÔNG TỒN TẠI
+        // Không tồn tại
         if (userCheck == null) {
             response.sendRedirect("index.jsp?msg=not_exist");
             return;
         }
 
-        // SAI PASSWORD
+        // Sai password
         String dbPass = userCheck.getPassword();
 
         if (dbPass == null || !dbPass.equals(pass)) {
@@ -107,11 +107,11 @@ public class Login extends HttpServlet {
             return;
         }
 
-        // LOGIN THÀNH CÔNG
+        // Login thành công
         HttpSession session = request.getSession();
         session.setAttribute("user", userCheck);
 
-        // reset cart
+        // Reset cart
         session.removeAttribute("cart");
 
         ProductDAO pDao = new ProductDAO();
