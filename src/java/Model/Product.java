@@ -28,9 +28,9 @@ public class Product {
         this.discount_percent = discount_percent;
         this.type = type;
         this.category = category;
-        
+
     }
-    
+
     public Product(String name, long price, String image, String description, String category, int type, Integer discount_percent) {
         this.name = name;
         this.image = image;
@@ -40,7 +40,7 @@ public class Product {
         this.type = type;
         this.category = category;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -76,7 +76,7 @@ public class Product {
     public String getCategory() {
         return category;
     }
-    
+
     public double getFinalPrice() {
         if (discount_percent != null && discount_percent > 0) {
             return price * (100 - discount_percent) / 100.0;

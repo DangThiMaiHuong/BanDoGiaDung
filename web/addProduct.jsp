@@ -34,6 +34,7 @@
             <div class="content admin-page">
                 <!-- MENU PRODUCT TYPE -->
                 <jsp:include page="Layout/ProductType.jsp"/>
+
                 <form action="AddProduct" method="post">
 
                     <div class="form-group">
@@ -90,8 +91,10 @@
                         Sản phẩm đã tồn tại
                     </p>
                     <% }%>
-                    <button class="btn">Thêm sản phẩm</button>
-
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn">Thêm sản phẩm</button>
+                        <a href="productManager.jsp" class="btn">Quay lại</a>
+                    </div>
                 </form>
             </div>
         </div>

@@ -43,7 +43,6 @@ public class ProductDAO {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
     }
@@ -68,7 +67,6 @@ public class ProductDAO {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -96,7 +94,6 @@ public class ProductDAO {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return list;
@@ -186,7 +183,6 @@ public class ProductDAO {
                 list.add(p);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
     }
@@ -216,7 +212,6 @@ public class ProductDAO {
                 list.add(p);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
     }
@@ -246,7 +241,6 @@ public class ProductDAO {
                 list.add(p);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
     }
@@ -260,7 +254,6 @@ public class ProductDAO {
 
             return rs.next(); // có dữ liệu → đã tồn tại
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return false;
     }

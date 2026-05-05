@@ -169,10 +169,10 @@
             </div>
         </div>
 
-    <!-- FOOTER -->
-    <jsp:include page="Layout/footer.jsp"/>
+        <!-- FOOTER -->
+        <jsp:include page="Layout/footer.jsp"/>
 
-    <!-- CHATBOX -->
-    <jsp:include page="Layout/Chatbox.jsp"/>
-</body>
+        <!-- CHATBOX -->
+        <jsp:include page="Layout/Chatbox.jsp"/>
+    </body>
 </html>

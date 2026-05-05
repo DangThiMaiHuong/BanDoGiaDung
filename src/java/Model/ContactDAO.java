@@ -42,8 +42,7 @@ public class ContactDAO {
                 ps.executeUpdate();
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
     }
 }

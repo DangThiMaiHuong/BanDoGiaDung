@@ -23,7 +23,7 @@ public class AdminFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        
+
         String uri = request.getRequestURI();
         boolean isAdminPage
                 = uri.contains("productManager.jsp")

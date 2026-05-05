@@ -12,7 +12,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +47,7 @@ public class AddProduct extends HttpServlet {
             // kiểm tra tồn tại sản phẩm?
             if (dao.isProductExistByName(tensp)) {
                 response.sendRedirect("addProduct.jsp?error=exist"
-                        + "&price=" + java.net.URLEncoder.encode(String.valueOf(gia), "UTF-8")                    
+                        + "&price=" + java.net.URLEncoder.encode(String.valueOf(gia), "UTF-8")
                         + "&image=" + java.net.URLEncoder.encode(anh, "UTF-8")
                         + "&description=" + java.net.URLEncoder.encode(mota, "UTF-8")
                         + "&category=" + java.net.URLEncoder.encode(loai, "UTF-8")
@@ -59,9 +58,9 @@ public class AddProduct extends HttpServlet {
             }
             if (type != 2) { // 2 = SALE
                 sale = 0;
-            }           
+            }
             Product p = new Product(tensp, gia, anh, mota, loai, type, sale);
-            if(new ProductDAO().addProduct(p)){
+            if (new ProductDAO().addProduct(p)) {
                 response.sendRedirect("productManager.jsp");
             }
             try (PrintWriter out = response.getWriter()) {
@@ -76,7 +75,7 @@ public class AddProduct extends HttpServlet {
                 out.println("</body>");
                 out.println("</html>");
             }
-        }   catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

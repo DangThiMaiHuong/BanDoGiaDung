@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 
 /**
  *
@@ -55,8 +56,7 @@ public class UpdateProduct extends HttpServlet {
             ProductDAO dao = new ProductDAO();
             dao.updateProduct(p);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException | SQLException e) {
         }
 
         response.sendRedirect("productManager.jsp");
