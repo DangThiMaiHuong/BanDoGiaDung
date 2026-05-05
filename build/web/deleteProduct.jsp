@@ -55,8 +55,10 @@
 
                     <div class="form-group">
                         <label>Ảnh (URL):</label>
-                        <div class="img-preview">
-                            <img src="<%=p.getImage()%>"/>
+                        <div>
+                            <div class="img-preview">
+                                <img src="<%=p.getImage()%>"/>
+                            </div>
                         </div>
                     </div>
 

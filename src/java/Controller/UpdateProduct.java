@@ -40,12 +40,17 @@ public class UpdateProduct extends HttpServlet {
             String category = request.getParameter("category");
             int type = Integer.parseInt(request.getParameter("type"));
             String discountRaw = request.getParameter("discount_percent");
-            Integer discount = (discountRaw == null || discountRaw.isEmpty())
-                    ? null
-                    : Integer.parseInt(discountRaw);
+            Integer discount;
 
+            if (type == 2) {
+                discount = (discountRaw == null || discountRaw.isEmpty())
+                        ? 0
+                        : Integer.valueOf(discountRaw);
+            } else {
+                discount = 0; // HOT + NEW = 0
+            }
             Product p = new Product(id, name, image, description, price, discount, type, category);
-            p.setCategory(category); // nếu có
+            p.setCategory(category);
 
             ProductDAO dao = new ProductDAO();
             dao.updateProduct(p);
