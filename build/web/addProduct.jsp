@@ -53,7 +53,7 @@
 
                     <div class="form-group">
                         <label>Mô tả:</label>
-                        <textarea name="description" rows="5" style="width:24.5%;" required><%= request.getParameter("description") != null ? request.getParameter("description") : ""%></textarea>
+                        <textarea name="description" rows="5" required><%= request.getParameter("description") != null ? request.getParameter("description") : ""%></textarea>
                     </div>
 
                     <!-- CATEGORY -->

@@ -82,15 +82,15 @@
                     <div class="form-group">
                         <label>Loại sản phẩm:</label>
                         <select name="type" required>
-                            <option value="1">🔥 Hot</option>
-                            <option value="2">💥 Sale</option>
-                            <option value="3">🆕 New</option>
+                            <option value="1" <%=p.getType() == 1 ? "selected" : ""%>>🔥 Hot</option>
+                            <option value="2" <%=p.getType() == 2 ? "selected" : ""%>>💥 Sale</option>
+                            <option value="3" <%=p.getType() == 3 ? "selected" : ""%>>🆕 New</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Giảm giá (%):</label>
-                        <input type="number" name="discount_percent"
+                        <input type="number" id="discount" name="discount_percent"
                                value="<%=p.getDiscount_percent() == null ? 0 : p.getDiscount_percent()%>">
                     </div>
 
@@ -99,6 +99,26 @@
                 </form>
             </div>
         </div>
+
+        <script>
+            function toggleDiscount() {
+                var type = document.querySelector("select[name='type']").value;
+                var discount = document.getElementById("discount");
+
+                if (type == "2") {
+                    discount.disabled = false;
+                } else {
+                    discount.value = 0;
+                    discount.disabled = true;
+                }
+            }
+
+            // chạy khi load trang
+            window.onload = toggleDiscount;
+
+            // chạy khi đổi type
+            document.querySelector("select[name='type']").addEventListener("change", toggleDiscount);
+        </script>
 
         <!-- FOOTER -->
         <jsp:include page="Layout/footer.jsp"/>

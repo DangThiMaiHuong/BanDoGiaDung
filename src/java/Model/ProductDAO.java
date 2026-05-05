@@ -102,21 +102,6 @@ public class ProductDAO {
         return list;
     }
 
-//    public void CartToDB(String username, int productId, int quantity) {
-//        // Nếu trùng (username, product_id) thì cập nhật số lượng mới (quantity)
-//        String sql = "INSERT INTO cart (username, product_id, quantity) VALUES (?, ?, ?) "
-//                + "ON DUPLICATE KEY UPDATE quantity = ?";
-//        try {
-//            PreparedStatement st = conn.prepareStatement(sql);
-//            st.setString(1, username);
-//            st.setInt(2, productId);
-//            st.setInt(3, quantity);
-//            st.setInt(4, quantity);
-//            st.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println("Lỗi CartToDB: " + e.getMessage());
-//        }
-//    }
     public void CartToDB(Integer userId, String username, int productId, int quantity) {
         try {
             String checkSql = "SELECT quantity FROM cart WHERE product_id=? AND (user_id=? OR username=?)";
@@ -166,17 +151,6 @@ public class ProductDAO {
         return cart;
     }
 
-//    public void removeFromDB(String username, int productId) {
-//        String sql = "DELETE FROM cart WHERE username = ? AND product_id = ?";
-//        try {
-//            PreparedStatement st = conn.prepareStatement(sql);
-//            st.setString(1, username);
-//            st.setInt(2, productId);
-//            st.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println("Lỗi xóa sản phẩm DB: " + e.getMessage());
-//        }
-//    }
     public void removeFromDB(Integer userId, String username, int productId) {
         String sql = "DELETE FROM cart WHERE product_id=? AND (user_id=? OR username=?)";
         try {
@@ -304,22 +278,6 @@ public class ProductDAO {
         return ps.executeUpdate() > 0;
     }
 
-//    public boolean updateProduct(Product p) throws SQLException{
-//        String sql = "UPDATE `thuephong` SET `MaKH`=?,`NgayDen`=?,`NgayDi`=? WHERE MaP=?";
-//        ps = conn.prepareStatement(sql);
-//        ps.setString(1, kh.getMaKH());
-//        ps.setDate(2, kh.getNgayDen());
-//        ps.setDate(3, kh.getNgayDi());
-//        ps.setInt(4, kh.getMaP());
-//        return ps.executeUpdate() > 0;
-//    }
-//    
-//    public boolean deleteProduct(String MaKH) throws SQLException{
-//        String sql = "delete from ThuePhong where MaKH=?";
-//        ps = conn.prepareStatement(sql);
-//        ps.setString(1, MaKH);
-//        return ps.executeUpdate() > 0;
-//    }
     public boolean deleteProduct(int id) throws SQLException {
         String sql = "DELETE FROM products WHERE id = ?";
         ps = conn.prepareStatement(sql);
