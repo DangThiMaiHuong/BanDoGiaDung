@@ -84,7 +84,8 @@
 
                     <div class="form-group">
                         <label>Giảm giá (%):</label>
-                        <input type="number" name="discount_percent" min="0" max="100" value="<%= request.getParameter("sale") != null ? request.getParameter("sale") : "0"%>">
+                        <input type="number" name="discount_percent" min="0" max="100" 
+                               value="<%= request.getParameter("sale") != null ? request.getParameter("sale") : "0"%>">
                     </div>
                     <% if ("exist".equals(error)) { %>
                     <p style="color:red; text-align:center;">

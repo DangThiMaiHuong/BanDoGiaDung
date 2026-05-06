@@ -19,6 +19,7 @@
         Model.User user = (Model.User) session.getAttribute("user");
         String msg = request.getParameter("msg");
         String reg = request.getParameter("reg");
+        String cont_error = request.getParameter("cont_error");
     %>
 
     <div class="user">
@@ -73,9 +74,9 @@
                 </div>
                 <!-- HIỂN THỊ LỖI -->
                 <% if ("not_exist".equals(msg)) { %>
-                <p style="color:red; text-align:center;">Tài khoản không tồn tại</p>
+                <p class="er">Tài khoản không tồn tại</p>
                 <% } else if ("wrong_pass".equals(msg)) { %>
-                <p style="color:red; text-align:center;">Mật khẩu không đúng</p>
+                <p class="er">Mật khẩu không đúng</p>
                 <% }%>
                 <button  class="btn">Đăng nhập</button>
                 <div style="text-align:center; margin-top:10px;">
@@ -98,7 +99,8 @@
                 <div class="form-group">
                     <label>Tên:</label>
                     <input name="username"
-                           value="<%= "exist".equals(request.getParameter("reg_error")) ? "" : (request.getParameter("username") != null ? request.getParameter("username") : "")%>" 
+                           value="<%= "exist".equals(request.getParameter("reg_error")) ? "" : 
+                                    (request.getParameter("username") != null ? request.getParameter("username") : "")%>" 
                            required>
                 </div>
 
@@ -128,7 +130,16 @@
                 </div>
                 <!-- HIỂN THỊ LỖI -->
                 <% if ("exist".equals(reg)) { %>
-                <p style="color:red; text-align:center;">Username đã tồn tại</p>
+                <p class="er">Username đã tồn tại</p>
+                <% }
+                    if ("empty".equals(reg)) { %>
+                <p class="er">Không được để trống!</p>
+                <% }
+                    if ("pass".equals(reg)) { %>
+                <p class="er">Mật khẩu không khớp!</p>
+                <% }
+                    if ("email".equals(reg)) { %>
+                <p class="er">Email không hợp lệ!</p>
                 <% }%>
                 <button class="btn">Đăng ký</button>
                 <div style="text-align:center; margin-top:10px;">
@@ -151,7 +162,8 @@
                 <div class="form-group">
                     <label>Tên:</label>
                     <input name="name" 
-                           value="<%= (user != null ? user.getUsername() : "")%>"
+                           value="<%= (user != null ? user.getUsername() : 
+                                   request.getParameter("name") != null ? request.getParameter("name"): "")%>"
                            <%= (user != null ? "readonly" : "")%> required>
                 </div>
 
@@ -164,19 +176,26 @@
 
                 <div class="form-group">
                     <label>Nội dung:</label>
-                    <textarea name="message" style="width:95%; height:80px;" required></textarea>
+                    <textarea name="message" style="width:95%; height:80px;" required><%= request.getParameter("message") != null ? request.getParameter("message"): ""%></textarea>
                 </div>
-
+                <!-- HIỂN THỊ LỖI -->
+                <% if ("contact_email".equals(cont_error)) { %>
+                <p class="er">Email không hợp lệ!</p>
+                <% } else if ("contact_empty".equals(cont_error)) { %>
+                <p class="er">Vui lòng nhập đầy đủ!</p>
+                <% }%>
                 <button class="btn">Gửi</button>
             </form>
 
         </div>
     </div>
 </div>
+
 <!-- XỬ LÝ THÔNG BÁO + MODAL -->
 <script>
     let msgJS = "<%= msg != null ? msg : ""%>";
     let regJS = "<%= reg != null ? reg : ""%>";
+    let contJS = "<%= cont_error != null ? cont_error : ""%>";
     window.onload = function () {
 
         if (msgJS === "success") {
@@ -198,28 +217,17 @@
             alert("Đăng ký thành công!");
             openLogin();
         }
-        if (regJS === "exist") {
+        if (regJS === "pass" || regJS === "email" || regJS === "empty" || regJS === "exist") {
             openRegister();
         }
-        // VALIDATE REGISTER
-    <% if ("empty".equals(reg)) { %>
-        alert("Không được để trống!");
-        openRegister();
-    <% } else if ("pass".equals(reg)) { %>
-        alert("Mật khẩu không khớp!");
-        openRegister();
-    <% } else if ("email".equals(reg)) { %>
-        alert("Email không hợp lệ!");
-        openRegister();
-    <% } %>
 
         // CONTACT
-    <% if ("contact_fail".equals(msg)) { %>
-        alert("Vui lòng nhập đầy đủ!");
-        openContact();
-    <% } else if ("contact_success".equals(msg)) { %>
-        alert("Gửi liên hệ thành công!");
-    <% }%>
+        if (contJS === "success") {
+            alert("Liên hệ thành công!");
+        }
+        if (contJS === "contact_email" || contJS === "contact_empty") {
+            openContact();
+        }
     };
 
     function openLogin() {
@@ -258,24 +266,7 @@
             register.style.display = "none";
     };
 </script>
-<%
-    String cont_error = request.getParameter("cont_error");
-    if ("contact_email".equals(cont_error)) {
-%>
-<script>
-    alert("Email không hợp lệ!");
-    openContact();
-</script>
-<%
-} else if ("contact_empty".equals(cont_error)) {
-%>
-<script>
-    alert("Vui lòng nhập đầy đủ!");
-    openContact();
-</script>
-<%
-    }
-%>
+
 <!-- XỬ LÝ TÌM KIẾM -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {

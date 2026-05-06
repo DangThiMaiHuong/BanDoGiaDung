@@ -47,7 +47,8 @@
                         totalMoney += p.getFinalPrice() * qty;
             %>
             <div class="cart-item">
-                <input type="checkbox" checked class="cart-checkbox" data-price="<%= p.getFinalPrice()%>" style="accent-color: #ff4d4f; transform: scale(1.2);">
+                <input type="checkbox" checked class="cart-checkbox" data-price="<%= p.getFinalPrice()%>" 
+                       style="accent-color: #ff4d4f; transform: scale(1.2);">
 
                 <a href="detail.jsp?id=<%= p.getId()%>">
                     <img src="<%= p.getImage()%>" class="cart-product-img">

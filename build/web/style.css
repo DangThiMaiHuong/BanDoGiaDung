@@ -12,6 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 * {
@@ -214,7 +215,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-between; /* CỐ ĐỊNH layout */
+    justify-content: space-between; /* cố định layout */
     position: relative;
 }
 
@@ -363,11 +364,6 @@ th, td {
     margin-top: auto;
 }
 
-.menu a.active {
-    color: yellow;
-    font-weight: bold;
-}
-
 /* LEFT */
 .left ul {
     list-style: none;
@@ -396,6 +392,7 @@ th, td {
     font-weight: bold;
 }
 
+/*FORM LOGIN, REGISTER, CONTACT*/
 .modal {
     display: none;
     position: fixed;
@@ -501,6 +498,12 @@ th, td {
 
 .user a:hover {
     color: orange;
+}
+
+/* THÔNG BÁO LỖI DỮ LIỆU LOGIN, REGISTER, CONTACT */
+.er{
+    color:red; 
+    text-align:center;
 }
 
 /* TRANG DETAIL.JSP */
@@ -745,7 +748,7 @@ th, td {
     font-size: 12px;
     padding: 2px 8px;
     border: 1px solid #ff4d4f;
-    border-radius: 10px; /* Giờ thì con số này mới có tác dụng này */
+    border-radius: 10px;
     font-weight: bold;
     margin-left: 8px;
 }
@@ -800,10 +803,6 @@ th, td {
     display: inline-block;
     background: red;
     color: white;
-    /*    padding: 2px 5px;
-        font-size: 12px;
-        margin-top: 5px;*/
-    padding: 5px 8px;           /* nhỏ gọn lại */
     font-size: 12px;
     border-radius: 4px;
     margin: 10px auto 0;        /* căn giữa */
@@ -831,7 +830,7 @@ th, td {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 
     display: none;
-    z-index: 9999; /* QUAN TRỌNG */
+    z-index: 9999; 
     padding: 10px;
 }
 
