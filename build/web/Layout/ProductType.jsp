@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="special-titles">
 
-    <h2>
+    <h2 class="${activeType == 0 ? 'active' : ''}">
         <a href="Type?type=0">Tất cả sản phẩm</a>
     </h2>
 

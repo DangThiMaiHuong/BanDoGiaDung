@@ -10,6 +10,7 @@
             <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/Search.java</file>
             <file>file:/D:/Web/BanDoGiaDung/web/search.jsp</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Model/User.java</file>
+            <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/Type.java</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/UpdateProduct.java</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/Detail.java</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Model/ProductDAO.java</file>
@@ -33,6 +34,7 @@
             <file>file:/D:/Web/BanDoGiaDung/web/Layout/header.jsp</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/Logout.java</file>
             <file>file:/D:/Web/BanDoGiaDung/web/updateProduct.jsp</file>
+            <file>file:/D:/Web/BanDoGiaDung/src/java/Model/Connect.java</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/AdminFilter.java</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Controller/Contact.java</file>
             <file>file:/D:/Web/BanDoGiaDung/src/java/Model/ContactDAO.java</file>

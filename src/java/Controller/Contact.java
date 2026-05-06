@@ -76,7 +76,8 @@ public class Contact extends HttpServlet {
         User u = (User) session.getAttribute("user");
 
         String name, email;
-
+        String message = request.getParameter("message");
+        
         if (u != null) {
             name = u.getUsername();
             email = u.getEmail();
@@ -86,12 +87,13 @@ public class Contact extends HttpServlet {
 
             // validate email
             if (email == null || !email.contains("@")) {
-                response.sendRedirect("index.jsp?cont_error=contact_email");
+                response.sendRedirect("index.jsp?cont_error=contact_email"
+                        + "&name=" + java.net.URLEncoder.encode(name, "UTF-8")
+                        + "&message=" + java.net.URLEncoder.encode(message, "UTF-8")
+                );
                 return;
             }
         }
-
-        String message = request.getParameter("message");
 
         // validate chung
         if (name == null || name.trim().isEmpty()
@@ -101,7 +103,7 @@ public class Contact extends HttpServlet {
             return;
         }
 
-        //lưu vào database
+        // lưu vào database
         Model.Contact c = new Model.Contact();
         c.setName(name);
         c.setEmail(email);
@@ -114,8 +116,8 @@ public class Contact extends HttpServlet {
         // gọi DAO
         new ContactDAO().insertOrUpdate(c);
 
-        //redirect
-        response.sendRedirect("index.jsp?contact_success");
+        // redirect
+        response.sendRedirect("index.jsp?cont_error=success");
     }
 
     /**

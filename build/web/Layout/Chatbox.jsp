@@ -59,7 +59,7 @@
 
         messages.appendChild(div);
         messages.scrollTop = messages.scrollHeight;
-        // ⭐ lưu lịch sử
+        // LƯU LỊCH SỬ
         saveChat(type, text);
     }
 
@@ -75,7 +75,7 @@
         // HIỂN THỊ USER
         addMessage(msg, "user");
 
-        // loading
+        // LOADING
         let loading = document.createElement("div");
         loading.className = "msg ai";
         loading.innerText = "Đang trả lời...";
@@ -92,7 +92,7 @@
         })
                 .then(res => res.text())
                 .then(data => {
-                    loading.remove();             // xóa loading
+                    loading.remove();             // XÓA LOADING
                     addMessage(data, "ai");       // HIỂN THỊ AI
                 })
                 .catch(err => {
@@ -148,10 +148,9 @@
         if (user && user !== '') {
             localStorage.setItem("userId", user);
         } else {
-            // logout thì xoá hết chat
+            // LOGOUT THÌ XÓA HẾT CHAT
             localStorage.removeItem("userId");
-
-            // xoá tất cả chat history (hoặc theo user cũ)
+            //XÓA TẤT CẢ CHAT HISTORY
             for (let key in localStorage) {
                 if (key.startsWith("chatHistory_")) {
                     localStorage.removeItem(key);

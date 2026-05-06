@@ -85,12 +85,21 @@ public class Register extends HttpServlet {
         }
 
         if (!password.equals(repass)) {
-            response.sendRedirect("index.jsp?reg=pass");
+            response.sendRedirect("index.jsp?reg=pass"
+                    + "&username=" + java.net.URLEncoder.encode(username, "UTF-8")
+                    + "&email=" + java.net.URLEncoder.encode(email, "UTF-8")
+                    + "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8")
+                    + "&address=" + java.net.URLEncoder.encode(address, "UTF-8")
+            );
             return;
         }
 
         if (!email.contains("@")) {
-            response.sendRedirect("index.jsp?reg=email");
+            response.sendRedirect("index.jsp?reg=email"
+                    + "&username=" + java.net.URLEncoder.encode(username, "UTF-8")
+                    + "&phone=" + java.net.URLEncoder.encode(phone, "UTF-8")
+                    + "&address=" + java.net.URLEncoder.encode(address, "UTF-8")
+            );
             return;
         }
         // CHECK USERNAME TỒN TẠI

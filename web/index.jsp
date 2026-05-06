@@ -104,7 +104,7 @@
                     }
                 %>
 
-                <h3> <%= displayName%></h3>
+                <h3><%= displayName%></h3>
 
                 <!--HIỂN THỊ SẢN PHẨM-->
 
