@@ -291,4 +291,66 @@ public class ProductDAO {
         ps.setInt(8, p.getId());
         return ps.executeUpdate() > 0;
     }
+    
+   // 1. Lấy danh sách sản phẩm được thêm nhiều nhất (Thống kê)
+   public List<Product> getTopMostAddedProducts() {
+    List<Product> list = new ArrayList<>();
+    // SQL: Lấy tất cả sản phẩm có SUM(quantity) bằng với giá trị MAX của SUM(quantity)
+    String sql = "SELECT p.*, SUM(c.quantity) as total_qty " +
+                 "FROM products p " +
+                 "JOIN cart c ON p.id = c.product_id " +
+                 "GROUP BY p.id " +
+                 "HAVING total_qty = (" +
+                 "    SELECT SUM(quantity) " +
+                 "    FROM cart " +
+                 "    GROUP BY product_id " +
+                 "    ORDER BY SUM(quantity) DESC " +
+                 "    LIMIT 1" +
+                 ")";
+    try {
+        ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Product p = new Product(
+                rs.getInt("id"), rs.getString("name"), rs.getString("image"),
+                rs.getString("description"), rs.getLong("price"),
+                rs.getObject("discount_percent") != null ? rs.getInt("discount_percent") : null,
+                rs.getInt("type"), rs.getString("category")
+            );
+            p.setTotalQty(rs.getInt("total_qty"));
+            list.add(p);
+        }
+    } catch (SQLException e) {
+        System.out.println("Lỗi getTopMostAddedProducts: " + e.getMessage());
+    }
+    return list;
+}
+    // 2. Lấy chi tiết tất cả giỏ hàng (Để hiện Username - Tên SP - Số lượng)
+        public List<java.util.Map<String, Object>> getAllCartItems() {
+        List<java.util.Map<String, Object>> list = new java.util.ArrayList<>();
+        // JOIN lấy thêm p.image và p.price
+        String sql = "SELECT c.username, p.name as product_name, p.image, p.price, " +
+                        "p.discount_percent, p.type, c.quantity " + 
+                        "FROM cart c JOIN products p ON c.product_id = p.id";
+        try {
+            ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                java.util.Map<String, Object> map = new java.util.HashMap<>();
+                map.put("username", rs.getString("username"));
+                map.put("productName", rs.getString("product_name"));
+                map.put("image", rs.getString("image")); 
+                map.put("price", rs.getLong("price"));   
+                // BƯỚC 2: Bắt buộc phải put 2 giá trị này vào Map để JSP lấy được
+                map.put("discount", rs.getInt("discount_percent")); 
+                map.put("type", rs.getInt("type"));
+                map.put("quantity", rs.getInt("quantity"));
+                list.add(map);
+            }
+        } catch (SQLException e) {
+            System.out.println("Lỗi getAllCartItems: " + e.getMessage());
+        }
+        return list;
+    }
+    
 }

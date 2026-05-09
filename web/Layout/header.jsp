@@ -20,7 +20,15 @@
         String msg = request.getParameter("msg");
         String reg = request.getParameter("reg");
         String cont_error = request.getParameter("cont_error");
-    %>
+        
+        int unreadCount = 0; 
+        // Chỉ đếm thông báo nếu có user đăng nhập VÀ user đó KHÔNG PHẢI admin
+        if (user != null && !"admin".equals(user.getRole())) {
+            Model.ContactDAO notifyDao = new Model.ContactDAO();
+            // 2. Gán giá trị sau khi đã khai báo
+            unreadCount = notifyDao.getUnreadNotificationCount(user.getUsername());
+        }
+            %>
 
     <div class="user">
         <% if (user == null) { %>
@@ -31,6 +39,20 @@
         <a href="#" onclick="openRegister()">Đăng ký</a>
 
         <% } else {%>
+        
+        <%-- CHỈ HIỂN THỊ CHUÔNG NẾU LÀ USER THƯỜNG (KHÔNG PHẢI ADMIN) --%>
+        <% if (user != null && !"admin".equals(user.getRole())) { %>
+            <div class="notification-wrapper">
+                <a href="notifications.jsp" class="notification-link">
+                    🔔
+                    <% if (unreadCount > 0) { %>
+                        <span class="notification-badge">
+                            <%= unreadCount %>
+                        </span>
+                    <% } %>
+                </a>
+            </div>
+        <% } %>
 
         👤 Chào, <b><%= user.getUsername()%></b>
         <% if ("admin".equals(user.getRole())) { %>
