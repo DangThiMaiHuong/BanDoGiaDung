@@ -34,9 +34,18 @@
 
         👤 Chào, <b><%= user.getUsername()%></b>
         <% if ("admin".equals(user.getRole())) { %>
-        | <a href="productManager.jsp">Quản lý sản phẩm</a>
-        <% } %>|
-        <a href="Logout">Đăng xuất</a>
+        <div class="admin-menu">
+            <span class="admin-title">Quản lý ▾</span>
+
+            <div class="admin-dropdown">
+                <a href="productManager.jsp">Quản lý sản phẩm</a>
+                <a href="contactManager.jsp">Quản lý liên hệ</a>
+                <a href="cartManager.jsp">Quản lý giỏ hàng</a>
+            </div>
+        </div>
+        <% } %>
+
+        |<a href="Logout">Đăng xuất</a>
 
         <% }%>
 
