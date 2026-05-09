@@ -1178,3 +1178,67 @@ th, td {
 .delete-form textarea {
     height: 140px;
 }
+
+/* KHỐI USER */
+.user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    font-size: 20px;
+}
+
+/* MENU ADMIN */
+.admin-menu {
+    position: relative;
+}
+
+/* NÚT QUẢN LÝ */
+.admin-title {
+    cursor: pointer;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.admin-title:hover {
+    color: orange;
+}
+
+/* DROPDOWN */
+.admin-dropdown {
+   display: none;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    background: white;
+    min-width: 220px;
+
+    border-radius: 8px;
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+    z-index: 9999;
+}
+
+/* ITEM */
+.admin-dropdown a {
+    display: block;
+    padding: 12px 15px;
+    color: black !important;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+/* HOVER ITEM */
+.admin-dropdown a:hover {
+    background: #0099ff;
+    color: white !important;
+}
+
+/* HOVER HIỆN MENU */
+.admin-menu:hover .admin-dropdown {
+    display: block;
+}

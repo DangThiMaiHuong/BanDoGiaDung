@@ -29,7 +29,9 @@ public class AdminFilter implements Filter {
                 = uri.contains("productManager.jsp")
                 || uri.contains("addProduct.jsp")
                 || uri.contains("updateProduct.jsp")
-                || uri.contains("deleteProduct.jsp");
+                || uri.contains("deleteProduct.jsp")
+                || uri.contains("contactManager.jsp")
+                || uri.contains("cartManager.jsp");
 
         if (isAdminPage) {
             HttpSession session = request.getSession();
