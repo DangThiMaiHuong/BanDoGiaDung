@@ -16,7 +16,7 @@ public class Product {
     private Integer discount_percent;
     private int type;
     //biến tạm thời
-    private int totalQty; 
+    private int totalQty;
 
     public Product() {
     }
@@ -78,7 +78,7 @@ public class Product {
     public String getCategory() {
         return category;
     }
-    
+
     public int getTotalQty() {
         return totalQty;
     }
@@ -87,7 +87,6 @@ public class Product {
         this.totalQty = totalQty;
     }
 
-    
     public double getFinalPrice() {
         if (discount_percent != null && discount_percent > 0) {
             return price * (100 - discount_percent) / 100.0;

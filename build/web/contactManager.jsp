@@ -34,12 +34,12 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Message</th>
-                            <th>Hành động</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <%
-                            // Đảm bảo bạn đã tạo class ContactDAO và phương thức getAllContacts()
+                            // Đảm bảo đã tạo class ContactDAO và phương thức getAllContacts()
                             ContactDAO dao = new ContactDAO();
                             List<Contact> cList = dao.getAllContacts(); 
                             if (cList != null) {
@@ -50,9 +50,23 @@
                             <td><%=c.getEmail()%></td>
                             <td><%=c.getMessage()%></td>
                             <td style="text-align: center;">
-                                <button onclick="openReplyModal('<%=c.getName()%>', '<%=c.getEmail()%>')" style="display: inline-block; padding: 5px 15px; background-color: #ffb100;border: none; color: white;border-radius: 4px; cursor: pointer;">
+                                <% 
+                                    // Kiểm tra xem đã có nội dung trong reply_message chưa
+                                    String rep = c.getReplyMessage();
+                                    if (rep == null || rep.trim().isEmpty()) { 
+                                %>
+                                <button onclick="openReplyModal('<%=c.getName()%>', '<%=c.getEmail()%>')" 
+                                        style="display: inline-block; padding: 5px 15px; background-color: #ffb100; border: none; color: white; border-radius: 4px; cursor: pointer;">
                                     Reply
                                 </button>
+                                <% } else { %>
+                                <div style="font-size: 11px; color: #27ae60; font-weight: bold; margin-bottom: 3px;">✓ Đã rep</div>
+                                <a href="UnreplyController?id=<%=c.getId()%>" 
+                                   style="display: inline-block; padding: 3px 10px; background-color: #e74c3c; color: white; border-radius: 4px; text-decoration: none; font-size: 12px;"
+                                   onclick="return confirm('Bạn muốn hủy trạng thái đã phản hồi?')">
+                                    Unreply
+                                </a>
+                                <% } %>
                             </td>
                         </tr>
                         <%      }
@@ -62,6 +76,7 @@
             </div>
         </div>
         <jsp:include page="Layout/footer.jsp"/>
+        <jsp:include page="Layout/Chatbox.jsp"/>
         <div id="replyModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.6); font-family: Arial, sans-serif;">
             <div style="background:white; margin:8% auto; padding:25px; width:450px; border-radius:10px; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
                 <h2 style="margin-top:0; color: #333; border-bottom: 2px solid #ffb100; padding-bottom: 10px;">Phản hồi khách hàng</h2>
@@ -97,26 +112,26 @@
         </div>
 
         <script>
-        function openReplyModal(username, email) {
-            // Điền dữ liệu vào các ô input trong Modal
-            document.getElementById('displayUser').value = username;
-            document.getElementById('displayEmail').value = email;
+            function openReplyModal(username, email) {
+                // Điền dữ liệu vào các ô input trong Modal
+                document.getElementById('displayUser').value = username;
+                document.getElementById('displayEmail').value = email;
 
-            // Hiển thị Modal
-            document.getElementById('replyModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('replyModal').style.display = 'none';
-        }
-
-        // Đóng modal khi click ra ngoài vùng trắng
-        window.onclick = function(event) {
-            var modal = document.getElementById('replyModal');
-            if (event.target == modal) {
-                closeModal();
+                // Hiển thị Modal
+                document.getElementById('replyModal').style.display = 'block';
             }
-        }
+
+            function closeModal() {
+                document.getElementById('replyModal').style.display = 'none';
+            }
+
+            // Đóng modal khi click ra ngoài vùng trắng
+            window.onclick = function (event) {
+                var modal = document.getElementById('replyModal');
+                if (event.target == modal) {
+                    closeModal();
+                }
+            }
         </script>
     </body>
 </html>

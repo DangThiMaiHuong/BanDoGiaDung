@@ -512,7 +512,7 @@ th, td {
 
 /* THÔNG BÁO LỖI DỮ LIỆU LOGIN, REGISTER, CONTACT */
 .er{
-    color:red; 
+    color:red;
     text-align:center;
 }
 
@@ -840,7 +840,7 @@ th, td {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 
     display: none;
-    z-index: 9999; 
+    z-index: 9999;
     padding: 10px;
 }
 
@@ -1216,7 +1216,7 @@ th, td {
 
 /* DROPDOWN */
 .admin-dropdown {
-   display: none;
+    display: none;
 
     position: absolute;
     top: 100%;
@@ -1281,7 +1281,7 @@ th, td {
 
 /* Tin nhắn chưa đọc sẽ có vạch đỏ bên trái cho chuyên nghiệp */
 .noti-item.unread {
-    border-left: 4px solid #ff4d4f; 
+    border-left: 4px solid #ff4d4f;
     background-color: #fffafa;
 }
 

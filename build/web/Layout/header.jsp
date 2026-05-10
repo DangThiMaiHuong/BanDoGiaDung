@@ -28,7 +28,7 @@
             // 2. Gán giá trị sau khi đã khai báo
             unreadCount = notifyDao.getUnreadNotificationCount(user.getUsername());
         }
-            %>
+    %>
 
     <div class="user">
         <% if (user == null) { %>
@@ -39,19 +39,19 @@
         <a href="#" onclick="openRegister()">Đăng ký</a>
 
         <% } else {%>
-        
+
         <%-- CHỈ HIỂN THỊ CHUÔNG NẾU LÀ USER THƯỜNG (KHÔNG PHẢI ADMIN) --%>
         <% if (user != null && !"admin".equals(user.getRole())) { %>
-            <div class="notification-wrapper">
-                <a href="notifications.jsp" class="notification-link">
-                    🔔
-                    <% if (unreadCount > 0) { %>
-                        <span class="notification-badge">
-                            <%= unreadCount %>
-                        </span>
-                    <% } %>
-                </a>
-            </div>
+        <div class="notification-wrapper">
+            <a href="notifications.jsp" class="notification-link">
+                🔔
+                <% if (unreadCount > 0) { %>
+                <span class="notification-badge">
+                    <%= unreadCount %>
+                </span>
+                <% } %>
+            </a>
+        </div>
         <% } %>
 
         👤 Chào, <b><%= user.getUsername()%></b>

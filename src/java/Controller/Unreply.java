@@ -4,24 +4,21 @@
  */
 package Controller;
 
-import Model.ProductDAO;
+import Model.ContactDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author pc
  */
-@WebServlet(name = "Detail", urlPatterns = {"/Detail"})
-public class Detail extends HttpServlet {
+@WebServlet("/UnreplyController")
+public class Unreply extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class Detail extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Detail</title>");
+            out.println("<title>Servlet Unreply</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Detail at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Unreply at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,50 +59,13 @@ public class Detail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        // Thêm tham số action để biết là tăng hay giảm
-        String action = request.getParameter("action");
+        ContactDAO dao = new ContactDAO();
 
-        HttpSession session = request.getSession();
-        Model.User user = (Model.User) session.getAttribute("user");
+        // Gọi hàm xóa nội dung trong cột reply_message (bạn đã viết trong DAO)
+        dao.removeReply(id);
 
-        Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
-
-        // Xử lý logic số lượng
-        int currentQty = cart.getOrDefault(id, 0);
-
-        if ("decrease".equals(action)) {
-            if (currentQty > 1) {
-                cart.put(id, currentQty - 1);
-            } else {
-                cart.remove(id); // Giảm xuống 0 thì xóa khỏi giỏ
-            }
-        } else {
-            // Mặc định (khi nhấn dấu + hoặc nhấn "Thêm giỏ hàng") là tăng lên 1
-            cart.put(id, currentQty + 1);
-        }
-
-        session.setAttribute("cart", cart);
-
-        // Đồng bộ vào database
-        if (user != null) {
-            ProductDAO dao = new ProductDAO();
-
-            // Kiểm tra xem sản phẩm còn trong giỏ hàng (Map) không
-            if (cart.containsKey(id)) {
-                // CÒN: Cập nhật số lượng mới (tăng hoặc giảm nhưng chưa về 0)
-                dao.CartToDB(user.getId(), user.getUsername(), id, cart.get(id));
-            } else {
-                // KHÔNG CÒN: Nghĩa là currentQty đã <= 1 và người dùng nhấn "decrease"
-                // Gọi hàm xóa đã viết trong ProductDAO
-                dao.removeFromDB(user.getId(), user.getUsername(), id);
-            }
-        }
-
-        // Chuyển hướng về trang trước đó (giỏ hàng hoặc trang chi tiết)
-        response.sendRedirect(request.getHeader("referer"));
+        // Quay lại trang quản lý liên hệ
+        response.sendRedirect("notifications.jsp");
     }
 
     /**

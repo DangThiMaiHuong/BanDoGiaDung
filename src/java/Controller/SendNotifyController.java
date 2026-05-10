@@ -37,7 +37,7 @@ public class SendNotifyController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SendNotifyController</title>");            
+            out.println("<title>Servlet SendNotifyController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SendNotifyController at " + request.getContextPath() + "</h1>");
@@ -73,18 +73,21 @@ public class SendNotifyController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Thêm dòng này để hỗ trợ tiếng Việt
-    request.setCharacterEncoding("UTF-8");
-    
-    String username = request.getParameter("username");
-    String message = request.getParameter("message");
+        request.setCharacterEncoding("UTF-8");
 
-    if (username != null && !username.isEmpty() && message != null) {
-        ContactDAO dao = new ContactDAO();
-        dao.sendNotification(username, "Phản hồi từ Admin: " + message);
-    }
+        String username = request.getParameter("username");
+        String message = request.getParameter("message");
 
-    // Chuyển hướng xong là kết thúc, KHÔNG gọi processRequest ở dưới nữa
-    response.sendRedirect("contactManager.jsp");
+        if (username != null && !username.isEmpty() && message != null) {
+            ContactDAO dao = new ContactDAO();
+            // 1. Gửi thông báo cho khách hàng (Bảng notifications)
+            dao.sendNotification(username, message);
+            // 2. Đánh dấu đã phản hồi trên bảng Admin (Bảng contact)
+            dao.updateReplyMessage(username, message);
+        }
+
+        // Chuyển hướng xong là kết thúc, KHÔNG gọi processRequest ở dưới nữa
+        response.sendRedirect("contactManager.jsp");
 
     }
 

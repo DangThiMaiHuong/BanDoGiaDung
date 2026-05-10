@@ -26,17 +26,17 @@
         <div class="main">
             <jsp:include page="Layout/left.jsp"/>
             <div class="content admin-page">
-                
+
                 <h1 style="text-align: center">SẢN PHẨM ĐƯỢC THÊM NHIỀU NHẤT</h1>
                 <table style="margin-bottom: 50px;">
                     <thead>
                         <tr>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Ảnh</th>
+                            <th>ProductName</th>
+                            <th>Price</th>
+                            <th>Image</th>
                             <th>Type</th>
                             <th>Discount</th>
-                            <th>Tổng số lượng</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,10 +50,10 @@
                             <td><%=p.getName()%></td>
                             <td>
                                 <% if (p.getType() == 2 && p.getDiscount_percent() != null && p.getDiscount_percent() > 0) { %>
-                                    <del style="color: gray; font-size: 0.9em;"><%= String.format("%d", p.getPrice()) %> VNĐ</del><br/>
-                                    <b style="color: red;"><%= String.format("%,d", (long)p.getFinalPrice()) %> đ</b>
+                                <del style="color: gray; font-size: 0.9em;"><%= String.format("%d", p.getPrice()) %> VNĐ</del><br/>
+                                <b style="color: red;"><%= String.format("%,d", (long)p.getFinalPrice()) %> đ</b>
                                 <% } else { %>
-                                    <%= String.format("%d", p.getPrice()) %> VNĐ
+                                <%= String.format("%d", p.getPrice()) %> VNĐ
                                 <% } %>
                             </td>
                             <td><img src="<%=p.getImage()%>" width="50"/></td>
@@ -105,7 +105,7 @@
                             <td style="color: #2c3e50; font-weight: 500; padding: 10px;">
                                 <%= String.format("%,d", finalPrice) %> đ
                                 <% if (type == 2 && discount > 0) { %>
-                                    <br><small style="color: red;">(<del><%= String.format("%,d", originalPrice) %></del>)</small>
+                                <br><small style="color: red;">(<del><%= String.format("%,d", originalPrice) %></del>)</small>
                                 <% } %>
                             </td>
                             <td style="text-align: center;"><%= quantity %></td>
@@ -129,5 +129,6 @@
             </div>
         </div>
         <jsp:include page="Layout/footer.jsp"/>
+        <jsp:include page="Layout/Chatbox.jsp"/>
     </body>
 </html>
