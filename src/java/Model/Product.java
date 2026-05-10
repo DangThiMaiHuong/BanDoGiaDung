@@ -15,6 +15,8 @@ public class Product {
     private long price;
     private Integer discount_percent;
     private int type;
+    //biến tạm thời
+    private int totalQty;
 
     public Product() {
     }
@@ -75,6 +77,14 @@ public class Product {
 
     public String getCategory() {
         return category;
+    }
+
+    public int getTotalQty() {
+        return totalQty;
+    }
+
+    public void setTotalQty(int totalQty) {
+        this.totalQty = totalQty;
     }
 
     public double getFinalPrice() {

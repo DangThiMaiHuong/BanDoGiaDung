@@ -486,23 +486,33 @@ th, td {
     border-radius: 5px;
 }
 
+/* Tốt nhất là gộp hoặc sửa lại đoạn gần dòng 419 */
 .user {
-    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Khoảng cách giữa Chuông - Chào - Đăng xuất - Giỏ hàng */
+    position: relative;
+    font-size: 16px; /* Chỉnh lại cỡ chữ cho vừa phải */
 }
 
 .user a {
+    margin-left: 0; /* Bỏ margin cũ để dùng gap của flexbox */
     text-decoration: none;
     color: black;
-    margin: 0 5px;
+    font-size: 16px;
+    padding-right: 0;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
 }
 
 .user a:hover {
-    color: orange;
+    color: #ffb100;
 }
 
 /* THÔNG BÁO LỖI DỮ LIỆU LOGIN, REGISTER, CONTACT */
 .er{
-    color:red; 
+    color:red;
     text-align:center;
 }
 
@@ -803,10 +813,12 @@ th, td {
     display: inline-block;
     background: red;
     color: white;
-    font-size: 12px;
+    font-size: 16px;
     border-radius: 4px;
     margin: 10px auto 0;        /* căn giữa */
     width: fit-content;         /* co theo nội dung */
+    padding: 5px 15px;
+    font-weight: bold;
 }
 .banner {
     width: 100%;
@@ -830,7 +842,7 @@ th, td {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 
     display: none;
-    z-index: 9999; 
+    z-index: 9999;
     padding: 10px;
 }
 
@@ -1206,7 +1218,7 @@ th, td {
 
 /* DROPDOWN */
 .admin-dropdown {
-   display: none;
+    display: none;
 
     position: absolute;
     top: 100%;
@@ -1241,4 +1253,48 @@ th, td {
 /* HOVER HIỆN MENU */
 .admin-menu:hover .admin-dropdown {
     display: block;
+}
+
+/* Tận dụng style của cart-wrapper cho noti-container */
+.noti-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    min-height: 500px;
+}
+
+.noti-container h2 {
+    border-bottom: 2px solid #ff4d4f; /* Màu đỏ giống màu checkbox giỏ hàng */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.noti-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 10px;
+    transition: 0.3s;
+}
+
+.noti-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Tin nhắn chưa đọc sẽ có vạch đỏ bên trái cho chuyên nghiệp */
+.noti-item.unread {
+    border-left: 4px solid #ff4d4f;
+    background-color: #fffafa;
+}
+
+.noti-date {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.noti-msg {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.4;
 }

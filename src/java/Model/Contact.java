@@ -16,6 +16,8 @@ public class Contact {
     private String email;
     private String message;
 
+    private String replyMessage;
+
     // getter + setter
     public int getId() {
         return id;
@@ -57,4 +59,11 @@ public class Contact {
         this.message = message;
     }
 
+    public String getReplyMessage() {
+        return replyMessage;
+    }
+
+    public void setReplyMessage(String replyMessage) {
+        this.replyMessage = replyMessage;
+    }
 }

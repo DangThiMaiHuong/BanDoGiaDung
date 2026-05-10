@@ -77,7 +77,7 @@ public class Contact extends HttpServlet {
 
         String name, email;
         String message = request.getParameter("message");
-        
+
         if (u != null) {
             name = u.getUsername();
             email = u.getEmail();

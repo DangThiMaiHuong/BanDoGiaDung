@@ -33,7 +33,6 @@
 
         <%
             String keyword = request.getParameter("keyword");
-
             ProductDAO dao = new ProductDAO();
             List<Product> list = dao.searchByName(keyword);
         %>
@@ -65,11 +64,11 @@
 
                 <div class="product-price">
                     <div class="old-price">
-                        <%=String.format("%,d", p.getPrice()).replace(",", ".")%> đ
+                        <%=String.format("%,d", p.getPrice()).replace(",", ".")%> VNĐ
                     </div>
 
                     <div>
-                        <%=String.format("%,d", newPrice).replace(",", ".")%> đ
+                        <%=String.format("%,d", newPrice).replace(",", ".")%> VNĐ
                     </div>
 
                     <div class="discount">-<%=p.getDiscount_percent()%>%</div>
@@ -78,7 +77,7 @@
                 <% } else {%>
 
                 <div class="product-price">
-                    <%=String.format("%,d", p.getPrice()).replace(",", ".")%> đ
+                    <%=String.format("%,d", p.getPrice()).replace(",", ".")%> VNĐ
                 </div>
 
                 <% }%>

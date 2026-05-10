@@ -90,13 +90,13 @@ public class Detail extends HttpServlet {
         session.setAttribute("cart", cart);
 
         // Đồng bộ vào database
-         if (user != null) {
+        if (user != null) {
             ProductDAO dao = new ProductDAO();
-    
+
             // Kiểm tra xem sản phẩm còn trong giỏ hàng (Map) không
             if (cart.containsKey(id)) {
-            // CÒN: Cập nhật số lượng mới (tăng hoặc giảm nhưng chưa về 0)
-               dao.CartToDB(user.getId(), user.getUsername(), id, cart.get(id));
+                // CÒN: Cập nhật số lượng mới (tăng hoặc giảm nhưng chưa về 0)
+                dao.CartToDB(user.getId(), user.getUsername(), id, cart.get(id));
             } else {
                 // KHÔNG CÒN: Nghĩa là currentQty đã <= 1 và người dùng nhấn "decrease"
                 // Gọi hàm xóa đã viết trong ProductDAO

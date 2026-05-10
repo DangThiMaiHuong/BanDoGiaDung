@@ -48,6 +48,14 @@
         <servlet-name>DeleteProduct</servlet-name>
         <servlet-class>Controller.DeleteProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SendNotifyController</servlet-name>
+        <servlet-class>Controller.SendNotifyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Unreply</servlet-name>
+        <servlet-class>Controller.Unreply</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -95,5 +103,13 @@
     <servlet-mapping>
         <servlet-name>DeleteProduct</servlet-name>
         <url-pattern>/DeleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendNotifyController</servlet-name>
+        <url-pattern>/SendNotifyController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Unreply</servlet-name>
+        <url-pattern>/Unreply</url-pattern>
     </servlet-mapping>
 </web-app>

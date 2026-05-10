@@ -52,13 +52,10 @@ public class UpdateProduct extends HttpServlet {
             }
             Product p = new Product(id, name, image, description, price, discount, type, category);
             p.setCategory(category);
-
             ProductDAO dao = new ProductDAO();
             dao.updateProduct(p);
-
         } catch (NumberFormatException | SQLException e) {
         }
-
         response.sendRedirect("productManager.jsp");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
