@@ -813,10 +813,12 @@ th, td {
     display: inline-block;
     background: red;
     color: white;
-    font-size: 12px;
+    font-size: 16px;
     border-radius: 4px;
     margin: 10px auto 0;        /* căn giữa */
     width: fit-content;         /* co theo nội dung */
+    padding: 5px 15px;
+    font-weight: bold;
 }
 .banner {
     width: 100%;

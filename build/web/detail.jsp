@@ -45,11 +45,8 @@
 
                         <h1 class="product-title"><%= p.getName()%></h1>
 
-                        <%-- 1. KHỐI HIỂN THỊ ẢNH (Có nhãn dính góc) --%>
-                        <%-- Chúng ta bọc ảnh vào một div có position: relative --%>
                         <div class="main-product-image-container" style="position: relative; display: inline-block; margin-bottom: 20px; border: 1px solid #eaeaea; border-radius: 8px; overflow: hidden; background: #fff;">
 
-                            <%-- Đặt nhãn dựa trên type, sử dụng class chuyên biệt .label-on-image --%>
                             <% if (p.getType() == 1) { %>
                             <div class="label-on-image hot">🔥 HOT</div>
                             <% } else if (p.getType() == 2) { %>
@@ -61,7 +58,7 @@
                         </div>
 
                         <div class="price-action-group">
-                            <%-- HIỂN THỊ GIÁ KIỂU "VOUCHER" (MÀU ĐỎ RỰC) --%>
+                            <%-- HIỂN THỊ GIÁ KIỂU "VOUCHER" --%>
                             <div class="voucher-price-container" style="margin-bottom: 20px;">
                                 <% if (p.getType() == 2 && p.getDiscount_percent() != null && p.getDiscount_percent() > 0) {%>
 
@@ -70,9 +67,9 @@
                                     <%= String.format("%,d VNĐ", p.getPrice()).replace(",", ".")%>
                                 </p>
 
-                                <%-- Giá sau giảm, màu đỏ rực kiểu Voucher --%>
+                                <%-- Giá sau giảm kiểu Voucher --%>
                                 <p class="final-voucher-price" style="color: #ee4d2d; font-size: 32px; font-weight: bold; margin: 5px 0; display: flex; align-items: baseline; gap: 5px;">
-                                    <%= String.format("%,.0f đ", p.getFinalPrice()).replace(",", ".")%> 
+                                    <%= String.format("%,.0f VNĐ", p.getFinalPrice()).replace(",", ".")%> 
 
                                     <%-- Tag phần trăm giảm giá kiểu Voucher --%>
                                     <span class="discount-percent-tag" style="background-color: #fbebed; color: #ee4d2d; border: 1px solid #ee4d2d; font-size: 14px; padding: 2px 8px; border-radius: 4px; font-weight: 600;">
@@ -86,7 +83,7 @@
                                 <% } else {%>
                                 <%-- Nếu không giảm giá, hiện giá thường màu đỏ --%>
                                 <p class="product-price" style="color: #ee4d2d; font-size: 30px; font-weight: bold; margin: 10px 0;">
-                                    <%= String.format("%,.0f đ", p.getFinalPrice()).replace(",", ".")%> 
+                                    <%= String.format("%,.0f VNĐ", p.getFinalPrice()).replace(",", ".")%> 
                                 </p>
                                 <% }%>
                             </div>

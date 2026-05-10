@@ -345,14 +345,14 @@
 
                                 priceHTML =
                                         '<div class="suggest-price">'
-                                        + newPrice.toLocaleString() + ' đ '
-                                        + '<span class="old-price">' + p.price.toLocaleString() + ' đ</span>'
+                                        + newPrice.toLocaleString('vi-VN') + ' VNĐ '
+                                        + '<span class="old-price">' + p.price.toLocaleString('vi-VN') + ' VNĐ</span>'
                                         + '<span class="discount">-' + p.discount + '%</span>'
                                         + '</div>';
                             } else {
                                 priceHTML =
                                         '<div class="suggest-price">'
-                                        + p.price.toLocaleString() + ' đ'
+                                        + p.price.toLocaleString('vi-VN') + ' VNĐ'
                                         + '</div>';
                             }
 

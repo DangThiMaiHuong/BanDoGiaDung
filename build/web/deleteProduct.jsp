@@ -49,8 +49,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Giá:</label>
-                        <input type="text" value="<%=p.getPrice()%>" readonly>
+                        <label>Giá (VNĐ):</label>
+                        <input type="text" value="<%= String.format("%,d", p.getPrice()).replace(",", ".")%> "  readonly>
                     </div>
 
                     <div class="form-group">
@@ -90,6 +90,7 @@
                         <label>Giảm giá (%):</label>
                         <input type="text" value="<%=p.getDiscount_percent()%>" readonly>
                     </div>
+
                     <p style="color:red; font-weight:bold;">
                         Bạn có chắc muốn xóa sản phẩm này?
                     </p>
@@ -98,6 +99,7 @@
                         <button class="btn" style="background:red;">XÓA</button>
                         <a href="productManager.jsp" class="btn">Quay lại</a>
                     </div>
+
                 </form>
 
             </div>

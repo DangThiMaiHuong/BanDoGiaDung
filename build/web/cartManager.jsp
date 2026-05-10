@@ -49,15 +49,15 @@
                         <tr>
                             <td><%=p.getName()%></td>
                             <td>
-                                <% if (p.getType() == 2 && p.getDiscount_percent() != null && p.getDiscount_percent() > 0) { %>
-                                <del style="color: gray; font-size: 0.9em;"><%= String.format("%d", p.getPrice()) %> VNĐ</del><br/>
-                                <b style="color: red;"><%= String.format("%,d", (long)p.getFinalPrice()) %> đ</b>
-                                <% } else { %>
-                                <%= String.format("%d", p.getPrice()) %> VNĐ
-                                <% } %>
+                                <% if (p.getType() == 2 && p.getDiscount_percent() != null && p.getDiscount_percent() > 0) {%>
+                                <del style="color: gray; font-size: 0.9em;"><%= String.format("%,d", p.getPrice()).replace(",", ".")%> VNĐ</del><br/>
+                                <b style="color: red;"><%= String.format("%,d", (long) p.getFinalPrice()).replace(",", ".")%> VNĐ</b>
+                                <% } else {%>
+                                <%= String.format("%,d", p.getPrice()).replace(",", ".")%> VNĐ
+                                <% }%>
                             </td>
                             <td><img src="<%=p.getImage()%>" width="50"/></td>
-                            <td><%= (p.getType() == 1) ? "🔥 Hot" : (p.getType() == 2 ? "💥 Sale" : "🆕 New") %></td>
+                            <td><%= (p.getType() == 1) ? "🔥 Hot" : (p.getType() == 2 ? "💥 Sale" : "🆕 New")%></td>
                             <td><%=p.getDiscount_percent()%>%</td>
                             <td style="font-weight: bold; color: red;"><%=p.getTotalQty()%></td> 
                         </tr>
@@ -66,15 +66,15 @@
                     </tbody>
                 </table>
 
-                <h1 style="text-align: center">CHI TIẾT GIỎ HÀNG NGƯỜI DÙLYNG</h1>
+                <h1 style="text-align: center">CHI TIẾT GIỎ HÀNG NGƯỜI DÙNG</h1>
                 <table border="1" style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background-color: #f2f2f2;">
                             <th>Username</th>
-                            <th>Tên sản phẩm</th>
+                            <th>ProductName</th>
                             <th>Image</th>
                             <th>Price</th>
-                            <th>Số lượng</th>
+                            <th>Quantity</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,33 +97,33 @@
                                         }
                         %>
                         <tr>
-                            <td style="padding: 10px;"><%= item.get("username") %></td>
-                            <td style="padding: 10px;"><%= item.get("productName") %></td>
+                            <td style="padding: 10px;"><%= item.get("username")%></td>
+                            <td style="padding: 10px;"><%= item.get("productName")%></td>
                             <td style="text-align: center; padding: 5px;">
-                                <img src="<%= item.get("image") %>" width="50" style="border-radius: 5px;"/>
+                                <img src="<%= item.get("image")%>" width="50" style="border-radius: 5px;"/>
                             </td>
                             <td style="color: #2c3e50; font-weight: 500; padding: 10px;">
-                                <%= String.format("%,d", finalPrice) %> đ
-                                <% if (type == 2 && discount > 0) { %>
-                                <br><small style="color: red;">(<del><%= String.format("%,d", originalPrice) %></del>)</small>
-                                <% } %>
+                                <%= String.format("%,d", finalPrice).replace(",", ".")%> VNĐ
+                                <% if (type == 2 && discount > 0) {%>
+                                <br><small style="color: red;">(<del><%= String.format("%,d", originalPrice).replace(",", ".")%> VNĐ</del>)</small>
+                                <% }%>
                             </td>
-                            <td style="text-align: center;"><%= quantity %></td>
+                            <td style="text-align: center;"><%= quantity%></td>
                         </tr>
-                        <% 
-                                    } catch (Exception e) {
-                                        // Nếu một dòng bị lỗi định dạng, vẫn tiếp tục các dòng sau
-                                        out.println("");
-                                    }
-                                } // End for
-                            } else {
+                        <%
+                                } catch (Exception e) {
+                                    // Nếu một dòng bị lỗi định dạng, vẫn tiếp tục các dòng sau
+                                    out.println("");
+                                }
+                            } // End for
+                        } else {
                         %>
                         <tr>
                             <td colspan="5" style="text-align: center; padding: 20px;">
                                 <b>Hiện chưa có người dùng nào thêm sản phẩm vào giỏ hàng.</b>
                             </td>
                         </tr>
-                        <% } %>
+                        <% }%>
                     </tbody>
                 </table>
             </div>

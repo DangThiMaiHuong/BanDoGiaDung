@@ -41,7 +41,7 @@
                         <%
                             // Đảm bảo đã tạo class ContactDAO và phương thức getAllContacts()
                             ContactDAO dao = new ContactDAO();
-                            List<Contact> cList = dao.getAllContacts(); 
+                            List<Contact> cList = dao.getAllContacts();
                             if (cList != null) {
                                 for (Contact c : cList) {
                         %>
@@ -50,16 +50,16 @@
                             <td><%=c.getEmail()%></td>
                             <td><%=c.getMessage()%></td>
                             <td style="text-align: center;">
-                                <% 
+                                <%
                                     // Kiểm tra xem đã có nội dung trong reply_message chưa
                                     String rep = c.getReplyMessage();
-                                    if (rep == null || rep.trim().isEmpty()) { 
+                                    if (rep == null || rep.trim().isEmpty()) {
                                 %>
                                 <button onclick="openReplyModal('<%=c.getName()%>', '<%=c.getEmail()%>')" 
                                         style="display: inline-block; padding: 5px 15px; background-color: #ffb100; border: none; color: white; border-radius: 4px; cursor: pointer;">
                                     Reply
                                 </button>
-                                <% } else { %>
+                                <% } else {%>
                                 <div style="font-size: 11px; color: #27ae60; font-weight: bold; margin-bottom: 3px;">✓ Đã rep</div>
                                 <a href="UnreplyController?id=<%=c.getId()%>" 
                                    style="display: inline-block; padding: 3px 10px; background-color: #e74c3c; color: white; border-radius: 4px; text-decoration: none; font-size: 12px;"
@@ -70,7 +70,7 @@
                             </td>
                         </tr>
                         <%      }
-                            } %>
+                            }%>
                     </tbody>
                 </table>
             </div>

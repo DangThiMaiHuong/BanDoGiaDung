@@ -49,8 +49,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Giá:</label>
-                        <input type="number" name="price" value="<%=p.getPrice()%>" required>
+                        <label>Giá (VNĐ):</label>
+                        <input type="text" name="price" value="<%= String.format("%,d", p.getPrice()).replace(",", ".")%>" required>
                     </div>
 
                     <div class="form-group">
