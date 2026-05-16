@@ -7,7 +7,7 @@
 <%@page import="Model.ProductDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    String idStr = request.getParameter("id");
+    String idStr = request.getParameter("id");//lấy id từ sản phẩm đường dẫn URL
     Product p = null;
 
     if (idStr != null && !idStr.trim().isEmpty()) {

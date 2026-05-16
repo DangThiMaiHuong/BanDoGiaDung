@@ -80,10 +80,10 @@
                     <tbody>
                         <%
                             // Gọi hàm lấy dữ liệu từ DAO
-                            List<java.util.Map<String, Object>> allCarts = new ProductDAO().getAllCartItems();
+                            List<Map<String, Object>> allCarts = new ProductDAO().getAllCartItems();
 
                             if (allCarts != null && !allCarts.isEmpty()) {
-                                for (java.util.Map<String, Object> item : allCarts) {
+                                for (Map<String, Object> item : allCarts) {
                                     try {
                                         // CÁCH LẤY DỮ LIỆU AN TOÀN: Chuyển về String rồi mới Parse
                                         long originalPrice = Long.parseLong(item.get("price").toString());

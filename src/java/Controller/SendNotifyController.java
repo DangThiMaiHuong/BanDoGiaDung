@@ -74,18 +74,24 @@ public class SendNotifyController extends HttpServlet {
             throws ServletException, IOException {
         // Thêm dòng này để hỗ trợ tiếng Việt
         request.setCharacterEncoding("UTF-8");
-
+        String idStr = request.getParameter("id");
         String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String message = request.getParameter("message");
+        
 
-        if (username != null && !username.isEmpty() && message != null) {
+        if (idStr != null && !idStr.isEmpty() && message != null) {
+            try{
+            int id = Integer.parseInt(idStr);
             ContactDAO dao = new ContactDAO();
             // 1. Gửi thông báo cho khách hàng (Bảng notifications)
-            dao.sendNotification(username, message);
+            dao.sendNotification(username,email, message);
             // 2. Đánh dấu đã phản hồi trên bảng Admin (Bảng contact)
-            dao.updateReplyMessage(username, message);
+            dao.updateReplyMessage(id, message);
+        } catch (NumberFormatException e) {
+                e.printStackTrace(); // Xử lý phòng hờ lỗi ép kiểu dữ liệu đầu vào
+            }
         }
-
         // Chuyển hướng xong là kết thúc, KHÔNG gọi processRequest ở dưới nữa
         response.sendRedirect("contactManager.jsp");
 

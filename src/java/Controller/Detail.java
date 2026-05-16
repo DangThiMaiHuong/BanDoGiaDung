@@ -70,7 +70,7 @@ public class Detail extends HttpServlet {
 
         Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
         if (cart == null) {
-            cart = new HashMap<>();
+            cart = new HashMap<>();//tạo giỏ hàng mới
         }
 
         // Xử lý logic số lượng

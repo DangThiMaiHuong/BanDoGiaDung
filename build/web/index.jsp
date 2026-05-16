@@ -8,6 +8,7 @@
 <%@page import="Model.ProductDAO"%>
 <%@page import="Model.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!<!-- lấy đường dẫn object request.getContextPath() -->
 <link href="<%=request.getContextPath()%>/style.css" rel="stylesheet">
 
 <!DOCTYPE html>

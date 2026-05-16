@@ -29,6 +29,7 @@
             <h2>🛒 Chi tiết giỏ hàng</h2>
 
             <%
+                //mỗi productId chỉ tồn tại 1 lần trong Map
                 Map<Integer, Integer> cart = (Map<Integer, Integer>) session.getAttribute("cart");
                 if (cart == null || cart.isEmpty()) {
             %>
@@ -74,10 +75,10 @@
 
                     <div class="quantity-control">
                         <p>Số lượng:</p>
-                        <a href="Detail?id=<%= p.getId()%>&action=decrease" class="btn-qty">-</a>    
+                        <a href="Detail?id=<%= p.getId()%>& action=decrease" class="btn-qty">-</a>    
                         <input type="number" value="<%= qty%>" class="qty-input" min="1" 
                                onchange="window.location.href = 'Detail?id=<%= p.getId()%>&action=update&newQty=' + this.value">
-                        <a href="Detail?id=<%= p.getId()%>&action=increase" class="btn-qty">+</a>
+                        <a href="Detail?id=<%= p.getId()%>& action=increase" class="btn-qty">+</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +96,7 @@
     </div>
 </div>
 <script>
-
+//tự động tính lại tổng tiền khi tichs sp 
     function reCalculateTotal() {
         let total = 0;
 
@@ -105,15 +106,15 @@
             const price = Number(item.getAttribute('data-price'));
 
             const qty = item
-                    .closest('.cart-item')
-                    .querySelector('.qty-input')
-                    .value;
+                    .closest('.cart-item')//tìm sản phẩm hiện tại gần nhất
+                    .querySelector('.qty-input')//lấy ô input số lượng
+                    .value;//láy số luowgnj người dùng nhập
 
             total += price * Number(qty);
         });
 
         document.getElementById('totalPriceDisplay').innerText =
-                total.toLocaleString('vi-VN') + " đ";
+                total.toLocaleString('vi-VN') + " đ";//tìm
     }
 
     document.querySelectorAll('.cart-checkbox').forEach(checkbox => {

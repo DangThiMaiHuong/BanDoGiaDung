@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author pc
  */
-@WebServlet("/UnreplyController")
+@WebServlet("/UnreplyController")//URL mapping
 public class Unreply extends HttpServlet {
 
     /**
@@ -65,7 +65,8 @@ public class Unreply extends HttpServlet {
         dao.removeReply(id);
 
         // Quay lại trang quản lý liên hệ
-        response.sendRedirect("notifications.jsp");
+        //response.sendRedirect("notifications.jsp");
+        response.sendRedirect("contactManager.jsp");
     }
 
     /**

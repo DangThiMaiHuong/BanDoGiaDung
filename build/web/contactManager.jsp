@@ -1,5 +1,5 @@
 <%-- 
-    Document   : notifications
+    Document   : contactManager
     Created on : May 9, 2026, 6:17:56 PM
     Author     : pc
 --%>
@@ -55,7 +55,7 @@
                                     String rep = c.getReplyMessage();
                                     if (rep == null || rep.trim().isEmpty()) {
                                 %>
-                                <button onclick="openReplyModal('<%=c.getName()%>', '<%=c.getEmail()%>')" 
+                                <button onclick="openReplyModal('<%=c.getId()%>', '<%=c.getName()%>', '<%=c.getEmail()%>')" 
                                         style="display: inline-block; padding: 5px 15px; background-color: #ffb100; border: none; color: white; border-radius: 4px; cursor: pointer;">
                                     Reply
                                 </button>
@@ -82,6 +82,8 @@
                 <h2 style="margin-top:0; color: #333; border-bottom: 2px solid #ffb100; padding-bottom: 10px;">Phản hồi khách hàng</h2>
 
                 <form action="SendNotifyController" method="POST">
+                    <%--Thêm input ẩn để giữ ID của bản ghi liên hệ --%>
+                    <input type="hidden" name="id" id="displayId">
                     <div style="margin-bottom: 15px;">
                         <label style="display:block; font-weight:bold; margin-bottom:5px;">Username:</label>
                         <input type="text" name="username" id="displayUser" readonly 
@@ -90,7 +92,7 @@
 
                     <div style="margin-bottom: 15px;">
                         <label style="display:block; font-weight:bold; margin-bottom:5px;">Email:</label>
-                        <input type="text" id="displayEmail" readonly 
+                        <input type="text" name="email" id="displayEmail" readonly 
                                style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px; background:#f9f9f9; color:#555;">
                     </div>
 
@@ -112,8 +114,9 @@
         </div>
 
         <script>
-            function openReplyModal(username, email) {
+            function openReplyModal(id,username, email) {
                 // Điền dữ liệu vào các ô input trong Modal
+                document.getElementById('displayId').value = id;
                 document.getElementById('displayUser').value = username;
                 document.getElementById('displayEmail').value = email;
 

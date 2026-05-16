@@ -7,6 +7,8 @@ package Model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.sql.PreparedStatement;
 
 /**
@@ -25,7 +27,6 @@ public class ProductDAO {
     public List<Product> getAll() {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products";
-
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -98,7 +99,7 @@ public class ProductDAO {
 
         return list;
     }
-
+//Giỏ hàng
     public void CartToDB(Integer userId, String username, int productId, int quantity) {
         try {
             String checkSql = "SELECT quantity FROM cart WHERE product_id=? AND (user_id=? OR username=?)";
@@ -160,7 +161,7 @@ public class ProductDAO {
             System.out.println("Lỗi remove: " + e.getMessage());
         }
     }
-
+//Phân theo loại
     public List<Product> getProductByType(int type) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products WHERE type = ?";
@@ -327,8 +328,8 @@ public class ProductDAO {
     }
 
     // 2. Lấy chi tiết tất cả giỏ hàng (Để hiện Username - Tên SP - Số lượng)
-    public List<java.util.Map<String, Object>> getAllCartItems() {
-        List<java.util.Map<String, Object>> list = new java.util.ArrayList<>();
+    public List<Map<String, Object>> getAllCartItems() {
+        List<Map<String, Object>> list = new ArrayList<>();
         // JOIN lấy thêm p.image và p.price
         String sql = "SELECT c.username, p.name as product_name, p.image, p.price, "
                 + "p.discount_percent, p.type, c.quantity "
@@ -337,7 +338,7 @@ public class ProductDAO {
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                java.util.Map<String, Object> map = new java.util.HashMap<>();
+                Map<String, Object> map = new HashMap<>();
                 map.put("username", rs.getString("username"));
                 map.put("productName", rs.getString("product_name"));
                 map.put("image", rs.getString("image"));
