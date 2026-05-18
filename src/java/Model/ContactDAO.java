@@ -67,7 +67,6 @@ public class ContactDAO {
                 c.setName(rs.getString("name"));
                 c.setEmail(rs.getString("email"));
                 c.setMessage(rs.getString("message"));
-                // Bạn cần thêm field 'replyMessage' vào class Contact.java trước đó nhé
                 c.setReplyMessage(rs.getString("reply_message"));
                 list.add(c);
             }
@@ -80,7 +79,9 @@ public class ContactDAO {
 // 2. Thêm hàm xóa phản hồi (Dùng cho nút Unreply)
     public void removeReply(int id) {
         String sql = "UPDATE contact SET reply_message = NULL WHERE id = ?";
-        try (Connection conn = new Connect().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = new Connect().getConnection(); 
+             PreparedStatement ps = conn.prepareStatement(sql)) 
+        {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -89,11 +90,13 @@ public class ContactDAO {
     }
 
     //hàm này sẽ đẩy dữ liệu vào bảng thông báo
-    public void sendNotification(String username, String msg) {
-        String sql = "INSERT INTO notifications(username, message, is_read) VALUES (?, ?, 0)";
-        try (Connection conn = new Connect().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+    public void sendNotification(String username,String email, String msg) {
+        String sql = "INSERT INTO notifications(username,email, message, is_read) VALUES (?, ?, ?, 0)";
+        try (Connection conn = new Connect().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
-            ps.setString(2, msg);
+            ps.setString(2, email);
+            ps.setString(3, msg);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Lỗi sendNotification: " + e.getMessage());
@@ -103,13 +106,15 @@ public class ContactDAO {
     //lấy toàn bộ các thông báo dành riêng cho người dùng đang đăng nhập, xếp cái mới nhất lên đầu
     public List<Map<String, Object>> getNotificationsByUser(String username) {
         List<Map<String, Object>> list = new ArrayList<>();
-        String sql = "SELECT id, message, is_read, created_at FROM notifications WHERE username = ? ORDER BY created_at DESC";
-        try (Connection conn = new Connect().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "SELECT id,email, message, is_read, created_at FROM notifications WHERE username = ? ORDER BY created_at DESC";
+        try (Connection conn = new Connect().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", rs.getInt("id"));
+                map.put("email", rs.getString("email"));
                 map.put("message", rs.getString("message"));
                 map.put("is_read", rs.getInt("is_read"));
                 map.put("date", rs.getTimestamp("created_at"));
@@ -127,7 +132,8 @@ public class ContactDAO {
         //đếm các dòng có is_read bằng 0 (chưa đọc)
         String sql = "SELECT COUNT(*) FROM notifications WHERE username = ? AND is_read = 0";
 
-        try (Connection conn = new Connect().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = new Connect().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
@@ -142,12 +148,12 @@ public class ContactDAO {
     }
 
 // cập nhật nội dung phản hồi vào bảng contact. Khi Admin gửi tin nhắn, chúng ta sẽ lưu tin nhắn đó vào cột reply_message của người dùng tương ứng
-    public void updateReplyMessage(String username, String replyMsg) {
+    public void updateReplyMessage( int id, String replyMsg) {
         // dựa vào name (username) để update nội dung phản hồi
-        String sql = "UPDATE contact SET reply_message = ? WHERE name = ?";
+        String sql = "UPDATE contact SET reply_message = ? WHERE id = ?";
         try (Connection conn = new Connect().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, replyMsg);
-            ps.setString(2, username);
+            ps.setInt(2, id);
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,7 +163,8 @@ public class ContactDAO {
 // Hàm đánh dấu tất cả thông báo của người dùng là đã đọc
     public void markAllAsRead(String username) {
         String sql = "UPDATE notifications SET is_read = 1 WHERE username = ? AND is_read = 0";
-        try (Connection conn = new Connect().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = new Connect().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
             ps.executeUpdate();
         } catch (Exception e) {
