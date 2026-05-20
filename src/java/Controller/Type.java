@@ -61,18 +61,10 @@ public class Type extends HttpServlet {
         String typeParam = request.getParameter("type");
         int type = (typeParam != null && !typeParam.isEmpty())
                 ? Integer.parseInt(typeParam)
-                : 1;
-        String category = request.getParameter("category");
-
-        ProductDAO dao = new ProductDAO();
-
-        // lọc theo type
-        List<Product> listType = dao.getProductByType(type);
-
-        request.setAttribute("listType", listType);
+                : 0;
+        
         request.setAttribute("activeType", type);
-        request.setAttribute("category", category);
-
+        
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

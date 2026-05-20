@@ -160,7 +160,7 @@ public class ContactDAO {
         }
     }
 
-// Hàm đánh dấu tất cả thông báo của người dùng là đã đọc
+// Hàm đánh dấu thông báo của người dùng là đã đọc
     public void markAllAsRead(String username) {
         String sql = "UPDATE notifications SET is_read = 1 WHERE username = ? AND is_read = 0";
         try (Connection conn = new Connect().getConnection();

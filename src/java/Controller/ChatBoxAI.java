@@ -151,7 +151,6 @@ public class ChatBoxAI extends HttpServlet {
     }
 
     private String callAI(String message) {
-        System.out.println("KEY = [" + API_KEY + "]");
         try {
 
             // lấy data từ database

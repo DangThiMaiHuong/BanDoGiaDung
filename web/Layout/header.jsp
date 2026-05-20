@@ -20,13 +20,13 @@
         String msg = request.getParameter("msg");
         String reg = request.getParameter("reg");
         String cont_error = request.getParameter("cont_error");
-        
-        int unreadCount = 0; 
+
+        int unreadCount = 0;
         // Chỉ đếm thông báo nếu có user đăng nhập VÀ user đó KHÔNG PHẢI admin
         if (user != null && !"admin".equals(user.getRole())) {
             Model.ContactDAO notifyDao = new Model.ContactDAO();
             // 2. Gán giá trị sau khi đã khai báo
-            unreadCount = notifyDao.getUnreadNotificationCount(user.getUsername());
+            unreadCount = notifyDao.getUnreadNotificationCount(user.getUsername()); //đếm số lượng thông báo chưa đoc
         }
     %>
 
@@ -45,14 +45,14 @@
         <div class="notification-wrapper">
             <a href="notifications.jsp" class="notification-link">
                 🔔
-                <% if (unreadCount > 0) { %>
+                <% if (unreadCount > 0) {%>
                 <span class="notification-badge">
-                    <%= unreadCount %>
+                    <%= unreadCount%>
                 </span>
                 <% } %>
             </a>
         </div>
-        <% } %>
+        <% }%>
 
         👤 Chào, <b><%= user.getUsername()%></b>
         <% if ("admin".equals(user.getRole())) { %>
@@ -130,8 +130,8 @@
                 <div class="form-group">
                     <label>Tên:</label>
                     <input name="username"
-                           value="<%= "exist".equals(request.getParameter("reg_error")) ? "" : 
-                                    (request.getParameter("username") != null ? request.getParameter("username") : "")%>" 
+                           value="<%= "exist".equals(request.getParameter("reg_error")) ? ""
+                                   : (request.getParameter("username") != null ? request.getParameter("username") : "")%>" 
                            required>
                 </div>
 
@@ -193,8 +193,8 @@
                 <div class="form-group">
                     <label>Tên:</label>
                     <input name="name" 
-                           value="<%= (user != null ? user.getUsername() : 
-                                   request.getParameter("name") != null ? request.getParameter("name"): "")%>"
+                           value="<%= (user != null ? user.getUsername()
+                                   : request.getParameter("name") != null ? request.getParameter("name") : "")%>"
                            <%= (user != null ? "readonly" : "")%> required>
                 </div>
 
@@ -207,7 +207,7 @@
 
                 <div class="form-group">
                     <label>Nội dung:</label>
-                    <textarea name="message" style="width:95%; height:80px;" required><%= request.getParameter("message") != null ? request.getParameter("message"): ""%></textarea>
+                    <textarea name="message" style="width:95%; height:80px;" required><%= request.getParameter("message") != null ? request.getParameter("message") : ""%></textarea>
                 </div>
                 <!-- HIỂN THỊ LỖI -->
                 <% if ("contact_email".equals(cont_error)) { %>
@@ -231,12 +231,6 @@
 
         if (msgJS === "success") {
             alert("Đăng nhập thành công!");
-
-            if (window.history.replaceState) {
-                const url = new URL(window.location);
-                url.searchParams.delete('msg');
-                window.history.replaceState({}, document.title, url.pathname + url.search);
-            }
         }
 
         if (msgJS === "not_exist" || msgJS === "wrong_pass") {
@@ -287,15 +281,6 @@
         document.getElementById("loginModal").style.display = "block";
         document.getElementById("registerModal").style.display = "none";
     }
-    window.onclick = function (event) {
-        let login = document.getElementById("loginModal");
-        let register = document.getElementById("registerModal");
-
-        if (event.target === login)
-            login.style.display = "none";
-        if (event.target === register)
-            register.style.display = "none";
-    };
 </script>
 
 <!-- XỬ LÝ TÌM KIẾM -->
@@ -357,9 +342,13 @@
                             }
 
                             // HTML
+                            // HTML
                             box.innerHTML +=
                                     '<div class="suggest-item" onclick="goDetail(' + p.id + ')">'
+                                    + '<div class="img-box">'
+                                    + label
                                     + '<img src="' + p.image + '" style="width:50px;height:50px;">'
+                                    + '</div>'
                                     + '<div>'
                                     + '<div>' + p.name + '</div>'
                                     + priceHTML
@@ -371,7 +360,7 @@
                     });
         });
         // ENTER TÌM KIẾM
-        input.addEventListener("keypress", function (e) {
+        input.addEventListener('keypress', function (e) {
             if (e.key === "Enter") {
                 window.location = "search.jsp?keyword=" + input.value;
             }

@@ -78,17 +78,16 @@ public class SendNotifyController extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String message = request.getParameter("message");
-        
 
         if (idStr != null && !idStr.isEmpty() && message != null) {
-            try{
-            int id = Integer.parseInt(idStr);
-            ContactDAO dao = new ContactDAO();
-            // 1. Gửi thông báo cho khách hàng (Bảng notifications)
-            dao.sendNotification(username,email, message);
-            // 2. Đánh dấu đã phản hồi trên bảng Admin (Bảng contact)
-            dao.updateReplyMessage(id, message);
-        } catch (NumberFormatException e) {
+            try {
+                int id = Integer.parseInt(idStr);
+                ContactDAO dao = new ContactDAO();
+                // 1. Gửi thông báo cho khách hàng (Bảng notifications)
+                dao.sendNotification(username, email, message);
+                // 2. Đánh dấu đã phản hồi trên bảng Admin (Bảng contact)
+                dao.updateReplyMessage(id, message);
+            } catch (NumberFormatException e) {
                 e.printStackTrace(); // Xử lý phòng hờ lỗi ép kiểu dữ liệu đầu vào
             }
         }
