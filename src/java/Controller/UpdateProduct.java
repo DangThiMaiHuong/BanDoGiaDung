@@ -51,7 +51,7 @@ public class UpdateProduct extends HttpServlet {
                 discount = 0; // HOT + NEW = 0
             }
             Product p = new Product(id, name, image, description, price, discount, type, category);
-            p.setCategory(category);
+
             ProductDAO dao = new ProductDAO();
             dao.updateProduct(p);
         } catch (NumberFormatException | SQLException e) {

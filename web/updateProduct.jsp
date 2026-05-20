@@ -107,7 +107,7 @@
                 var type = document.querySelector("select[name='type']").value;
                 var discount = document.getElementById("discount");
 
-                if (type == "2") {
+                if (type === "2") {
                     discount.disabled = false;
                 } else {
                     discount.value = 0;

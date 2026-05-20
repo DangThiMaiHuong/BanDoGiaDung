@@ -131,10 +131,10 @@
             // Đóng modal khi click ra ngoài vùng trắng
             window.onclick = function (event) {
                 var modal = document.getElementById('replyModal');
-                if (event.target == modal) {
+                if (event.target === modal) {
                     closeModal();
                 }
-            }
+            };
         </script>
     </body>
 </html>

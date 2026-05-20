@@ -24,7 +24,7 @@
     </div>
 
     <div id="messages">
-        <div class="msg ai">Xin chào! Tôi có thể giúp gì cho bạn?</div>
+        <div class="msg ai">Xin chào! Tôi có thể giúp gì cho bạn?</div> 
     </div>
 
     <div id="chat-input">
@@ -45,8 +45,11 @@
         if (box.style.display === "none" || box.style.display === "") {
             box.style.display = "flex";
             welcome.style.display = "none";
+            let messages = document.getElementById("messages");
+            messages.scrollTop = messages.scrollHeight;
         } else {
             box.style.display = "none";
+            welcome.style.display = "block";
         }
     }
 
@@ -139,11 +142,9 @@
             messages.appendChild(div);
         });
 
-        messages.scrollTop = messages.scrollHeight;
-
     });
     window.addEventListener("load", function () {
-        let user = "${sessionScope.user != null ? sessionScope.user.username : ''}";
+        let user = "${sessionScope.user != null ? sessionScope.user.id : ''}";
 
         if (user && user !== '') {
             localStorage.setItem("userId", user);
@@ -158,24 +159,9 @@
             }
         }
     });
-    function clearChat() {
-        for (let key in localStorage) {
-            if (key.startsWith("chatHistory_")) {
-                localStorage.removeItem(key);
-            }
-        }
-        localStorage.removeItem("userId");
-    }
     function closeChatBox() {
         document.getElementById("chatbox").style.display = "none";
+        document.getElementById("chat-welcome").style.display = "block";
     }
 </script>
-<script>
-    let user = "${sessionScope.user != null ? sessionScope.user.username : ''}";
 
-    if (user && user !== '') {
-        localStorage.setItem("userId", user);
-    } else {
-        localStorage.removeItem("userId");
-    }
-</script>

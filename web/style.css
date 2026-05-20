@@ -894,6 +894,22 @@ th, td {
     pointer-events: none;
 }
 
+.suggest-item .img-box {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+.suggest-item .label {
+    top: -5px;
+    left: -5px;
+    font-size: 5px;
+    padding: 1px 3px;
+    min-width: 20px;
+    text-align: center;
+}
+
 /* NÚT CHAT */
 #chat-button {
     position: fixed;
