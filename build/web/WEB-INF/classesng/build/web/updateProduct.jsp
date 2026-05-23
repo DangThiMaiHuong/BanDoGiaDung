@@ -40,7 +40,7 @@
                 <jsp:include page="Layout/ProductType.jsp"/>
                 <%
                     String error = request.getParameter("error");
-                    if ("exist".equals(error)) {
+                    if ("exist".equals(error)) {//biến error có gí trị exist
                 %>
                 <p class="er">Tên sản phẩm đã tồn tại!</p>
                 <% }%>

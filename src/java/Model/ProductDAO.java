@@ -280,7 +280,7 @@ public class ProductDAO {
     }
     
     public boolean isProductNameExists(String name, int id) {
-        String sql = "SELECT * FROM products WHERE name = ? AND id != ?";
+        String sql = "SELECT * FROM products WHERE name = ? AND id != ?";//có cùng tên nhưng khác id hiện tại
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);

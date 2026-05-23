@@ -36,7 +36,7 @@ public class UpdateProduct extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
             String priceRaw = request.getParameter("price");
-            priceRaw = priceRaw.replace(".", "")
+            priceRaw = priceRaw.replace(".", "")  //xóa dấu . vì long không đọc đc
                     .replace(",", "")
                     .trim();
             long price = Long.parseLong(priceRaw);
@@ -54,10 +54,10 @@ public class UpdateProduct extends HttpServlet {
             } else {
                 discount = 0; // HOT + NEW = 0
             }
-            Product p = new Product(id, name, image, description, price, discount, type, category);
+            Product p = new Product(id, name, image, description, price, discount, type, category);//tạo object p chứa toàn bộ dl sp
             ProductDAO dao = new ProductDAO();
-            if (dao.isProductNameExists(name, id)) {
-                response.sendRedirect("updateProduct.jsp?id=" + id + "&error=exist");
+            if (dao.isProductNameExists(name, id)) {//ktra trùng tên
+                response.sendRedirect("updateProduct.jsp?id=" + id + "&error=exist"); //& để nối nhiều parameter ,key=error,value=exist
                 return;
             }
             dao.updateProduct(p);
