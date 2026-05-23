@@ -32,7 +32,7 @@
         <jsp:include page="Layout/ProductType.jsp"/>
 
         <%
-            String keyword = request.getParameter("keyword");
+            String keyword = request.getParameter("keyword");//lấy keywword từ URL
             ProductDAO dao = new ProductDAO();
             List<Product> list = dao.searchByName(keyword);
         %>
@@ -99,6 +99,7 @@
 
     </div>
 </div>
+        
 
 <!-- FOOTER -->
 <jsp:include page="Layout/footer.jsp"/>

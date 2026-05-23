@@ -43,8 +43,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Giá:</label>
-                        <input type="number" name="price" value="<%= request.getParameter("price") != null ? request.getParameter("price") : ""%>" required>
+                        <label>Giá (VNĐ):</label>
+                        <input type="number" name="price" value="<%= request.getParameter("price") != null ? request.getParameter("price") : ""%> " required>
                     </div>
 
                     <div class="form-group">

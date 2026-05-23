@@ -61,24 +61,24 @@ public class Search extends HttpServlet {
         String keyword = request.getParameter("keyword");
         ProductDAO dao = new ProductDAO();
         List<Product> list = dao.SearchTop5(keyword);
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");//báo cho trình duyệt sắp có dl Json tới 
         StringBuilder json = new StringBuilder("[");
         for (int i = 0; i < list.size(); i++) {
             Product p = list.get(i);
             json.append("{")
-                    .append("\"id\":").append(p.getId()).append(",")
-                    .append("\"name\":\"").append(p.getName().replace("\"", "\\\"")).append("\",")
+                    .append("\"id\":").append(p.getId()).append(",")//append :nối thêm chuỗi
+                    .append("\"name\":\"").append(p.getName().replace("\"", "\\\"")).append("\",")//xử lý nếu tên có dấu ngoặc kép
                     .append("\"price\":").append(p.getPrice()).append(",")
                     .append("\"image\":\"").append(p.getImage().replace("\"", "\\\"")).append("\",")
                     .append("\"type\":").append(p.getType()).append(",")
                     .append("\"discount\":").append(p.getDiscount_percent() == null ? 0 : p.getDiscount_percent())
                     .append("}");
             if (i < list.size() - 1) {
-                json.append(",");
+                json.append(",");//thêm dấu phẩy giữa các dối tượng trừ cái cuối cùng
             }
         }
         json.append("]");
-        response.getWriter().write(json.toString());
+        response.getWriter().write(json.toString());//gửi chuỗi json về lại cho trình duyệt(javascript)
 
     }
 

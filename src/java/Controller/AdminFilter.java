@@ -38,7 +38,7 @@ public class AdminFilter implements Filter {
             User user = (User) session.getAttribute("user");
 
             if (user == null || !"admin".equals(user.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                response.sendRedirect(request.getContextPath() + "/Home");
                 return;
             }
         }

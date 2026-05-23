@@ -62,7 +62,7 @@
                         <tr>
                             <td><%=p.getId()%></td>
                             <td><%=p.getName()%></td>
-                            <td><%= String.format("%,d", p.getPrice()).replace(",", ".")%> VNĐ</td>
+                            <td><%= String.format("%,.0f", p.getFinalPrice()).replace(",", ".")%> VNĐ</td>
                             <td><image src="<%=p.getImage()%>"/></td>
                             <td><%=p.getCategory()%></td>
                             <td>

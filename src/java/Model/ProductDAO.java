@@ -278,7 +278,20 @@ public class ProductDAO {
         ps.setInt(1, id);
         return ps.executeUpdate() > 0;
     }
-
+    
+    public boolean isProductNameExists(String name, int id) {
+        String sql = "SELECT * FROM products WHERE name = ? AND id != ?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean updateProduct(Product p) throws SQLException {
         String sql = "UPDATE products SET name=?, price=?, image=?, description=?, category=?, type=?, discount_percent=? WHERE id=?";
         ps = conn.prepareStatement(sql);

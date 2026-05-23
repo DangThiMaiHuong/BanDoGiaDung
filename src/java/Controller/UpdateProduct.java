@@ -35,7 +35,11 @@ public class UpdateProduct extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
-            long price = Long.parseLong(request.getParameter("price"));
+            String priceRaw = request.getParameter("price");
+            priceRaw = priceRaw.replace(".", "")
+                    .replace(",", "")
+                    .trim();
+            long price = Long.parseLong(priceRaw);
             String image = request.getParameter("image");
             String description = request.getParameter("description");
             String category = request.getParameter("category");
@@ -51,10 +55,14 @@ public class UpdateProduct extends HttpServlet {
                 discount = 0; // HOT + NEW = 0
             }
             Product p = new Product(id, name, image, description, price, discount, type, category);
-            p.setCategory(category);
             ProductDAO dao = new ProductDAO();
+            if (dao.isProductNameExists(name, id)) {
+                response.sendRedirect("updateProduct.jsp?id=" + id + "&error=exist");
+                return;
+            }
             dao.updateProduct(p);
         } catch (NumberFormatException | SQLException e) {
+            e.printStackTrace();
         }
         response.sendRedirect("productManager.jsp");
         try (PrintWriter out = response.getWriter()) {

@@ -38,6 +38,12 @@
             <!-- CONTENT -->
             <div class="content admin-page">
                 <jsp:include page="Layout/ProductType.jsp"/>
+                <%
+                    String error = request.getParameter("error");
+                    if ("exist".equals(error)) {
+                %>
+                <p class="er">Tên sản phẩm đã tồn tại!</p>
+                <% }%>
 
                 <form action="UpdateProduct" method="post">
 
@@ -50,7 +56,7 @@
 
                     <div class="form-group">
                         <label>Giá (VNĐ):</label>
-                        <input type="text" name="price" value="<%= String.format("%,d", p.getPrice()).replace(",", ".")%>" required>
+                        <input type="text" name="price" value="<%= String.format("%,d", p.getPrice()).replace(",", ".") %>" required>
                     </div>
 
                     <div class="form-group">
@@ -67,14 +73,14 @@
                     <div class="form-group">
                         <label>Danh mục:</label>
                         <select name="category" required>
-                            <option value="tulanh">Tủ lạnh</option>
-                            <option value="maygiat">Máy giặt</option>
-                            <option value="tivi">Tivi</option>
-                            <option value="dieuhoa">Điều hòa</option>
-                            <option value="noicomdien">Nồi cơm điện</option>
-                            <option value="quat">Quạt</option>
-                            <option value="maylocnuoc">Máy lọc nước</option>
-                            <option value="noi">Nồi</option>
+                            <option value="tulanh" <%= p.getCategory().equals("tulanh") ? "selected" : "" %>>Tủ lạnh</option>
+                            <option value="maygiat" <%= p.getCategory().equals("maygiat") ? "selected" : "" %>>Máy giặt</option>
+                            <option value="tivi" <%= p.getCategory().equals("tivi") ? "selected" : "" %>>Tivi</option>
+                            <option value="dieuhoa" <%= p.getCategory().equals("dieuhoa") ? "selected" : "" %>>Điều hòa</option>
+                            <option value="noicomdien" <%= p.getCategory().equals("noicomdien") ? "selected" : "" %>>Nồi cơm điện</option>
+                            <option value="quat" <%= p.getCategory().equals("quat") ? "selected" : "" %>>Quạt</option>
+                            <option value="maylocnuoc" <%= p.getCategory().equals("maylocnuoc") ? "selected" : "" %>>Máy lọc nước</option>
+                            <option value="noi" <%= p.getCategory().equals("noi") ? "selected" : "" %>>Nồi</option>
                         </select>
                     </div>
 
@@ -107,7 +113,7 @@
                 var type = document.querySelector("select[name='type']").value;
                 var discount = document.getElementById("discount");
 
-                if (type == "2") {
+                if (type === "2") {
                     discount.disabled = false;
                 } else {
                     discount.value = 0;

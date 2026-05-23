@@ -20,8 +20,8 @@
         String msg = request.getParameter("msg");
         String reg = request.getParameter("reg");
         String cont_error = request.getParameter("cont_error");
-        
-        int unreadCount = 0; 
+
+        int unreadCount = 0;
         // Chỉ đếm thông báo nếu có user đăng nhập VÀ user đó KHÔNG PHẢI admin
         if (user != null && !"admin".equals(user.getRole())) {
             Model.ContactDAO notifyDao = new Model.ContactDAO();
@@ -45,14 +45,14 @@
         <div class="notification-wrapper">
             <a href="notifications.jsp" class="notification-link">
                 🔔
-                <% if (unreadCount > 0) { %>
+                <% if (unreadCount > 0) {%>
                 <span class="notification-badge">
-                    <%= unreadCount %>
+                    <%= unreadCount%>
                 </span>
                 <% } %>
             </a>
         </div>
-        <% } %>
+        <% }%>
 
         👤 Chào, <b><%= user.getUsername()%></b>
         <% if ("admin".equals(user.getRole())) { %>
@@ -130,8 +130,8 @@
                 <div class="form-group">
                     <label>Tên:</label>
                     <input name="username"
-                           value="<%= "exist".equals(request.getParameter("reg_error")) ? "" : 
-                                    (request.getParameter("username") != null ? request.getParameter("username") : "")%>" 
+                           value="<%= "exist".equals(request.getParameter("reg")) ? ""
+                                   : (request.getParameter("username") != null ? request.getParameter("username") : "")%>" 
                            required>
                 </div>
 
@@ -193,8 +193,8 @@
                 <div class="form-group">
                     <label>Tên:</label>
                     <input name="name" 
-                           value="<%= (user != null ? user.getUsername() : 
-                                   request.getParameter("name") != null ? request.getParameter("name"): "")%>"
+                           value="<%= (user != null ? user.getUsername()
+                                   : request.getParameter("name") != null ? request.getParameter("name") : "")%>"
                            <%= (user != null ? "readonly" : "")%> required>
                 </div>
 
@@ -207,7 +207,7 @@
 
                 <div class="form-group">
                     <label>Nội dung:</label>
-                    <textarea name="message" style="width:95%; height:80px;" required><%= request.getParameter("message") != null ? request.getParameter("message"): ""%></textarea>
+                    <textarea name="message" style="width:95%; height:80px;" required><%= request.getParameter("message") != null ? request.getParameter("message") : ""%></textarea>
                 </div>
                 <!-- HIỂN THỊ LỖI -->
                 <% if ("contact_email".equals(cont_error)) { %>
@@ -300,21 +300,21 @@
 
 <!-- XỬ LÝ TÌM KIẾM -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {//document:quản lý toàn bộ trang,DOM:sự kiện xảy ra khi html đã load xong, các thẻ tạo xong
 
         const input = document.getElementById("searchBox");
         const box = document.getElementById("suggestBox");
 
-        input.addEventListener("keyup", function () {
-            let keyword = input.value;
+        input.addEventListener("keyup", function () { //mỗi khi nhập từ thì lắng nghe từng chữ 1
+            let keyword = input.value;//lấy chữ đã gõ gán vào biến keywword
 
-            if (keyword.length === 0) {
+            if (keyword.length === 0) { //nếu xóa hết chữ thì ẩn hộp gợi ý
                 box.style.display = "none";
                 return;
             }
-
+            //fetch gọi servlet, lấy dl database không reload trang
             fetch("<%=request.getContextPath()%>/Search?keyword=" + keyword)
-                    .then(res => res.json())
+                    .then(res => res.json()) //chuyển kq json nhận đc sang dạng objectJS có tên data
                     .then(data => {
 
                         box.innerHTML = `
@@ -325,7 +325,7 @@
                             <hr>
                         `;
 
-                        data.forEach(p => {
+                        data.forEach(p => { //duyệt từng sp trong Json
 
                             let label = "";
                             let priceHTML = "";
@@ -359,20 +359,23 @@
                             // HTML
                             box.innerHTML +=
                                     '<div class="suggest-item" onclick="goDetail(' + p.id + ')">'
+                                    + '<div class="img-box">'
+                                    + label
                                     + '<img src="' + p.image + '" style="width:50px;height:50px;">'
+                                    + '</div>'
                                     + '<div>'
                                     + '<div>' + p.name + '</div>'
                                     + priceHTML
                                     + '</div>'
                                     + '</div>';
-                        });
+                        }); //dồn tất cả các sp vào dòng gợi ý
 
-                        box.style.display = "block";
+                        box.style.display = "block"; //hiện hộp gợi ý lên 
                     });
         });
         // ENTER TÌM KIẾM
-        input.addEventListener("keypress", function (e) {
-            if (e.key === "Enter") {
+        input.addEventListener('keypress', function (e) {//keypress sự kiện của addeventListener
+            if (e.key === "Enter") {//e: biến đại diện cho sự kiện
                 window.location = "search.jsp?keyword=" + input.value;
             }
         });

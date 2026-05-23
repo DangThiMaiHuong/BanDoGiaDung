@@ -574,6 +574,7 @@ th, td {
 }
 .label-on-image.new {
     background: green;
+    
 }
 
 /* NÚT */
@@ -846,6 +847,21 @@ th, td {
     padding: 10px;
 }
 
+.suggest-item .img-box {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+.suggest-item .label {
+    top: -5px;
+    left: -5px;
+    font-size: 8px;
+    padding: 1px 3px;
+    min-width: 28px;
+    text-align: center;
+}
 /* ITEM */
 .suggest-item {
     display: flex;

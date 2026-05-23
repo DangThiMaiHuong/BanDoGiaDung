@@ -3,16 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Controller;
-
-import Model.Product;
-import Model.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
@@ -61,17 +57,8 @@ public class Type extends HttpServlet {
         String typeParam = request.getParameter("type");
         int type = (typeParam != null && !typeParam.isEmpty())
                 ? Integer.parseInt(typeParam)
-                : 1;
-        String category = request.getParameter("category");
-
-        ProductDAO dao = new ProductDAO();
-
-        // lọc theo type
-        List<Product> listType = dao.getProductByType(type);
-
-        request.setAttribute("listType", listType);
+                : 0;
         request.setAttribute("activeType", type);
-        request.setAttribute("category", category);
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
