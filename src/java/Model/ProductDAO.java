@@ -100,6 +100,7 @@ public class ProductDAO {
         return list;
     }
 //Giỏ hàng
+
     public void CartToDB(Integer userId, String username, int productId, int quantity) {
         try {
             String checkSql = "SELECT quantity FROM cart WHERE product_id=? AND (user_id=? OR username=?)";
@@ -162,6 +163,7 @@ public class ProductDAO {
         }
     }
 //Phân theo loại
+
     public List<Product> getProductByType(int type) {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT * FROM products WHERE type = ?";
@@ -355,4 +357,17 @@ public class ProductDAO {
         return list;
     }
 
+    public boolean isProductNameExists(String name, int id) {
+        String sql = "SELECT * FROM products WHERE name = ? AND id != ?";//cùng tên nhưng khác id hiện tại
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setInt(2, id);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

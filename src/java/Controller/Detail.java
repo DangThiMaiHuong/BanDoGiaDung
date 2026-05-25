@@ -82,6 +82,17 @@ public class Detail extends HttpServlet {
             } else {
                 cart.remove(id); // Giảm xuống 0 thì xóa khỏi giỏ
             }
+        }
+        else if ("update".equals(action)) {
+            String qtyStr = request.getParameter("newQty");
+            if (qtyStr != null) {
+                int newQty = Integer.parseInt(qtyStr.trim());
+                if (newQty > 0) {
+                    cart.put(id, newQty);
+                } else {
+                    cart.remove(id);
+                }
+            }
         } else {
             // Mặc định (khi nhấn dấu + hoặc nhấn "Thêm giỏ hàng") là tăng lên 1
             cart.put(id, currentQty + 1);

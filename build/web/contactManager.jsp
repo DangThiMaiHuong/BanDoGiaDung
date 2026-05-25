@@ -114,7 +114,7 @@
         </div>
 
         <script>
-            function openReplyModal(id,username, email) {
+            function openReplyModal(id, username, email) {
                 // Điền dữ liệu vào các ô input trong Modal
                 document.getElementById('displayId').value = id;
                 document.getElementById('displayUser').value = username;
