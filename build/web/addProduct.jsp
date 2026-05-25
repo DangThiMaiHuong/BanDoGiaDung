@@ -35,6 +35,11 @@
                 <!-- MENU PRODUCT TYPE -->
                 <jsp:include page="Layout/ProductType.jsp"/>
 
+                <% if ("exist".equals(error)) { %>
+                <p class="er">
+                    Sản phẩm đã tồn tại
+                </p>
+                <% }%>
                 <form action="AddProduct" method="post">
 
                     <div class="form-group">
@@ -87,11 +92,7 @@
                         <input type="number" name="discount_percent" min="0" max="100" 
                                value="<%= request.getParameter("sale") != null ? request.getParameter("sale") : "0"%>">
                     </div>
-                    <% if ("exist".equals(error)) { %>
-                    <p style="color:red; text-align:center;">
-                        Sản phẩm đã tồn tại
-                    </p>
-                    <% }%>
+
                     <div style="display:flex; gap:10px;">
                         <button class="btn">Thêm sản phẩm</button>
                         <a href="productManager.jsp" class="btn">Quay lại</a>

@@ -75,7 +75,7 @@
 
                     <div class="quantity-control">
                         <p>Số lượng:</p>
-                        <a href="Detail?id=<%= p.getId()%>& action=decrease" class="btn-qty">-</a>    
+                        <a href="Detail?id=<%= p.getId()%>&action=decrease" class="btn-qty">-</a>    
                         <input type="number" value="<%= qty%>" class="qty-input" min="1" 
                                onchange="window.location.href = 'Detail?id=<%= p.getId()%>&action=update&newQty=' + this.value">
                         <a href="Detail?id=<%= p.getId()%>& action=increase" class="btn-qty">+</a>

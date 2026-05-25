@@ -11,6 +11,7 @@
     int id = Integer.parseInt(request.getParameter("id"));
     ProductDAO dao = new ProductDAO();
     Product p = dao.getById(id);
+    String error = request.getParameter("error");
 %>
 <link href="<%=request.getContextPath()%>/style.css" rel="stylesheet">
 
@@ -39,6 +40,11 @@
             <div class="content admin-page">
                 <jsp:include page="Layout/ProductType.jsp"/>
 
+                <%
+                    if ("exist".equals(error)) //ktra biến error có gí trị exist
+                    { %> 
+                <p class="er">Tên sản phẩm đã tồn tại!</p> 
+                <%}%>
                 <form action="UpdateProduct" method="post">
 
                     <input type="hidden" name="id" value="<%=p.getId()%>">
@@ -50,7 +56,7 @@
 
                     <div class="form-group">
                         <label>Giá (VNĐ):</label>
-                        <input type="text" name="price" value="<%= String.format("%,d", p.getPrice()).replace(",", ".")%>" required>
+                        <input type="text" name="price" value="<%= p.getPrice()%>" required>
                     </div>
 
                     <div class="form-group">

@@ -35,7 +35,9 @@ public class UpdateProduct extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
-            long price = Long.parseLong(request.getParameter("price"));
+            String priceRaw = request.getParameter("price"); 
+            priceRaw = priceRaw.replace(".", "") .replace(",", "") .trim(); //xóa dấu . vì long k hiểu
+            long price = Long.parseLong(priceRaw);
             String image = request.getParameter("image");
             String description = request.getParameter("description");
             String category = request.getParameter("category");
@@ -50,9 +52,12 @@ public class UpdateProduct extends HttpServlet {
             } else {
                 discount = 0; // HOT + NEW = 0
             }
-            Product p = new Product(id, name, image, description, price, discount, type, category);
-
             ProductDAO dao = new ProductDAO();
+            
+            Product p = new Product(id, name, image, description, price, discount, type, category);
+             if (dao.isProductNameExists(name, id)) { //ktra trùng tên
+                response.sendRedirect("updateProduct.jsp?id=" + id + "&error=exist"); //& để nối các parameter và key=error value=exist
+            return; }
             dao.updateProduct(p);
         } catch (NumberFormatException | SQLException e) {
         }
