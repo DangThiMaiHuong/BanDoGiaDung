@@ -41,7 +41,7 @@
                 <jsp:include page="Layout/ProductType.jsp"/>
 
                 <%
-                    if ("exist".equals(error)) //ktra biến error có gí trị exist
+                    if ("exist".equals(error)) //ktra biến error có giá trị exist
                     { %> 
                 <p class="er">Tên sản phẩm đã tồn tại!</p> 
                 <%}%>

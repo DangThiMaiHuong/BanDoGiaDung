@@ -6,6 +6,7 @@ package Controller;
 
 import Model.ContactDAO;
 import Model.User;
+import Model.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -93,6 +94,15 @@ public class Contact extends HttpServlet {
                 );
                 return;
             }
+            UserDAO dao = new UserDAO();
+            if (dao.isUsernameExist(name)) {
+            response.sendRedirect(
+                    "index.jsp?cont_error=contact_exist"
+                    + "&email=" + java.net.URLEncoder.encode(email, "UTF-8")
+                    + "&message=" + java.net.URLEncoder.encode(message, "UTF-8")
+            );
+            return;
+        }
         }
 
         // validate chung

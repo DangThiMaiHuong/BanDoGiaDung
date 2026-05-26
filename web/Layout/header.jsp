@@ -195,14 +195,15 @@
                     <input name="name" 
                            value="<%= (user != null ? user.getUsername()
                                    : request.getParameter("name") != null ? request.getParameter("name") : "")%>"
-                           <%= (user != null ? "readonly" : "")%> required>
+                                    <%= (user != null ? "readonly" : "")%> required>
                 </div>
 
                 <div class="form-group">
                     <label>Email:</label>
                     <input name="email"
-                           value="<%= (user != null ? user.getEmail() : "")%>"
-                           <%= (user != null ? "readonly" : "")%> required>
+                           value="<%= (user != null ? user.getEmail() 
+                                    : request.getParameter("email") != null ? request.getParameter("email") : "")%>"
+                                    <%= (user != null ? "readonly" : "")%> required>
                 </div>
 
                 <div class="form-group">
@@ -214,7 +215,10 @@
                 <p class="er">Email không hợp lệ!</p>
                 <% } else if ("contact_empty".equals(cont_error)) { %>
                 <p class="er">Vui lòng nhập đầy đủ!</p>
+                <% } else if("contact_exist".equals(cont_error)){ %>
+                <p class="er">Username đã tồn tại!</p>
                 <% }%>
+                
                 <button class="btn">Gửi</button>
             </form>
 
@@ -250,7 +254,7 @@
         if (contJS === "success") {
             alert("Liên hệ thành công!");
         }
-        if (contJS === "contact_email" || contJS === "contact_empty") {
+        if (contJS === "contact_email" || contJS ==="contact_exist" || contJS === "contact_empty") {
             openContact();
         }
     };
@@ -319,9 +323,9 @@
                             if (p.type === 1) {
                                 label = '<span class="label hot">HOT</span>';
                             } else if (p.type === 2) {
-                                label = '<span class="label new">NEW</span>';
+                                label = '<span class="label new">SALE</span>';
                             } else if (p.type === 3) {
-                                label = '<span class="label sale">SALE</span>';
+                                label = '<span class="label sale">NEW</span>';
                             }
 
                             // GIÁ
