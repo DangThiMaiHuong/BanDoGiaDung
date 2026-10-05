@@ -1,8 +1,18 @@
-FROM tomcat:9.0-jdk23-temurin
+FROM eclipse-temurin:23-jdk
 
-RUN rm -rf /usr/local/tomcat/webapps/*
+ENV CATALINA_HOME=/usr/local/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
 
-COPY dist/BanDoGiaDung.war /usr/local/tomcat/webapps/ROOT.war
+RUN apt-get update \
+    && apt-get install -y curl \
+    && curl -fSL https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.112/bin/apache-tomcat-9.0.112.tar.gz -o /tmp/tomcat.tar.gz \
+    && mkdir -p $CATALINA_HOME \
+    && tar -xzf /tmp/tomcat.tar.gz -C $CATALINA_HOME --strip-components=1 \
+    && rm /tmp/tomcat.tar.gz \
+    && rm -rf $CATALINA_HOME/webapps/* \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY dist/BanDoGiaDung.war $CATALINA_HOME/webapps/ROOT.war
 
 EXPOSE 8080
 
