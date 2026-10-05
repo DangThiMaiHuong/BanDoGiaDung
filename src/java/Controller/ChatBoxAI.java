@@ -200,7 +200,7 @@ public class ChatBoxAI extends HttpServlet {
 
             // prompt có database
             String json = "{"
-                    + "\"model\":\"llama-3.1-8b-instant\","
+                    + "\"model\":\"openai/gpt-oss-20b\","
                     + "\"messages\":["
                     + "{"
                     + "\"role\":\"system\","
