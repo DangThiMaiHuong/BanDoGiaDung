@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="Model.Connect"%>
 <!DOCTYPE html>
 <html>
     <head>
